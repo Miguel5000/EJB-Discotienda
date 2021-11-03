@@ -6,6 +6,9 @@
 package co.edu.ucundinamarca.ejbdiscotienda.service;
 
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Rol;
+import co.edu.ucundinamarca.ejbdiscotienda.exception.CreacionException;
+import co.edu.ucundinamarca.ejbdiscotienda.exception.EdicionException;
+import co.edu.ucundinamarca.ejbdiscotienda.exception.ObtencionException;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -17,16 +20,16 @@ import javax.ejb.Local;
 @Local
 public interface IRolService {
     
-    public List<Rol> obtenerTodos();
+    public List<Rol> obtenerTodos() throws ObtencionException;
     
-    public Rol obtenerPorId(Integer id);
+    public Rol obtenerPorId(Integer id) throws ObtencionException;
     
-    public void crear(Rol rol);
+    public void crear(Rol rol) throws CreacionException;
     
-    public void editar(Rol rol);
+    public void editar(Rol rol) throws ObtencionException, EdicionException;
     
-    public void eliminar(Rol rol);
+    public void eliminar(Rol rol) throws ObtencionException;
     
-    public void eliminarPorId(Integer id);
+    public void eliminarPorId(Integer id) throws ObtencionException;
     
 }

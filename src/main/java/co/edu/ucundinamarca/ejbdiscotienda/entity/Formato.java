@@ -29,7 +29,7 @@ public class Formato {
     
     @NotNull(message = "El formato debe tener un nombre")
     @Size(min = 1, max = 5, message = "El nombre no puede superar los 5 caracteres")
-    @Column(name = "nombre", nullable = false, length = 5)
+    @Column(name = "nombre", nullable = false, length = 5, unique = true)
     private String nombre;
 
     public Formato() {

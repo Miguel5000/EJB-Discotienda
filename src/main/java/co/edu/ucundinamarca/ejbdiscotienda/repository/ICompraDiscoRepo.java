@@ -8,6 +8,8 @@ package co.edu.ucundinamarca.ejbdiscotienda.repository;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Compra;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.CompraDisco;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Disco;
+import co.edu.ucundinamarca.ejbdiscotienda.view.VentasDisco;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -19,6 +21,6 @@ import javax.ejb.Local;
 public interface ICompraDiscoRepo extends ICrud<CompraDisco, Integer>{
     
     public CompraDisco obtenerPorCompraYDisco(Compra compra, Disco disco);
-    public Integer obtenerCantidadVentas(Disco disco);
+    public List<VentasDisco> obtenerVentas();
     
 }

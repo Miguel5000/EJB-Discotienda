@@ -6,6 +6,9 @@
 package co.edu.ucundinamarca.ejbdiscotienda.service;
 
 import co.edu.ucundinamarca.ejbdiscotienda.entity.CreadorDisco;
+import co.edu.ucundinamarca.ejbdiscotienda.exception.CreacionException;
+import co.edu.ucundinamarca.ejbdiscotienda.exception.EdicionException;
+import co.edu.ucundinamarca.ejbdiscotienda.exception.ObtencionException;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -17,16 +20,16 @@ import javax.ejb.Local;
 @Local
 public interface ICreadorDiscoService {
     
-    public List<CreadorDisco> obtenerTodos();
+    public List<CreadorDisco> obtenerTodos() throws ObtencionException;
     
-    public CreadorDisco obtenerPorId(Integer id);
+    public CreadorDisco obtenerPorId(Integer id) throws ObtencionException;
     
-    public void crear(CreadorDisco creadorDisco);
+    public void crear(CreadorDisco creadorDisco) throws CreacionException;
     
-    public void editar(CreadorDisco creadorDisco);
+    public void editar(CreadorDisco creadorDisco) throws ObtencionException, EdicionException;
     
-    public void eliminar(CreadorDisco creadorDisco);
+    public void eliminar(CreadorDisco creadorDisco) throws ObtencionException;
     
-    public void eliminarPorId(Integer id);
+    public void eliminarPorId(Integer id) throws ObtencionException;
     
 }

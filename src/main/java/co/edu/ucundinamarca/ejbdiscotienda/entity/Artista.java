@@ -49,7 +49,7 @@ public class Artista {
     private Date fechaDeNacimiento;
     
     @Size(min = 1, max = 200, message = "El enlace de la foto no puede superar los 200 caracteres")
-    @Column(name = "foto", nullable = true, length = 200)
+    @Column(name = "foto", nullable = true, length = 200, unique = true)
     private String foto;
     
     @Size(min = 1, message = "La cadena en base64 no puede estar vacía")

@@ -8,6 +8,10 @@ package co.edu.ucundinamarca.ejbdiscotienda.service;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Compra;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.CompraDisco;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Disco;
+import co.edu.ucundinamarca.ejbdiscotienda.exception.CreacionException;
+import co.edu.ucundinamarca.ejbdiscotienda.exception.EdicionException;
+import co.edu.ucundinamarca.ejbdiscotienda.exception.ObtencionException;
+import co.edu.ucundinamarca.ejbdiscotienda.view.VentasDisco;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -19,18 +23,20 @@ import javax.ejb.Local;
 @Local
 public interface ICompraDiscoService {
     
-    public List<CompraDisco> obtenerTodos();
+    public List<CompraDisco> obtenerTodos() throws ObtencionException;
     
-    public CompraDisco obtenerPorId(Integer id);
+    public CompraDisco obtenerPorId(Integer id) throws ObtencionException;
     
-    public void crear(CompraDisco compraDisco);
+    public void crear(CompraDisco compraDisco) throws CreacionException;
     
-    public void editar(CompraDisco compraDisco);
+    public void editar(CompraDisco compraDisco) throws ObtencionException, EdicionException;
     
-    public void eliminar(CompraDisco compraDisco);
+    public void eliminar(CompraDisco compraDisco) throws ObtencionException;
     
-    public void eliminarPorId(Integer id);
+    public void eliminarPorId(Integer id) throws ObtencionException;
     
-    public void retirarDisco(Disco disco, Compra compra);
+    public void retirarDisco(Disco disco, Compra compra) throws ObtencionException;
+    
+    public List<VentasDisco> obtenerVentas() throws ObtencionException;
     
 }

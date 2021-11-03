@@ -6,6 +6,9 @@
 package co.edu.ucundinamarca.ejbdiscotienda.service;
 
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Formato;
+import co.edu.ucundinamarca.ejbdiscotienda.exception.CreacionException;
+import co.edu.ucundinamarca.ejbdiscotienda.exception.EdicionException;
+import co.edu.ucundinamarca.ejbdiscotienda.exception.ObtencionException;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -17,16 +20,16 @@ import javax.ejb.Local;
 @Local
 public interface IFormatoService {
     
-    public List<Formato> obtenerTodos();
+    public List<Formato> obtenerTodos() throws ObtencionException;
     
-    public Formato obtenerPorId(Integer id);
+    public Formato obtenerPorId(Integer id) throws ObtencionException;
     
-    public void crear(Formato formato);
+    public void crear(Formato formato) throws CreacionException;
     
-    public void editar(Formato formato);
+    public void editar(Formato formato) throws ObtencionException, EdicionException;
     
-    public void eliminar(Formato formato);
+    public void eliminar(Formato formato) throws ObtencionException;
     
-    public void eliminarPorId(Integer id);
+    public void eliminarPorId(Integer id) throws ObtencionException;
     
 }

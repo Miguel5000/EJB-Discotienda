@@ -49,11 +49,11 @@ public class Usuario implements Serializable{
     private String clave;
     
     @Size(min = 1, max = 200, message = "El token de recuperación no puede superar los 200 caracteres")
-    @Column(name = "token_recuperacion", nullable = true, length = 200)
+    @Column(name = "token_recuperacion", nullable = true, length = 200, unique = true)
     private String tokenRecuperacion;
     
     @Size(min = 1, max = 200, message = "El token de cambio de correo no puede superar los 200 caracteres")
-    @Column(name = "token_cambio_correo", nullable = true, length = 200)
+    @Column(name = "token_cambio_correo", nullable = true, length = 200, unique = true)
     private String tokenCambioCorreo;
     
     @Size(min = 1, max = 50, message = "El nuevo correo no puede superar los 50 caracteres")

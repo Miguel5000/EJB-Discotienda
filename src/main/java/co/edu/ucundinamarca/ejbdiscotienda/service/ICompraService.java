@@ -7,6 +7,7 @@ package co.edu.ucundinamarca.ejbdiscotienda.service;
 
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Compra;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Usuario;
+import co.edu.ucundinamarca.ejbdiscotienda.exception.ObtencionException;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -18,20 +19,20 @@ import javax.ejb.Local;
 @Local
 public interface ICompraService{
     
-    public List<Compra> obtenerTodos();
+    public List<Compra> obtenerTodos() throws ObtencionException;
     
-    public Compra obtenerPorId(Integer id);
+    public Compra obtenerPorId(Integer id) throws ObtencionException;
     
     public void crear(Compra compra);
     
-    public void editar(Compra compra);
+    public void editar(Compra compra) throws ObtencionException;
     
-    public void eliminar(Compra compra);
+    public void eliminar(Compra compra) throws ObtencionException;
     
-    public void eliminarPorId(Integer id);
+    public void eliminarPorId(Integer id) throws ObtencionException;
     
-    public void comprar(Compra compra);
+    public void comprar(Compra compra) throws ObtencionException;
     
-    public Compra obtenerCarrito(Usuario usuario);
+    public Compra obtenerCarrito(Usuario usuario) throws ObtencionException;
     
 }

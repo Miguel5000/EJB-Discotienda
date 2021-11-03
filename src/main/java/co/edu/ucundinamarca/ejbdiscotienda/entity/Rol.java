@@ -30,7 +30,7 @@ public class Rol implements Serializable{
     
     @NotNull(message = "El rol debe tener un nombre")
     @Size(min = 1, max = 15, message = "El nombre no puede superar los 15 caracteres")
-    @Column(name = "nombre", nullable = false, length = 15)
+    @Column(name = "nombre", nullable = false, length = 15, unique = true)
     private String nombre;
 
     public Rol() {

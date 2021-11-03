@@ -6,6 +6,8 @@
 package co.edu.ucundinamarca.ejbdiscotienda.repository;
 
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Artista;
+import co.edu.ucundinamarca.ejbdiscotienda.view.VentasArtista;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -16,6 +18,6 @@ import javax.ejb.Local;
 @Local
 public interface IArtistaRepo extends ICrud<Artista, Integer>{
  
-    public Integer obtenerCantidadVentas(Artista artista);
+    public List<VentasArtista> obtenerVentas();
     
 }
