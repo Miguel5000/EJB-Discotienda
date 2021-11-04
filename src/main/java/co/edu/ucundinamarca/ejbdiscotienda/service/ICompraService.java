@@ -5,6 +5,7 @@
  */
 package co.edu.ucundinamarca.ejbdiscotienda.service;
 
+import co.edu.ucundinamarca.ejbdiscotienda.entity.Carrito;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Compra;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Usuario;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.ObtencionException;
@@ -33,6 +34,6 @@ public interface ICompraService{
     
     public void comprar(Compra compra) throws ObtencionException;
     
-    public Compra obtenerCarrito(Usuario usuario) throws ObtencionException;
+    public Carrito obtenerCarrito(Usuario usuario) throws ObtencionException;
     
 }

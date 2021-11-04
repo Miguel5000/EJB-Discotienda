@@ -33,8 +33,6 @@ public interface IArtistaService {
     
     public void eliminarPorId(Integer id) throws ObtencionException;
     
-    public Integer obtenerCantidadVentas(Artista artista) throws ObtencionException;
-    
     public List<VentasArtista> obtenerVentas() throws ObtencionException;
     
 }
