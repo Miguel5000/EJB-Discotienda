@@ -5,6 +5,7 @@
  */
 package co.edu.ucundinamarca.ejbdiscotienda.service;
 
+import co.edu.ucundinamarca.ejbdiscotienda.dto.UsuarioDto;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Usuario;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.CreacionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.EdicionException;
@@ -20,9 +21,9 @@ import javax.ejb.Local;
 @Local
 public interface IUsuarioService {
  
-    public List<Usuario> obtenerTodos() throws ObtencionException;
+    public List<UsuarioDto> obtenerTodos() throws ObtencionException;
     
-    public Usuario obtenerPorId(Integer id) throws ObtencionException;
+    public UsuarioDto obtenerPorId(Integer id) throws ObtencionException;
     
     public void crear(Usuario usuario) throws CreacionException;
     

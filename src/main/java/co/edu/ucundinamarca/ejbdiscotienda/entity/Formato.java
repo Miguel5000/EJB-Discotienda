@@ -5,11 +5,15 @@
  */
 package co.edu.ucundinamarca.ejbdiscotienda.entity;
 
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -32,6 +36,11 @@ public class Formato {
     @Column(name = "nombre", nullable = false, length = 5, unique = true)
     private String nombre;
 
+    //Relaciones
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "formato", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Cancion> canciones;
+    
     public Formato() {
     }
 
@@ -66,6 +75,20 @@ public class Formato {
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    /**
+     * @return the canciones
+     */
+    public List<Cancion> getCanciones() {
+        return canciones;
+    }
+
+    /**
+     * @param canciones the canciones to set
+     */
+    public void setCanciones(List<Cancion> canciones) {
+        this.canciones = canciones;
     }
     
     

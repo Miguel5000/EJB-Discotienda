@@ -5,6 +5,7 @@
  */
 package co.edu.ucundinamarca.ejbdiscotienda.service;
 
+import co.edu.ucundinamarca.ejbdiscotienda.dto.FormatoDto;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Formato;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.CreacionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.EdicionException;
@@ -20,9 +21,9 @@ import javax.ejb.Local;
 @Local
 public interface IFormatoService {
     
-    public List<Formato> obtenerTodos() throws ObtencionException;
+    public List<FormatoDto> obtenerTodos() throws ObtencionException;
     
-    public Formato obtenerPorId(Integer id) throws ObtencionException;
+    public FormatoDto obtenerPorId(Integer id) throws ObtencionException;
     
     public void crear(Formato formato) throws CreacionException;
     

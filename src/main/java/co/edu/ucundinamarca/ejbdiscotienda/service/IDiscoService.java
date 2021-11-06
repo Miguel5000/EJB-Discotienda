@@ -5,6 +5,7 @@
  */
 package co.edu.ucundinamarca.ejbdiscotienda.service;
 
+import co.edu.ucundinamarca.ejbdiscotienda.dto.DiscoDto;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Disco;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.ObtencionException;
 import java.util.List;
@@ -18,9 +19,9 @@ import javax.ejb.Local;
 @Local
 public interface IDiscoService {
     
-    public List<Disco> obtenerTodos() throws ObtencionException;
+    public List<DiscoDto> obtenerTodos() throws ObtencionException;
     
-    public Disco obtenerPorId(Integer id) throws ObtencionException;
+    public DiscoDto obtenerPorId(Integer id) throws ObtencionException;
     
     public void crear(Disco disco);
     

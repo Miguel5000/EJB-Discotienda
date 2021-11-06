@@ -5,6 +5,7 @@
  */
 package co.edu.ucundinamarca.ejbdiscotienda.service;
 
+import co.edu.ucundinamarca.ejbdiscotienda.dto.ArtistaDto;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Artista;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.CreacionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.EdicionException;
@@ -21,9 +22,9 @@ import javax.ejb.Local;
 @Local
 public interface IArtistaService {
     
-    public List<Artista> obtenerTodos() throws ObtencionException;
+    public List<ArtistaDto> obtenerTodos() throws ObtencionException;
     
-    public Artista obtenerPorId(Integer id) throws ObtencionException;
+    public ArtistaDto obtenerPorId(Integer id) throws ObtencionException;
     
     public void crear(Artista artista) throws CreacionException;
     

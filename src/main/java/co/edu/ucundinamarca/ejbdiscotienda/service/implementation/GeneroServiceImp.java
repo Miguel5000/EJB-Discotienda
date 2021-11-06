@@ -5,6 +5,7 @@
  */
 package co.edu.ucundinamarca.ejbdiscotienda.service.implementation;
 
+import co.edu.ucundinamarca.ejbdiscotienda.dto.GeneroDto;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Genero;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.CreacionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.EdicionException;
@@ -22,12 +23,12 @@ import javax.ejb.Stateless;
 public class GeneroServiceImp implements IGeneroService{
 
     @Override
-    public List<Genero> obtenerTodos() throws ObtencionException {
+    public List<GeneroDto> obtenerTodos() throws ObtencionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Genero obtenerPorId(Integer id) throws ObtencionException {
+    public GeneroDto obtenerPorId(Integer id) throws ObtencionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

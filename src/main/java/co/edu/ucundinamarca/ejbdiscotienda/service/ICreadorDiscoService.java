@@ -5,6 +5,7 @@
  */
 package co.edu.ucundinamarca.ejbdiscotienda.service;
 
+import co.edu.ucundinamarca.ejbdiscotienda.dto.CreadorDiscoDto;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.CreadorDisco;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.CreacionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.EdicionException;
@@ -20,9 +21,9 @@ import javax.ejb.Local;
 @Local
 public interface ICreadorDiscoService {
     
-    public List<CreadorDisco> obtenerTodos() throws ObtencionException;
+    public List<CreadorDiscoDto> obtenerTodos() throws ObtencionException;
     
-    public CreadorDisco obtenerPorId(Integer id) throws ObtencionException;
+    public CreadorDiscoDto obtenerPorId(Integer id) throws ObtencionException;
     
     public void crear(CreadorDisco creadorDisco) throws CreacionException;
     

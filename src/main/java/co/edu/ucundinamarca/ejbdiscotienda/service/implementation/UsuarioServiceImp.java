@@ -5,6 +5,7 @@
  */
 package co.edu.ucundinamarca.ejbdiscotienda.service.implementation;
 
+import co.edu.ucundinamarca.ejbdiscotienda.dto.UsuarioDto;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Usuario;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.CreacionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.EdicionException;
@@ -22,12 +23,12 @@ import javax.ejb.Stateless;
 public class UsuarioServiceImp implements IUsuarioService{
 
     @Override
-    public List<Usuario> obtenerTodos() throws ObtencionException {
+    public List<UsuarioDto> obtenerTodos() throws ObtencionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Usuario obtenerPorId(Integer id) throws ObtencionException {
+    public UsuarioDto obtenerPorId(Integer id) throws ObtencionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

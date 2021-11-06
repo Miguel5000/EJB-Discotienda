@@ -6,11 +6,15 @@
 package co.edu.ucundinamarca.ejbdiscotienda.entity;
 
 import java.sql.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -47,6 +51,17 @@ public class Disco {
     @Size(min = 1, message = "La descripción no puede estar vacía")
     @Column(name = "descripcion", nullable = false)
     private String descripcion;
+    
+    //Relaciones
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "disco", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CompraDisco> compras;
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "disco", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CreadorDisco> creaciones;
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "disco", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Cancion> canciones;
 
     public Disco() {
     }
@@ -128,6 +143,50 @@ public class Disco {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
+    /**
+     * @return the compras
+     */
+    public List<CompraDisco> getCompras() {
+        return compras;
+    }
+
+    /**
+     * @param compras the compras to set
+     */
+    public void setCompras(List<CompraDisco> compras) {
+        this.compras = compras;
+    }
+
+    /**
+     * @return the creaciones
+     */
+    public List<CreadorDisco> getCreaciones() {
+        return creaciones;
+    }
+
+    /**
+     * @param creaciones the creaciones to set
+     */
+    public void setCreaciones(List<CreadorDisco> creaciones) {
+        this.creaciones = creaciones;
+    }
+
+    /**
+     * @return the canciones
+     */
+    public List<Cancion> getCanciones() {
+        return canciones;
+    }
+
+    /**
+     * @param canciones the canciones to set
+     */
+    public void setCanciones(List<Cancion> canciones) {
+        this.canciones = canciones;
+    }
+    
+    
     
     
 }

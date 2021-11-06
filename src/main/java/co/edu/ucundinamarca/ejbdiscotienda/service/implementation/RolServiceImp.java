@@ -5,6 +5,7 @@
  */
 package co.edu.ucundinamarca.ejbdiscotienda.service.implementation;
 
+import co.edu.ucundinamarca.ejbdiscotienda.dto.RolDto;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Rol;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.CreacionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.EdicionException;
@@ -22,12 +23,12 @@ import javax.ejb.Stateless;
 public class RolServiceImp implements IRolService{
 
     @Override
-    public List<Rol> obtenerTodos() throws ObtencionException {
+    public List<RolDto> obtenerTodos() throws ObtencionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Rol obtenerPorId(Integer id) throws ObtencionException {
+    public RolDto obtenerPorId(Integer id) throws ObtencionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

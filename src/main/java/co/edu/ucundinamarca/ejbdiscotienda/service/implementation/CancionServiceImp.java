@@ -5,6 +5,7 @@
  */
 package co.edu.ucundinamarca.ejbdiscotienda.service.implementation;
 
+import co.edu.ucundinamarca.ejbdiscotienda.dto.CancionDto;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Cancion;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Compra;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Disco;
@@ -24,12 +25,12 @@ import javax.ejb.Stateless;
 public class CancionServiceImp implements ICancionService{
 
     @Override
-    public List<Cancion> obtenerTodos() throws ObtencionException {
+    public List<CancionDto> obtenerTodos() throws ObtencionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Cancion obtenerPorId(Integer id) throws ObtencionException {
+    public CancionDto obtenerPorId(Integer id) throws ObtencionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -54,12 +55,12 @@ public class CancionServiceImp implements ICancionService{
     }
 
     @Override
-    public List<Cancion> obtenerListaPorCompra(Compra compra) throws ObtencionException {
+    public List<CancionDto> obtenerListaPorCompra(Compra compra) throws ObtencionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Cancion> obtenerListaPorDisco(Disco disco) throws ObtencionException {
+    public List<CancionDto> obtenerListaPorDisco(Disco disco) throws ObtencionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

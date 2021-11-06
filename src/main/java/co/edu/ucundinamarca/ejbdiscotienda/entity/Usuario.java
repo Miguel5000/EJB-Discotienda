@@ -6,11 +6,17 @@
 package co.edu.ucundinamarca.ejbdiscotienda.entity;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -59,6 +65,15 @@ public class Usuario implements Serializable{
     @Size(min = 1, max = 50, message = "El nuevo correo no puede superar los 50 caracteres")
     @Column(name = "nuevo_correo", nullable = true, length = 50, unique = true)
     private String nuevoCorreo;
+    
+    //Relaciones
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Compra> compras;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_rol", nullable = false)
+    private Rol rol;
 
     public Usuario(){}
     
@@ -183,6 +198,34 @@ public class Usuario implements Serializable{
      */
     public void setNuevoCorreo(String nuevoCorreo) {
         this.nuevoCorreo = nuevoCorreo;
+    }
+
+    /**
+     * @return the compras
+     */
+    public List<Compra> getCompras() {
+        return compras;
+    }
+
+    /**
+     * @param compras the compras to set
+     */
+    public void setCompras(List<Compra> compras) {
+        this.compras = compras;
+    }
+
+    /**
+     * @return the rol
+     */
+    public Rol getRol() {
+        return rol;
+    }
+
+    /**
+     * @param rol the rol to set
+     */
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
     
     

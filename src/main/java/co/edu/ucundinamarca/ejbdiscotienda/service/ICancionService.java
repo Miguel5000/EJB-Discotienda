@@ -5,6 +5,7 @@
  */
 package co.edu.ucundinamarca.ejbdiscotienda.service;
 
+import co.edu.ucundinamarca.ejbdiscotienda.dto.CancionDto;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Cancion;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Compra;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Disco;
@@ -22,9 +23,9 @@ import javax.ejb.Local;
 @Local
 public interface ICancionService {
     
-    public List<Cancion> obtenerTodos() throws ObtencionException;
+    public List<CancionDto> obtenerTodos() throws ObtencionException;
     
-    public Cancion obtenerPorId(Integer id) throws ObtencionException;
+    public CancionDto obtenerPorId(Integer id) throws ObtencionException;
     
     public void crear(Cancion cancion) throws CreacionException;
     
@@ -34,8 +35,8 @@ public interface ICancionService {
     
     public void eliminarPorId(Integer id) throws ObtencionException;
     
-    public List<Cancion> obtenerListaPorCompra(Compra compra) throws ObtencionException;
+    public List<CancionDto> obtenerListaPorCompra(Compra compra) throws ObtencionException;
     
-    public List<Cancion> obtenerListaPorDisco(Disco disco) throws ObtencionException;
+    public List<CancionDto> obtenerListaPorDisco(Disco disco) throws ObtencionException;
     
 }

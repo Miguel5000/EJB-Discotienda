@@ -3,70 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.ucundinamarca.ejbdiscotienda.entity;
+package co.edu.ucundinamarca.ejbdiscotienda.dto;
 
-import java.io.Serializable;
+import co.edu.ucundinamarca.ejbdiscotienda.dto.manager.CompraCancionDtoManager;
+import co.edu.ucundinamarca.ejbdiscotienda.dto.manager.CompraDiscoDtoManager;
+import co.edu.ucundinamarca.ejbdiscotienda.dto.manager.UsuarioDtoManager;
+import co.edu.ucundinamarca.ejbdiscotienda.entity.CompraCancion;
+import co.edu.ucundinamarca.ejbdiscotienda.entity.CompraDisco;
+import co.edu.ucundinamarca.ejbdiscotienda.entity.Usuario;
 import java.sql.Date;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 
 /**
  *
  * @author Miguel
  */
-
-@Entity
-@Table(name = "compras", schema = "compras")
-public class Compra implements Serializable{
+public class CompraDto {
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
-    @Column(name = "fecha_compra", nullable = true)
     private Date fechaCompra;
-    
-    @Min(value = 1, message = "El valor de la compra debe ser mayor a 0")
-    @Column(name = "valor_compra", nullable = true)
     private Integer valorCompra;
-    
-    @NotNull(message = "La compra debe tener un estado de realización")
-    @Column(name = "realizacion", nullable = false)
     private Boolean realizacion;
-    
-    //Relaciones
-    
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "compra", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CompraCancion> comprasCanciones;
-    
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "compra", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CompraDisco> comprasDiscos;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_usuario", nullable = false)
-    private Usuario usuario;
-
-    public Compra() {
-    }
-
-    public Compra(Integer id, Date fechaCompra, Integer valorCompra, Boolean realizacion) {
-        this.id = id;
-        this.fechaCompra = fechaCompra;
-        this.valorCompra = valorCompra;
-        this.realizacion = realizacion;
-    }
+    private List<CompraCancionDto> comprasCanciones;
+    private List<CompraDiscoDto> comprasDiscos;
+    private UsuarioDto usuario;
 
     /**
      * @return the id
@@ -127,7 +87,7 @@ public class Compra implements Serializable{
     /**
      * @return the comprasCanciones
      */
-    public List<CompraCancion> getComprasCanciones() {
+    public List<CompraCancionDto> getComprasCanciones() {
         return comprasCanciones;
     }
 
@@ -135,13 +95,13 @@ public class Compra implements Serializable{
      * @param comprasCanciones the comprasCanciones to set
      */
     public void setComprasCanciones(List<CompraCancion> comprasCanciones) {
-        this.comprasCanciones = comprasCanciones;
+        this.comprasCanciones = CompraCancionDtoManager.convertir(comprasCanciones);
     }
 
     /**
      * @return the comprasDiscos
      */
-    public List<CompraDisco> getComprasDiscos() {
+    public List<CompraDiscoDto> getComprasDiscos() {
         return comprasDiscos;
     }
 
@@ -149,13 +109,13 @@ public class Compra implements Serializable{
      * @param comprasDiscos the comprasDiscos to set
      */
     public void setComprasDiscos(List<CompraDisco> comprasDiscos) {
-        this.comprasDiscos = comprasDiscos;
+        this.comprasDiscos = CompraDiscoDtoManager.convertir(comprasDiscos);
     }
 
     /**
      * @return the usuario
      */
-    public Usuario getUsuario() {
+    public UsuarioDto getUsuario() {
         return usuario;
     }
 
@@ -163,7 +123,7 @@ public class Compra implements Serializable{
      * @param usuario the usuario to set
      */
     public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+        this.usuario = UsuarioDtoManager.convertir(usuario);
     }
     
     

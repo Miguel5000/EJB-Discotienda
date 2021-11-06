@@ -6,11 +6,17 @@
 package co.edu.ucundinamarca.ejbdiscotienda.entity;
 
 import java.sql.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -54,6 +60,19 @@ public class Artista {
     
     @Size(min = 1, message = "La cadena en base64 no puede estar vacía")
     private String fotoBase64;
+    
+    //Relaciones
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "artista", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CreadorDisco> creaciones;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_genero", nullable = false)
+    private Genero genero;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_pais", nullable = false)
+    private Pais pais;
 
     public Artista() {
     }
@@ -165,5 +184,49 @@ public class Artista {
     public void setFotoBase64(String fotoBase64) {
         this.fotoBase64 = fotoBase64;
     }
+
+    /**
+     * @return the creaciones
+     */
+    public List<CreadorDisco> getCreaciones() {
+        return creaciones;
+    }
+
+    /**
+     * @param creaciones the creaciones to set
+     */
+    public void setCreaciones(List<CreadorDisco> creaciones) {
+        this.creaciones = creaciones;
+    }
+
+    /**
+     * @return the genero
+     */
+    public Genero getGenero() {
+        return genero;
+    }
+
+    /**
+     * @param genero the genero to set
+     */
+    public void setGenero(Genero genero) {
+        this.genero = genero;
+    }
+
+    /**
+     * @return the pais
+     */
+    public Pais getPais() {
+        return pais;
+    }
+
+    /**
+     * @param pais the pais to set
+     */
+    public void setPais(Pais pais) {
+        this.pais = pais;
+    }
+    
+    
     
 }

@@ -5,6 +5,7 @@
  */
 package co.edu.ucundinamarca.ejbdiscotienda.service.implementation;
 
+import co.edu.ucundinamarca.ejbdiscotienda.dto.PaisDto;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Pais;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.CreacionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.EdicionException;
@@ -22,12 +23,12 @@ import javax.ejb.Stateless;
 public class PaisServiceImp implements IPaisService{
 
     @Override
-    public List<Pais> obtenerTodos() throws ObtencionException {
+    public List<PaisDto> obtenerTodos() throws ObtencionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Pais obtenerPorId(Integer id) throws ObtencionException {
+    public PaisDto obtenerPorId(Integer id) throws ObtencionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -5,6 +5,7 @@
  */
 package co.edu.ucundinamarca.ejbdiscotienda.service;
 
+import co.edu.ucundinamarca.ejbdiscotienda.dto.PaisDto;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Pais;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.CreacionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.EdicionException;
@@ -20,9 +21,9 @@ import javax.ejb.Local;
 @Local
 public interface IPaisService {
     
-    public List<Pais> obtenerTodos() throws ObtencionException;
+    public List<PaisDto> obtenerTodos() throws ObtencionException;
     
-    public Pais obtenerPorId(Integer id) throws ObtencionException;
+    public PaisDto obtenerPorId(Integer id) throws ObtencionException;
     
     public void crear(Pais pais) throws CreacionException;
     

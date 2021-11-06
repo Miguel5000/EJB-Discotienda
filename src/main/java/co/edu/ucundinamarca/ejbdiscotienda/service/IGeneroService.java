@@ -5,6 +5,7 @@
  */
 package co.edu.ucundinamarca.ejbdiscotienda.service;
 
+import co.edu.ucundinamarca.ejbdiscotienda.dto.GeneroDto;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Genero;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.CreacionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.EdicionException;
@@ -20,9 +21,9 @@ import javax.ejb.Local;
 @Local
 public interface IGeneroService {
     
-    public List<Genero> obtenerTodos() throws ObtencionException;
+    public List<GeneroDto> obtenerTodos() throws ObtencionException;
     
-    public Genero obtenerPorId(Integer id) throws ObtencionException;
+    public GeneroDto obtenerPorId(Integer id) throws ObtencionException;
     
     public void crear(Genero genero) throws CreacionException;
     

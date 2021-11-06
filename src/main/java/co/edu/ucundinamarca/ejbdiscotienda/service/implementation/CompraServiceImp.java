@@ -5,6 +5,7 @@
  */
 package co.edu.ucundinamarca.ejbdiscotienda.service.implementation;
 
+import co.edu.ucundinamarca.ejbdiscotienda.dto.CompraDto;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Carrito;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Compra;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Usuario;
@@ -22,12 +23,12 @@ import javax.ejb.Stateless;
 public class CompraServiceImp implements ICompraService{
 
     @Override
-    public List<Compra> obtenerTodos() throws ObtencionException {
+    public List<CompraDto> obtenerTodos() throws ObtencionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Compra obtenerPorId(Integer id) throws ObtencionException {
+    public CompraDto obtenerPorId(Integer id) throws ObtencionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

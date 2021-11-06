@@ -6,11 +6,17 @@
 package co.edu.ucundinamarca.ejbdiscotienda.entity;
 
 import java.sql.Time;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -47,6 +53,19 @@ public class Cancion {
     @NotNull(message = "La canción debe tener una duración")
     @Column(name = "duracion", nullable = false)
     private Time duracion;
+    
+    //Relaciones
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cancion", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CompraCancion> compras;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_formato", nullable = false)
+    private Formato formato;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_disco", nullable = false)
+    private Disco disco;
 
     public Cancion() {
     }
@@ -127,6 +146,48 @@ public class Cancion {
      */
     public void setDuracion(Time duracion) {
         this.duracion = duracion;
+    }
+
+    /**
+     * @return the compras
+     */
+    public List<CompraCancion> getCompras() {
+        return compras;
+    }
+
+    /**
+     * @param compras the compras to set
+     */
+    public void setCompras(List<CompraCancion> compras) {
+        this.compras = compras;
+    }
+
+    /**
+     * @return the formato
+     */
+    public Formato getFormato() {
+        return formato;
+    }
+
+    /**
+     * @param formato the formato to set
+     */
+    public void setFormato(Formato formato) {
+        this.formato = formato;
+    }
+
+    /**
+     * @return the disco
+     */
+    public Disco getDisco() {
+        return disco;
+    }
+
+    /**
+     * @param disco the disco to set
+     */
+    public void setDisco(Disco disco) {
+        this.disco = disco;
     }
     
     
