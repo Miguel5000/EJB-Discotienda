@@ -6,6 +6,7 @@
 package co.edu.ucundinamarca.ejbdiscotienda.service.implementation;
 
 import co.edu.ucundinamarca.ejbdiscotienda.dto.PaisDto;
+import co.edu.ucundinamarca.ejbdiscotienda.dto.manager.PaisDtoManager;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Pais;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.CreacionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.EdicionException;
@@ -29,17 +30,37 @@ public class PaisServiceImp implements IPaisService{
     
     @Override
     public List<PaisDto> obtenerTodos() throws ObtencionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Pais> paises = this.repo.obtenerTodos();
+        if(paises == null || paises.isEmpty())
+            throw new ObtencionException("No hay países disponibles");
+        List<PaisDto> paisesDto = PaisDtoManager.convertir(paises);
+        return paisesDto;
     }
 
     @Override
     public PaisDto obtenerPorId(Integer id) throws ObtencionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Pais pais = this.repo.obtenerPorId(id);
+        if(pais == null)
+            throw new ObtencionException("El país no existe");
+        PaisDto paisDto = PaisDtoManager.convertir(pais);
+        return paisDto;
     }
 
     @Override
     public void crear(Pais pais) throws CreacionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //Validaciones
+        if(pais.getId() != null)
+            throw new CreacionException("El id del país es autoincremental");
+        
+        //Prohibición de inserción con uno a muchos
+        if(pais.getArtistas()!= null)
+            throw new CreacionException("La inserción en cascada no está permitida");
+        
+        //Validaciones unicidad
+        if(this.repo.obtenerPorNombre(pais.getNombre()) != null)
+            throw new CreacionException("Ya existe un país con ese nombre");
+        
+        this.repo.crear(pais);
     }
 
     @Override
@@ -49,12 +70,17 @@ public class PaisServiceImp implements IPaisService{
 
     @Override
     public void eliminar(Pais pais) throws ObtencionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(pais.getId() == null || this.repo.obtenerPorId(pais.getId()) == null)
+            throw new ObtencionException("El país a eliminar no existe");
+        this.repo.eliminar(pais);
     }
 
     @Override
     public void eliminarPorId(Integer id) throws ObtencionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Pais pais = this.repo.obtenerPorId(id);
+        if(pais == null)
+            throw new ObtencionException("El país a eliminar no existe");
+        this.repo.eliminarPorId(id);
     }
     
 }

@@ -60,60 +60,76 @@ public class ArtistaServiceImp implements IArtistaService{
     @Override
     public void crear(Artista artista) throws CreacionException {
         
-        //Creación de foto en servidor
-        //Asignación de foto al artista
+        //Inserción de foto en el servidor
         
-        Artista artistaExistente = this.repo.obtenerPorFoto(artista.getFoto());
-        if(artistaExistente != null)
-            throw new CreacionException("Ya existe un artista con esa foto");
+        //Asígnación del campo foto al artista
         
         //Validaciones
-        //Muchos a uno
+        
+        if(artista.getId() != null)
+            throw new CreacionException("El id del artista es autoincremental");
+        
+        //Prohibición de inserción con uno a muchos
+        if(artista.getCreaciones() != null)
+            throw new CreacionException("La inserción en cascada no está permitida");
+        
         //Género
         Genero genero = artista.getGenero();
         
-        //(Existente)
-        if(genero.getId() != null && repoGenero.obtenerPorId(genero.getId()) == null)
+        if(genero.getId() == null)
+            throw new CreacionException("La creación de géneros en la inserción de artistas no está permitida");
+        
+        if(this.repoGenero.obtenerPorId(genero.getId()) == null)
             throw new CreacionException("No existe el género con el que intenta vincular al artista");
-        
-        //(Nuevo)
-        if(genero.getId() == null && repoGenero.obtenerPorNombre(genero.getNombre()) != null)
-            throw new CreacionException("Ya existe un género con ese nombre");
-        
+
         //País
         Pais pais = artista.getPais();
         
-        //(Existente)
-        if(pais.getId() != null && repoPais.obtenerPorId(pais.getId()) == null)
+        if(pais.getId() == null)
+            throw new CreacionException("La creación de paises en la inserción de artistas no está permitida");
+        
+        if(this.repoPais.obtenerPorId(pais.getId()) == null)
             throw new CreacionException("No existe el país con el que intenta vincular al artista");
         
-        //(Nuevo)
-        if(pais.getId() == null && repoPais.obtenerPorNombre(pais.getNombre()) != null)
-            throw new CreacionException("Ya existe un país con ese nombre");
-        
-        //Uno a muchos
-        
+        this.repo.crear(artista);
         
     }
 
     @Override
     public void editar(Artista artista) throws ObtencionException, EdicionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(artista.getId() == null || this.repo.obtenerPorId(artista.getId()) == null)
+            throw new ObtencionException("El artista a editar no existe");
+        if(artista.getFoto() != null)
+            throw new EdicionException("No se puede suministrar la url de la foto, el sistema la genera a partir de la cadena en base 64");
+        if(artista.getFotoBase64() != null){
+            //Inserción de foto en el servidor
+        
+            //Asígnación del campo foto al artista
+        }
+        this.repo.editar(artista);
     }
 
     @Override
     public void eliminar(Artista artista) throws ObtencionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(artista.getId() == null || this.repo.obtenerPorId(artista.getId()) == null)
+            throw new ObtencionException("El artista a eliminar no existe");
+        this.repo.eliminar(artista);
     }
 
     @Override
     public void eliminarPorId(Integer id) throws ObtencionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Artista artista = this.repo.obtenerPorId(id);
+        if(artista == null)
+            throw new ObtencionException("El artista a eliminar no existe");
+        this.repo.eliminarPorId(id);
     }
 
     @Override
     public List<VentasArtista> obtenerVentas() throws ObtencionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<VentasArtista> ventas = this.repo.obtenerVentas();
+        if(ventas == null || ventas.isEmpty())
+            throw new ObtencionException("No se ha realizado ninguna venta");
+        return ventas;
     }
     
 }

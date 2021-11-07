@@ -5,8 +5,11 @@
  */
 package co.edu.ucundinamarca.ejbdiscotienda.service.implementation;
 
+
 import co.edu.ucundinamarca.ejbdiscotienda.dto.DiscoDto;
+import co.edu.ucundinamarca.ejbdiscotienda.dto.manager.DiscoDtoManager;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Disco;
+import co.edu.ucundinamarca.ejbdiscotienda.exception.CreacionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.ObtencionException;
 import co.edu.ucundinamarca.ejbdiscotienda.repository.IDiscoRepo;
 import co.edu.ucundinamarca.ejbdiscotienda.service.IDiscoService;
@@ -27,17 +30,33 @@ public class DiscoServiceImp implements IDiscoService{
     
     @Override
     public List<DiscoDto> obtenerTodos() throws ObtencionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Disco> discos = this.repo.obtenerTodos();
+        if(discos == null || discos.isEmpty())
+            throw new ObtencionException("No hay discos disponibles");
+        List<DiscoDto> discosDto = DiscoDtoManager.convertir(discos);
+        return discosDto;
     }
 
     @Override
     public DiscoDto obtenerPorId(Integer id) throws ObtencionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Disco disco = this.repo.obtenerPorId(id);
+        if(disco == null)
+            throw new ObtencionException("El disco no existe");
+        DiscoDto discoDto = DiscoDtoManager.convertir(disco);
+        return discoDto;
     }
 
     @Override
-    public void crear(Disco disco) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void crear(Disco disco) throws CreacionException{
+        //Validaciones
+        if(disco.getId() != null)
+            throw new CreacionException("El id del disco es autoincremental");
+        
+        //Prohibición de inserción con uno a muchos
+        if(disco.getCanciones() != null || disco.getCompras() != null || disco.getCreaciones() != null)
+            throw new CreacionException("La inserción en cascada no está permitida");
+        
+        this.repo.crear(disco);
     }
 
     @Override
@@ -47,12 +66,17 @@ public class DiscoServiceImp implements IDiscoService{
 
     @Override
     public void eliminar(Disco disco) throws ObtencionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(disco.getId() == null || this.repo.obtenerPorId(disco.getId()) == null)
+            throw new ObtencionException("El disco a eliminar no existe");
+        this.repo.eliminar(disco);
     }
 
     @Override
     public void eliminarPorId(Integer id) throws ObtencionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Disco disco = this.repo.obtenerPorId(id);
+        if(disco == null)
+            throw new ObtencionException("El disco a eliminar no existe");
+        this.repo.eliminarPorId(id);
     }
     
 }

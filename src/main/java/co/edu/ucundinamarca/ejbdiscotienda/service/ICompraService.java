@@ -9,6 +9,7 @@ import co.edu.ucundinamarca.ejbdiscotienda.dto.CompraDto;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Carrito;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Compra;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Usuario;
+import co.edu.ucundinamarca.ejbdiscotienda.exception.CreacionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.ObtencionException;
 import java.util.List;
 import javax.ejb.Local;
@@ -25,7 +26,7 @@ public interface ICompraService{
     
     public CompraDto obtenerPorId(Integer id) throws ObtencionException;
     
-    public void crear(Compra compra);
+    public void crear(Compra compra) throws CreacionException;
     
     public void editar(Compra compra) throws ObtencionException;
     

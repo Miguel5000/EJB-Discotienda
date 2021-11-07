@@ -53,7 +53,8 @@ public class ArtistaRepoImp implements IArtistaRepo{
         Artista artistaOriginal = this.obtenerPorId(artista.getId());
         artistaOriginal.setApellidos(artista.getApellidos());
         artistaOriginal.setFechaDeNacimiento(artista.getFechaDeNacimiento());
-        artistaOriginal.setFoto(artista.getFoto());
+        if(artista.getFoto() != null)
+            artistaOriginal.setFoto(artista.getFoto());
         artistaOriginal.setGenero(artista.getGenero());
         artistaOriginal.setNombreArtistico(artista.getNombreArtistico());
         artistaOriginal.setNombres(artista.getNombres());

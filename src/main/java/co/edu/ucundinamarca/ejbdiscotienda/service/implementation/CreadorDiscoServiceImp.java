@@ -6,11 +6,16 @@
 package co.edu.ucundinamarca.ejbdiscotienda.service.implementation;
 
 import co.edu.ucundinamarca.ejbdiscotienda.dto.CreadorDiscoDto;
+import co.edu.ucundinamarca.ejbdiscotienda.dto.manager.CreadorDiscoDtoManager;
+import co.edu.ucundinamarca.ejbdiscotienda.entity.Artista;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.CreadorDisco;
+import co.edu.ucundinamarca.ejbdiscotienda.entity.Disco;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.CreacionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.EdicionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.ObtencionException;
+import co.edu.ucundinamarca.ejbdiscotienda.repository.IArtistaRepo;
 import co.edu.ucundinamarca.ejbdiscotienda.repository.ICreadorDiscoRepo;
+import co.edu.ucundinamarca.ejbdiscotienda.repository.IDiscoRepo;
 import co.edu.ucundinamarca.ejbdiscotienda.service.ICreadorDiscoService;
 import java.util.List;
 import javax.ejb.EJB;
@@ -27,34 +32,79 @@ public class CreadorDiscoServiceImp implements ICreadorDiscoService{
     @EJB
     private ICreadorDiscoRepo repo;
     
+    @EJB
+    private IArtistaRepo repoArtista;
+    
+    @EJB
+    private IDiscoRepo repoDisco;
+    
     @Override
     public List<CreadorDiscoDto> obtenerTodos() throws ObtencionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<CreadorDisco> creacionesDiscos = this.repo.obtenerTodos();
+        if(creacionesDiscos == null || creacionesDiscos.isEmpty())
+            throw new ObtencionException("No hay creaciones de discos disponibles");
+        List<CreadorDiscoDto> creacionesDiscosDto = CreadorDiscoDtoManager.convertir(creacionesDiscos);
+        return creacionesDiscosDto;
     }
 
     @Override
     public CreadorDiscoDto obtenerPorId(Integer id) throws ObtencionException {
+        CreadorDisco creacionDisco = this.repo.obtenerPorId(id);
+        if(creacionDisco == null)
+            throw new ObtencionException("La creación del disco no existe");
+        CreadorDiscoDto creacionDiscoDto = CreadorDiscoDtoManager.convertir(creacionDisco);
+        return creacionDiscoDto;
+    }
+
+    @Override
+    public void crear(CreadorDisco creacionDisco) throws CreacionException {
+        //Validaciones
+        if(creacionDisco.getId() != null)
+            throw new CreacionException("El id de la creación del disco es autoincremental");
+        
+        //Artista
+        Artista artista = creacionDisco.getArtista();
+        
+        if(artista.getId() == null)
+            throw new CreacionException("La creación de artistas en la inserción de creaciones de discos no está permitida");
+        
+        if(this.repoArtista.obtenerPorId(artista.getId()) == null)
+            throw new CreacionException("No existe el artista con el que intenta vincular la creación del disco");
+
+        //Disco
+        Disco disco = creacionDisco.getDisco();
+        
+        if(disco.getId() == null)
+            throw new CreacionException("La creación de discos en la inserción de creaciones de discos no está permitida");
+        
+        if(this.repoDisco.obtenerPorId(disco.getId()) == null)
+            throw new CreacionException("No existe el disco con el que intenta vincular la creación del disco");
+        
+        //Validaciones relaciones
+        if(this.repo.obtenerPorCreadorYDisco(artista, disco) != null)
+            throw new CreacionException("Un mismo artista no puede tener el mismo disco registrado 2 veces");
+        
+        this.repo.crear(creacionDisco);
+    }
+
+    @Override
+    public void editar(CreadorDisco creacionDisco) throws ObtencionException, EdicionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void crear(CreadorDisco creadorDisco) throws CreacionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void editar(CreadorDisco creadorDisco) throws ObtencionException, EdicionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void eliminar(CreadorDisco creadorDisco) throws ObtencionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void eliminar(CreadorDisco creacionDisco) throws ObtencionException {
+        if(creacionDisco.getId() == null || this.repo.obtenerPorId(creacionDisco.getId()) == null)
+            throw new ObtencionException("La creación de disco a eliminar no existe");
+        this.repo.eliminar(creacionDisco);
     }
 
     @Override
     public void eliminarPorId(Integer id) throws ObtencionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        CreadorDisco creacionDisco = this.repo.obtenerPorId(id);
+        if(creacionDisco == null)
+            throw new ObtencionException("La creación del disco a eliminar no existe");
+        this.repo.eliminarPorId(id);
     }
     
 }

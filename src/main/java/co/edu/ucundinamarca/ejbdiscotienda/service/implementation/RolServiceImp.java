@@ -6,6 +6,7 @@
 package co.edu.ucundinamarca.ejbdiscotienda.service.implementation;
 
 import co.edu.ucundinamarca.ejbdiscotienda.dto.RolDto;
+import co.edu.ucundinamarca.ejbdiscotienda.dto.manager.RolDtoManager;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Rol;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.CreacionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.EdicionException;
@@ -29,17 +30,37 @@ public class RolServiceImp implements IRolService{
     
     @Override
     public List<RolDto> obtenerTodos() throws ObtencionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Rol> roles = this.repo.obtenerTodos();
+        if(roles == null || roles.isEmpty())
+            throw new ObtencionException("No hay roles disponibles");
+        List<RolDto> rolesDto = RolDtoManager.convertir(roles);
+        return rolesDto;
     }
 
     @Override
     public RolDto obtenerPorId(Integer id) throws ObtencionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Rol rol = this.repo.obtenerPorId(id);
+        if(rol == null)
+            throw new ObtencionException("El rol no existe");
+        RolDto rolDto = RolDtoManager.convertir(rol);
+        return rolDto;
     }
 
     @Override
     public void crear(Rol rol) throws CreacionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //Validaciones
+        if(rol.getId() != null)
+            throw new CreacionException("El id del rol es autoincremental");
+        
+        //Prohibición de inserción con uno a muchos
+        if(rol.getUsuarios()!= null)
+            throw new CreacionException("La inserción en cascada no está permitida");
+        
+        //Validaciones unicidad
+        if(this.repo.obtenerPorNombre(rol.getNombre()) != null)
+            throw new CreacionException("Ya existe un rol con ese nombre");
+        
+        this.repo.crear(rol);
     }
 
     @Override
@@ -49,12 +70,17 @@ public class RolServiceImp implements IRolService{
 
     @Override
     public void eliminar(Rol rol) throws ObtencionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(rol.getId() == null || this.repo.obtenerPorId(rol.getId()) == null)
+            throw new ObtencionException("El rol a eliminar no existe");
+        this.repo.eliminar(rol);
     }
 
     @Override
     public void eliminarPorId(Integer id) throws ObtencionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Rol rol = this.repo.obtenerPorId(id);
+        if(rol == null)
+            throw new ObtencionException("El rol a eliminar no existe");
+        this.repo.eliminarPorId(id);
     }
     
 }
