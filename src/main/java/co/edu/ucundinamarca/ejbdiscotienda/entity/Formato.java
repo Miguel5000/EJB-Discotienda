@@ -13,6 +13,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -25,6 +27,12 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "formatos", schema = "canciones")
+@NamedQueries({
+    @NamedQuery(name = "Formato.obtenerTodos", query = "SELECT f FROM Formato f"),
+    @NamedQuery(name = "Formato.obtenerPorNombre" , query = "SELECT f FROM Formato f WHERE f.nombre = :nombre"),
+    @NamedQuery(name = "Formato.eliminarPorId" , query = "DELETE FROM Formato f WHERE f.id = :id")
+})
+
 public class Formato {
     
     @Id

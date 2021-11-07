@@ -25,8 +25,8 @@ public class CompraDiscoDtoManager {
         PropertyMap<CompraDisco, CompraDiscoDto> propiedad = new PropertyMap<CompraDisco, CompraDiscoDto>() {
                 @Override
                 protected void configure() {
-                    skip(destination.getCompra());
-                    skip(destination.getDisco());
+                    //skip(destination.getCompra());
+                    //skip(destination.getDisco());
                 }
          };
         

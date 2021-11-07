@@ -8,8 +8,10 @@ package co.edu.ucundinamarca.ejbdiscotienda.service.implementation;
 import co.edu.ucundinamarca.ejbdiscotienda.dto.DiscoDto;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Disco;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.ObtencionException;
+import co.edu.ucundinamarca.ejbdiscotienda.repository.IDiscoRepo;
 import co.edu.ucundinamarca.ejbdiscotienda.service.IDiscoService;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 /**
@@ -20,6 +22,9 @@ import javax.ejb.Stateless;
 @Stateless
 public class DiscoServiceImp implements IDiscoService{
 
+    @EJB
+    private IDiscoRepo repo;
+    
     @Override
     public List<DiscoDto> obtenerTodos() throws ObtencionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

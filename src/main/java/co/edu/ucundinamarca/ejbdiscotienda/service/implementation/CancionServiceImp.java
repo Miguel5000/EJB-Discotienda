@@ -12,8 +12,10 @@ import co.edu.ucundinamarca.ejbdiscotienda.entity.Disco;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.CreacionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.EdicionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.ObtencionException;
+import co.edu.ucundinamarca.ejbdiscotienda.repository.ICancionRepo;
 import co.edu.ucundinamarca.ejbdiscotienda.service.ICancionService;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 /**
@@ -24,6 +26,9 @@ import javax.ejb.Stateless;
 @Stateless
 public class CancionServiceImp implements ICancionService{
 
+    @EJB
+    private ICancionRepo repo;
+    
     @Override
     public List<CancionDto> obtenerTodos() throws ObtencionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

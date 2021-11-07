@@ -10,8 +10,10 @@ import co.edu.ucundinamarca.ejbdiscotienda.entity.Pais;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.CreacionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.EdicionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.ObtencionException;
+import co.edu.ucundinamarca.ejbdiscotienda.repository.IPaisRepo;
 import co.edu.ucundinamarca.ejbdiscotienda.service.IPaisService;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 /**
@@ -22,6 +24,9 @@ import javax.ejb.Stateless;
 @Stateless
 public class PaisServiceImp implements IPaisService{
 
+    @EJB
+    private IPaisRepo repo;
+    
     @Override
     public List<PaisDto> obtenerTodos() throws ObtencionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

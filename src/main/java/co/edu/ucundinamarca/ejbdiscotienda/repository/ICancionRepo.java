@@ -23,4 +23,6 @@ public interface ICancionRepo extends ICrud<Cancion, Integer>{
     
     public List<Cancion> obtenerListaPorDisco(Disco disco);
     
+    public Cancion obtenerPorNombreYDisco(String nombre, Disco disco);
+    
 }

@@ -25,8 +25,8 @@ public class CreadorDiscoDtoManager {
         PropertyMap<CreadorDisco, CreadorDiscoDto> propiedad = new PropertyMap<CreadorDisco, CreadorDiscoDto>() {
                 @Override
                 protected void configure() {
-                    skip(destination.getArtista());
-                    skip(destination.getDisco());
+                    //skip(destination.getArtista());
+                    //skip(destination.getDisco());
                 }
          };
         

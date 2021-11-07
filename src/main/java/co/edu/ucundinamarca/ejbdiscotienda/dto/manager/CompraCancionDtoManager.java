@@ -25,8 +25,8 @@ public class CompraCancionDtoManager {
         PropertyMap<CompraCancion, CompraCancionDto> propiedad = new PropertyMap<CompraCancion, CompraCancionDto>() {
                 @Override
                 protected void configure() {
-                    skip(destination.getCompra());
-                    skip(destination.getCancion());
+                    //skip(destination.getCompra());
+                    //skip(destination.getCancion());
                 }
          };
         

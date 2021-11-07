@@ -14,6 +14,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
@@ -27,6 +31,35 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "discos", schema = "discos")
+@NamedQueries({
+    @NamedQuery(name = "Disco.obtenerTodos", query = "SELECT d FROM Disco d"),
+    @NamedQuery(name = "Disco.obtenerListaPorCompra", query = "SELECT dis FROM Compra co "
+            + "JOIN CompraDisco coDis "
+            + "ON co.id = coDis.idCompra "
+            + "JOIN Disco dis "
+            + "ON coDis.idDisco = dis.id "
+            + "WHERE co.id = :id"),
+    @NamedQuery(name = "Disco.obtenerListaPorArtista", query = "SELECT dis FROM Artista ar "
+            + "JOIN CreadorDisco creDis "
+            + "ON ar.id = creDis.idArtista "
+            + "JOIN Disco dis "
+            + "ON creDis.idDisco = dis.id "
+            + "WHERE ar.id = :id"),
+    @NamedQuery(name = "Disco.obtenerListaDeCarrito", query = "SELECT dis FROM Compra co "
+            + "JOIN CompraDisco coDis "
+            + "ON co.id = coDis.idCompra "
+            + "JOIN Disco dis "
+            + "ON coDis.idDisco = dis.id "
+            + "WHERE co.realizacion = false"),
+    @NamedQuery(name = "Disco.obtenerPorNombreYArtista", query = "SELECT dis FROM Disco dis "
+            + "JOIN CreadorDisco creDis "
+            + "ON dis.id = creDis.idDisco "
+            + "JOIN Artista ar "
+            + "ON creDis.id_artista = ar.id"
+            + "WHERE ar.id = :id AND dis.nombre = :nombre"),
+    @NamedQuery(name = "Disco.eliminarPorId" , query = "DELETE FROM Disco d WHERE d.id = :id")
+})
+
 public class Disco {
     
     @Id

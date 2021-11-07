@@ -20,4 +20,6 @@ public interface IArtistaRepo extends ICrud<Artista, Integer>{
  
     public List<VentasArtista> obtenerVentas();
     
+    public Artista obtenerPorFoto(String foto);
+    
 }

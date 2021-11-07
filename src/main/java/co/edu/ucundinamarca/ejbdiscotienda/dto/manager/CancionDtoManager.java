@@ -25,8 +25,8 @@ public class CancionDtoManager {
         PropertyMap<Cancion, CancionDto> propiedad = new PropertyMap<Cancion, CancionDto>() {
                 @Override
                 protected void configure() {
-                    skip(destination.getFormato());
-                    skip(destination.getDisco());
+                    //skip(destination.getFormato());
+                    //skip(destination.getDisco());
                 }
          };
         

@@ -11,6 +11,8 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -25,34 +27,43 @@ public class RolRepoImp implements IRolRepo{
     
     @Override
     public List<Rol> obtenerTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TypedQuery<Rol> query = this.manager.createNamedQuery("Rol.obtenerTodos", Rol.class);
+        return query.getResultList();
     }
 
     @Override
     public Rol obtenerPorId(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.manager.find(Rol.class, id);
     }
 
     @Override
-    public void crear(Rol entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void crear(Rol rol) {
+        this.manager.persist(rol);
     }
 
     @Override
-    public void editar(Rol entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void editar(Rol rol) {
+        Rol rolOriginal = this.obtenerPorId(rol.getId());
+        rolOriginal.setNombre(rol.getNombre());
     }
 
     @Override
-    public void eliminar(Rol entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void eliminar(Rol rol) {
+        this.manager.remove(rol);
     }
 
     @Override
     public void eliminarPorId(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Query eliminacion = manager.createNamedQuery("Rol.eliminarPorId");
+        eliminacion.setParameter("id", id);
+        eliminacion.executeUpdate();
     }
-    
-    
+
+    @Override
+    public Rol obtenerPorNombre(String nombre) {
+        TypedQuery<Rol> query = this.manager.createNamedQuery("Rol.obtenerPorNombre", Rol.class);
+        query.setParameter("nombre", nombre);
+        return query.getSingleResult();
+    }
     
 }

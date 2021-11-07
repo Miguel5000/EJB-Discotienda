@@ -5,6 +5,7 @@
  */
 package co.edu.ucundinamarca.ejbdiscotienda.repository;
 
+import co.edu.ucundinamarca.ejbdiscotienda.entity.Carrito;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Compra;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Usuario;
 import javax.ejb.Local;
@@ -17,6 +18,6 @@ import javax.ejb.Local;
 @Local
 public interface ICompraRepo extends ICrud<Compra, Integer>{
     
-    public Compra obtenerCarrito(Usuario usuario);
+    public Carrito obtenerCarrito(Usuario usuario);
 
 }

@@ -16,4 +16,6 @@ import javax.ejb.Local;
 @Local
 public interface IGeneroRepo extends ICrud<Genero, Integer>{
     
+    public Genero obtenerPorNombre(String nombre);
+    
 }

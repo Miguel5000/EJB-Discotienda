@@ -16,4 +16,6 @@ import javax.ejb.Local;
 @Local
 public interface IRolRepo extends ICrud<Rol, Integer>{
     
+    public Rol obtenerPorNombre(String nombre);
+    
 }

@@ -16,6 +16,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -29,6 +33,12 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "artistas", schema = "artistas")
+@NamedQueries({
+    @NamedQuery(name = "Artista.obtenerTodos", query = "SELECT a FROM Artista a"),
+    @NamedQuery(name = "Artista.eliminarPorId" , query = "DELETE FROM Artista a WHERE a.id = :id"),
+    @NamedQuery(name = "Artista.obtenerPorFoto" , query = "SELECT a FROM Artista a WHERE a.foto = :foto"),
+})
+
 public class Artista {
  
     @Id
@@ -66,10 +76,12 @@ public class Artista {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "artista", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CreadorDisco> creaciones;
     
+    @NotNull(message = "El artista debe tener un género")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_genero", nullable = false)
     private Genero genero;
     
+    @NotNull(message = "El artista debe tener un país de origen")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_pais", nullable = false)
     private Pais pais;

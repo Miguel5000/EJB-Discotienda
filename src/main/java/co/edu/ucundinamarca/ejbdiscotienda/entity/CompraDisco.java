@@ -13,7 +13,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -22,6 +27,17 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "compras_discos", schema = "compras")
+@NamedQueries({
+    @NamedQuery(name = "CompraDisco.obtenerTodos", query = "SELECT c FROM CompraDisco c"),
+    @NamedQuery(name = "CompraDisco.obtenerPorCompraYDisco", query = "SELECT coDis FROM CompraDisco coDis "
+            + "JOIN Compra co "
+            + "ON coDis.id_compra = co.id "
+            + "JOIN Disco dis "
+            + "ON coCa.id_disco = dis.id "
+            + "WHERE co.id = :idCo AND dis.id = :idDis"),
+    @NamedQuery(name = "CompraDisco.eliminarPorId" , query = "DELETE FROM CompraDisco c WHERE c.id = :id")
+})
+
 public class CompraDisco implements Serializable{
     
     @Id
@@ -30,10 +46,12 @@ public class CompraDisco implements Serializable{
     
     //Relaciones
     
+    @NotNull(message = "La compra del disco debe estar asociada a una compra")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_compra", nullable = false)
     private Compra compra;
     
+    @NotNull(message = "La compra del disco debe tener un disco asociado")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_disco", nullable = false)
     private Disco disco;

@@ -10,8 +10,10 @@ import co.edu.ucundinamarca.ejbdiscotienda.entity.Formato;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.CreacionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.EdicionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.ObtencionException;
+import co.edu.ucundinamarca.ejbdiscotienda.repository.IFormatoRepo;
 import co.edu.ucundinamarca.ejbdiscotienda.service.IFormatoService;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 /**
@@ -22,6 +24,9 @@ import javax.ejb.Stateless;
 @Stateless
 public class FormatoServiceImp implements IFormatoService{
 
+    @EJB
+    private IFormatoRepo repo;
+    
     @Override
     public List<FormatoDto> obtenerTodos() throws ObtencionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

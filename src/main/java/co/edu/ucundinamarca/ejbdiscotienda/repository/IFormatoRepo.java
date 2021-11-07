@@ -16,5 +16,6 @@ import javax.ejb.Local;
 @Local
 public interface IFormatoRepo extends ICrud<Formato, Integer>{
     
+    public Formato obtenerPorNombre(String nombre);
     
 }

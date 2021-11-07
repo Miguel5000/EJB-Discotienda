@@ -10,8 +10,10 @@ import co.edu.ucundinamarca.ejbdiscotienda.entity.CreadorDisco;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.CreacionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.EdicionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.ObtencionException;
+import co.edu.ucundinamarca.ejbdiscotienda.repository.ICreadorDiscoRepo;
 import co.edu.ucundinamarca.ejbdiscotienda.service.ICreadorDiscoService;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 /**
@@ -22,6 +24,9 @@ import javax.ejb.Stateless;
 @Stateless
 public class CreadorDiscoServiceImp implements ICreadorDiscoService{
 
+    @EJB
+    private ICreadorDiscoRepo repo;
+    
     @Override
     public List<CreadorDiscoDto> obtenerTodos() throws ObtencionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

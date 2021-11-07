@@ -5,7 +5,9 @@
  */
 package co.edu.ucundinamarca.ejbdiscotienda.repository;
 
+import co.edu.ucundinamarca.ejbdiscotienda.entity.Artista;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.CreadorDisco;
+import co.edu.ucundinamarca.ejbdiscotienda.entity.Disco;
 import javax.ejb.Local;
 
 /**
@@ -15,5 +17,7 @@ import javax.ejb.Local;
 
 @Local
 public interface ICreadorDiscoRepo extends ICrud<CreadorDisco, Integer>{
+    
+    public CreadorDisco obtenerPorCreadorYDisco(Artista artista, Disco disco);
     
 }

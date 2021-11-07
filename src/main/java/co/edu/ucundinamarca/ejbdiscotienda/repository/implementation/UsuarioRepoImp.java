@@ -11,6 +11,8 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -24,48 +26,80 @@ public class UsuarioRepoImp implements IUsuarioRepo{
     private EntityManager manager;
     
     @Override
-    public Usuario obtenerPorInicioDeSesion(String usuario, String clave) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Usuario obtenerPorInicioDeSesion(String correo, String clave) {
+        TypedQuery<Usuario> query = this.manager.createNamedQuery("Usuario.obtenerPorLogin", Usuario.class);
+        query.setParameter("correo", correo);
+        query.setParameter("clave", clave);
+        return query.getSingleResult();
     }
 
     @Override
     public Usuario obtenerPorTokenDeRecuperacion(String token) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TypedQuery<Usuario> query = this.manager.createNamedQuery("Usuario.obtenerPorTokenRecuperacion", Usuario.class);
+        query.setParameter("tokenRecuperacion", token);
+        return query.getSingleResult();
     }
 
     @Override
     public Usuario obtenerPorTokenDeNuevoCorreo(String token) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TypedQuery<Usuario> query = this.manager.createNamedQuery("Usuario.obtenerPorTokenCambioCorreo", Usuario.class);
+        query.setParameter("tokenCambioCorreo", token);
+        return query.getSingleResult();
     }
 
     @Override
     public List<Usuario> obtenerTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TypedQuery<Usuario> query = this.manager.createNamedQuery("Usuario.obtenerTodos", Usuario.class);
+        return query.getResultList();
     }
 
     @Override
     public Usuario obtenerPorId(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.manager.find(Usuario.class, id);
     }
 
     @Override
-    public void crear(Usuario entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void crear(Usuario usuario) {
+        this.manager.persist(usuario);
     }
 
     @Override
-    public void editar(Usuario entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void editar(Usuario usuario) {
+        Usuario usuarioOriginal = this.obtenerPorId(usuario.getId());
+        usuarioOriginal.setApellidos(usuario.getApellidos());
+        usuarioOriginal.setClave(usuario.getClave());
+        usuarioOriginal.setCorreo(usuario.getCorreo());
+        usuarioOriginal.setNombres(usuario.getNombres());
+        usuarioOriginal.setNuevoCorreo(usuario.getNuevoCorreo());
+        usuarioOriginal.setRol(usuario.getRol());
+        usuarioOriginal.setTokenCambioCorreo(usuario.getTokenCambioCorreo());
+        usuarioOriginal.setTokenRecuperacion(usuario.getTokenRecuperacion());
     }
 
     @Override
-    public void eliminar(Usuario entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void eliminar(Usuario usuario) {
+        this.manager.remove(usuario);
     }
 
     @Override
     public void eliminarPorId(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Query eliminacion = manager.createNamedQuery("Usuario.eliminarPorId");
+        eliminacion.setParameter("id", id);
+        eliminacion.executeUpdate();
+    }
+
+    @Override
+    public Usuario obtenerPorCorreo(String correo) {
+        TypedQuery<Usuario> query = this.manager.createNamedQuery("Usuario.obtenerPorCorreo", Usuario.class);
+        query.setParameter("correo", correo);
+        return query.getSingleResult();
+    }
+
+    @Override
+    public Usuario obtenerPorNuevoCorreo(String correo) {
+        TypedQuery<Usuario> query = this.manager.createNamedQuery("Usuario.obtenerPorNuevoCorreo", Usuario.class);
+        query.setParameter("correo", correo);
+        return query.getSingleResult();
     }
     
 }

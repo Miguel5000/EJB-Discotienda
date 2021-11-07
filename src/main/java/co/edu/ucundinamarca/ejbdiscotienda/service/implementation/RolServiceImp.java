@@ -10,8 +10,10 @@ import co.edu.ucundinamarca.ejbdiscotienda.entity.Rol;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.CreacionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.EdicionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.ObtencionException;
+import co.edu.ucundinamarca.ejbdiscotienda.repository.IRolRepo;
 import co.edu.ucundinamarca.ejbdiscotienda.service.IRolService;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 /**
@@ -22,6 +24,9 @@ import javax.ejb.Stateless;
 @Stateless
 public class RolServiceImp implements IRolService{
 
+    @EJB
+    private IRolRepo repo;
+    
     @Override
     public List<RolDto> obtenerTodos() throws ObtencionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

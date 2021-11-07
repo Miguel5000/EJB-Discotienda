@@ -16,7 +16,11 @@ import javax.ejb.Local;
 @Local
 public interface IUsuarioRepo extends ICrud<Usuario, Integer>{
     
-    public Usuario obtenerPorInicioDeSesion(String usuario, String clave);
+    public Usuario obtenerPorInicioDeSesion(String correo, String clave);
+    
+    public Usuario obtenerPorCorreo(String correo);
+    
+    public Usuario obtenerPorNuevoCorreo(String correo);
     
     public Usuario obtenerPorTokenDeRecuperacion(String token);
     

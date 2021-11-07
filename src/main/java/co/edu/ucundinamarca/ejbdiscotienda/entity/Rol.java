@@ -14,6 +14,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -26,6 +28,12 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "roles", schema = "usuarios")
+@NamedQueries({
+    @NamedQuery(name = "Rol.obtenerTodos", query = "SELECT r FROM Rol r"),
+    @NamedQuery(name = "Rol.obtenerPorNombre" , query = "SELECT r FROM Formato r WHERE r.nombre = :nombre"),
+    @NamedQuery(name = "Rol.eliminarPorId" , query = "DELETE FROM Rol r WHERE r.id = :id")
+})
+
 public class Rol implements Serializable{
     
     @Id

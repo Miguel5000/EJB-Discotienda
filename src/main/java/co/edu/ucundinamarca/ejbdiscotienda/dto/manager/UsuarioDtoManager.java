@@ -26,7 +26,7 @@ public class UsuarioDtoManager {
                 @Override
                 protected void configure() {
                     skip(destination.getCompras());
-                    skip(destination.getRol());
+                    //skip(destination.getRol());
                 }
          };
         

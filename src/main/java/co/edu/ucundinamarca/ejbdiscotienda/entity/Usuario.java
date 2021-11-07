@@ -16,6 +16,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -28,6 +30,17 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "usuarios", schema = "usuarios")
+@NamedQueries({
+    @NamedQuery(name = "Usuario.obtenerTodos", query = "SELECT u FROM Usuario u"),
+    @NamedQuery(name = "Usuario.obtenerPorLogin" , query = "SELECT u FROM Usuario u WHERE u.correo = :correo AND u.clave = :clave"),
+    @NamedQuery(name = "Usuario.obtenerPorTokenRecuperacion" , query = "SELECT u FROM Usuario u WHERE u.tokenRecuperacion = :tokenRecuperacion"),
+    @NamedQuery(name = "Usuario.obtenerPorTokenCorreo" , query = "SELECT u FROM Usuario u WHERE u.tokenCambioCorreo = :tokenCambioCorreo"),
+    @NamedQuery(name = "Usuario.obtenerPorCorreo" , query = "SELECT u FROM Usuario u WHERE u.correo = :correo"),
+    @NamedQuery(name = "Usuario.obtenerPorNuevoCorreo" , query = "SELECT u FROM Usuario u WHERE u.nuevoCorreo = :correo"),
+    @NamedQuery(name = "Usuario.eliminarPorId" , query = "DELETE FROM Usuario u WHERE u.id = :id")
+        
+})
+
 public class Usuario implements Serializable{
     
     @Id
@@ -71,6 +84,7 @@ public class Usuario implements Serializable{
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Compra> compras;
     
+    @NotNull(message = "El usuario debe poseer un rol")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_rol", nullable = false)
     private Rol rol;

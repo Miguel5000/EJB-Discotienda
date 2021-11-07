@@ -5,13 +5,20 @@
  */
 package co.edu.ucundinamarca.ejbdiscotienda.repository.implementation;
 
+import co.edu.ucundinamarca.ejbdiscotienda.dto.manager.CancionDtoManager;
+import co.edu.ucundinamarca.ejbdiscotienda.dto.manager.DiscoDtoManager;
+import co.edu.ucundinamarca.ejbdiscotienda.entity.Cancion;
+import co.edu.ucundinamarca.ejbdiscotienda.entity.Carrito;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Compra;
+import co.edu.ucundinamarca.ejbdiscotienda.entity.Disco;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Usuario;
 import co.edu.ucundinamarca.ejbdiscotienda.repository.ICompraRepo;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -25,38 +32,55 @@ public class CompraRepoImp implements ICompraRepo{
     private EntityManager manager;
     
     @Override
-    public Compra obtenerCarrito(Usuario usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Carrito obtenerCarrito(Usuario usuario) {
+        TypedQuery<Disco> queryD = this.manager.createNamedQuery("Disco.obtenerListaDeCarrito", Disco.class);
+        List<Disco> discos = queryD.getResultList();
+        
+        TypedQuery<Cancion> queryC = this.manager.createNamedQuery("Cancion.obtenerListaDeCarrito", Cancion.class);
+        List<Cancion> canciones = queryC.getResultList();
+        
+        Carrito carrito = new Carrito();
+        carrito.setCanciones(CancionDtoManager.convertir(canciones));
+        carrito.setDiscos(DiscoDtoManager.convertir(discos));
+        
+        return carrito;
     }
 
     @Override
     public List<Compra> obtenerTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TypedQuery<Compra> query = this.manager.createNamedQuery("CompraCancion.obtenerTodos", Compra.class);
+        return query.getResultList();
     }
 
     @Override
     public Compra obtenerPorId(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.manager.find(Compra.class, id);
     }
 
     @Override
-    public void crear(Compra entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void crear(Compra compra) {
+        this.manager.persist(compra);
     }
 
     @Override
-    public void editar(Compra entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void editar(Compra compra) {
+        Compra compraOriginal = this.obtenerPorId(compra.getId());
+        compraOriginal.setFechaCompra(compra.getFechaCompra());
+        compraOriginal.setRealizacion(compra.getRealizacion());
+        compraOriginal.setUsuario(compra.getUsuario());
+        compraOriginal.setValorCompra(compra.getValorCompra());
     }
 
     @Override
-    public void eliminar(Compra entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void eliminar(Compra compra) {
+        this.manager.persist(compra);
     }
 
     @Override
     public void eliminarPorId(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Query eliminacion = manager.createNamedQuery("Compra.eliminarPorId");
+        eliminacion.setParameter("id", id);
+        eliminacion.executeUpdate();
     }
     
 }

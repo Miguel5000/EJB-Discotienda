@@ -12,9 +12,11 @@ import co.edu.ucundinamarca.ejbdiscotienda.entity.CompraCancion;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.CreacionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.EdicionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.ObtencionException;
+import co.edu.ucundinamarca.ejbdiscotienda.repository.ICompraCancionRepo;
 import co.edu.ucundinamarca.ejbdiscotienda.service.ICompraCancionService;
 import co.edu.ucundinamarca.ejbdiscotienda.view.VentasCancion;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 /**
@@ -25,6 +27,9 @@ import javax.ejb.Stateless;
 @Stateless
 public class CompraCancionServiceImp implements ICompraCancionService{
 
+    @EJB
+    private ICompraCancionRepo repo;
+    
     @Override
     public List<CompraCancionDto> obtenerTodos() throws ObtencionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

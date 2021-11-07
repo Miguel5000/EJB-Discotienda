@@ -27,7 +27,7 @@ public class CompraDtoManager {
                 protected void configure() {
                     skip(destination.getComprasCanciones());
                     skip(destination.getComprasDiscos());
-                    skip(destination.getUsuario());
+                    //skip(destination.getUsuario());
                 }
          };
         

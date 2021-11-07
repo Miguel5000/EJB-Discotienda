@@ -16,4 +16,6 @@ import javax.ejb.Local;
 @Local
 public interface IPaisRepo extends ICrud<Pais, Integer>{
     
+    public Pais obtenerPorNombre(String nombre);
+    
 }

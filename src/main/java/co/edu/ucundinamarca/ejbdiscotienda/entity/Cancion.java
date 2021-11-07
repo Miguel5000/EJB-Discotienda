@@ -16,6 +16,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
@@ -29,6 +31,27 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "canciones", schema = "canciones")
+@NamedQueries({
+    @NamedQuery(name = "Cancion.obtenerTodos", query = "SELECT c FROM Cancion c"),
+    @NamedQuery(name = "Cancion.obtenerListaPorCompra", query = "SELECT ca FROM Compra co "
+            + "JOIN CompraCancion coCa "
+            + "ON co.id = coCa.idCompra "
+            + "JOIN Cancion ca "
+            + "ON coCa.idCancion = ca.id "
+            + "WHERE co.id = :id"),
+    @NamedQuery(name = "Cancion.obtenerListaDeCarrito", query = "SELECT ca FROM Compra co "
+            + "JOIN CompraCancion coCa "
+            + "ON co.id = coCa.idCompra "
+            + "JOIN Cancion ca "
+            + "ON coCa.idCancion = ca.id "
+            + "WHERE co.realizacion = false"),
+    @NamedQuery(name = "Cancion.obtenerPorNombreYDisco", query = "SELECT ca FROM Cancion ca "
+            + "JOIN Disco dis "
+            + "ON ca.idDisco = dis.id "
+            + "WHERE dis.id = :id AND ca.nombre = :nombre"),
+    @NamedQuery(name = "Cancion.eliminarPorId" , query = "DELETE FROM Cancion c WHERE c.id = :id")
+})
+
 public class Cancion {
     
     @Id
@@ -59,10 +82,12 @@ public class Cancion {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "cancion", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CompraCancion> compras;
     
+    @NotNull(message = "La canción debe tener un formato")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_formato", nullable = false)
     private Formato formato;
     
+    @NotNull(message = "La canción debe tener un disco del que proviene")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_disco", nullable = false)
     private Disco disco;

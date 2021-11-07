@@ -5,6 +5,8 @@
  */
 package co.edu.ucundinamarca.ejbdiscotienda.entity;
 
+import co.edu.ucundinamarca.ejbdiscotienda.dto.CancionDto;
+import co.edu.ucundinamarca.ejbdiscotienda.dto.DiscoDto;
 import java.util.List;
 
 /**
@@ -13,34 +15,34 @@ import java.util.List;
  */
 public class Carrito {
     
-    private List<Cancion> canciones;
-    private List<Disco> discos;
+    private List<CancionDto> canciones;
+    private List<DiscoDto> discos;
 
     /**
      * @return the canciones
      */
-    public List<Cancion> getCanciones() {
+    public List<CancionDto> getCanciones() {
         return canciones;
     }
 
     /**
      * @param canciones the canciones to set
      */
-    public void setCanciones(List<Cancion> canciones) {
+    public void setCanciones(List<CancionDto> canciones) {
         this.canciones = canciones;
     }
 
     /**
      * @return the discos
      */
-    public List<Disco> getDiscos() {
+    public List<DiscoDto> getDiscos() {
         return discos;
     }
 
     /**
      * @param discos the discos to set
      */
-    public void setDiscos(List<Disco> discos) {
+    public void setDiscos(List<DiscoDto> discos) {
         this.discos = discos;
     }
     

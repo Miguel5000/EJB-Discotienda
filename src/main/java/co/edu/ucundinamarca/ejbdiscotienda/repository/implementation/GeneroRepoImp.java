@@ -11,6 +11,8 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -25,32 +27,43 @@ public class GeneroRepoImp implements IGeneroRepo{
     
     @Override
     public List<Genero> obtenerTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TypedQuery<Genero> query = this.manager.createNamedQuery("Genero.obtenerTodos", Genero.class);
+        return query.getResultList();
     }
 
     @Override
     public Genero obtenerPorId(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.manager.find(Genero.class, id);
     }
 
     @Override
-    public void crear(Genero entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void crear(Genero genero) {
+        this.manager.persist(genero);
     }
 
     @Override
-    public void editar(Genero entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void editar(Genero genero) {
+        Genero generoOriginal = this.obtenerPorId(genero.getId());
+        generoOriginal.setNombre(genero.getNombre());
     }
 
     @Override
-    public void eliminar(Genero entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void eliminar(Genero genero) {
+        this.manager.remove(genero);
     }
 
     @Override
     public void eliminarPorId(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Query eliminacion = manager.createNamedQuery("Genero.eliminarPorId");
+        eliminacion.setParameter("id", id);
+        eliminacion.executeUpdate();
+    }
+
+    @Override
+    public Genero obtenerPorNombre(String nombre) {
+        TypedQuery<Genero> query = this.manager.createNamedQuery("Genero.obtenerPorNombre", Genero.class);
+        query.setParameter("nombre", nombre);
+        return query.getSingleResult();
     }
     
 }

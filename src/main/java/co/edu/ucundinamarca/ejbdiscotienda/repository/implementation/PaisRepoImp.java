@@ -11,6 +11,8 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -25,32 +27,43 @@ public class PaisRepoImp implements IPaisRepo{
     
     @Override
     public List<Pais> obtenerTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TypedQuery<Pais> query = this.manager.createNamedQuery("Pais.obtenerTodos", Pais.class);
+        return query.getResultList();
     }
 
     @Override
     public Pais obtenerPorId(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.manager.find(Pais.class, id);
     }
 
     @Override
-    public void crear(Pais entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void crear(Pais pais) {
+        this.manager.persist(pais);
     }
 
     @Override
-    public void editar(Pais entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void editar(Pais pais) {
+        Pais paisOriginal = this.obtenerPorId(pais.getId());
+        paisOriginal.setNombre(pais.getNombre());
     }
 
     @Override
-    public void eliminar(Pais entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void eliminar(Pais pais) {
+        this.manager.remove(pais);
     }
 
     @Override
     public void eliminarPorId(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Query eliminacion = manager.createNamedQuery("Pais.eliminarPorId");
+        eliminacion.setParameter("id", id);
+        eliminacion.executeUpdate();
+    }
+
+    @Override
+    public Pais obtenerPorNombre(String nombre) {
+        TypedQuery<Pais> query = this.manager.createNamedQuery("Pais.obtenerPorNombre", Pais.class);
+        query.setParameter("nombre", nombre);
+        return query.getSingleResult();
     }
     
 }

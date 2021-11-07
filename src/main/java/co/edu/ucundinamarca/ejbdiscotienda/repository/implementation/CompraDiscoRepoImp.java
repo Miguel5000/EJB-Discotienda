@@ -14,6 +14,8 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 
 /**
@@ -29,42 +31,51 @@ public class CompraDiscoRepoImp implements ICompraDiscoRepo{
     
     @Override
     public CompraDisco obtenerPorCompraYDisco(Compra compra, Disco disco) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TypedQuery<CompraDisco> query = this.manager.createNamedQuery("CompraDisco.obtenerPorCompraYDisco", CompraDisco.class);
+        query.setParameter("idCo", compra.getId());
+        query.setParameter("idDis", disco.getId());
+        return query.getSingleResult();
     }
 
     @Override
     public List<VentasDisco> obtenerVentas() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TypedQuery<VentasDisco> query = this.manager.createNamedQuery("VentasArtista.obtenerTodos", VentasDisco.class);
+        return query.getResultList();
     }
 
     @Override
     public List<CompraDisco> obtenerTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TypedQuery<CompraDisco> query = this.manager.createNamedQuery("CompraCancion.obtenerTodos", CompraDisco.class);
+        return query.getResultList();
     }
 
     @Override
     public CompraDisco obtenerPorId(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.manager.find(CompraDisco.class, id);
     }
 
     @Override
-    public void crear(CompraDisco entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void crear(CompraDisco compraDisco) {
+        this.manager.persist(compraDisco);
     }
 
     @Override
-    public void editar(CompraDisco entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void editar(CompraDisco compraDisco) {
+        CompraDisco compraDiscoOriginal = this.obtenerPorId(compraDisco.getId());
+        compraDiscoOriginal.setCompra(compraDisco.getCompra());
+        compraDiscoOriginal.setDisco(compraDisco.getDisco());
     }
 
     @Override
-    public void eliminar(CompraDisco entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void eliminar(CompraDisco compraDisco) {
+        this.manager.remove(compraDisco);
     }
 
     @Override
     public void eliminarPorId(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Query eliminacion = manager.createNamedQuery("CompraDisco.eliminarPorId");
+        eliminacion.setParameter("id", id);
+        eliminacion.executeUpdate();
     }
     
 }

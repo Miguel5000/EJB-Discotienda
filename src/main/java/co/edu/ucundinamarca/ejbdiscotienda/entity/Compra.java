@@ -17,6 +17,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
@@ -29,6 +33,11 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "compras", schema = "compras")
+@NamedQueries({
+    @NamedQuery(name = "Compra.obtenerTodos", query = "SELECT c FROM Compra c"),
+    @NamedQuery(name = "Compra.eliminarPorId" , query = "DELETE FROM Compra c WHERE c.id = :id")
+})
+
 public class Compra implements Serializable{
     
     @Id
@@ -54,6 +63,7 @@ public class Compra implements Serializable{
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "compra", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CompraDisco> comprasDiscos;
     
+    @NotNull(message = "La compra debe estar asociada a un usuario")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario usuario;

@@ -21,5 +21,7 @@ import javax.ejb.Local;
 public interface ICompraCancionRepo extends ICrud<CompraCancion, Integer>{
     
     public CompraCancion obtenerPorCompraYCancion(Compra compra, Cancion cancion);
+    
     public List<VentasCancion> obtenerVentas();
+    
 }

@@ -21,5 +21,6 @@ public interface IDiscoRepo extends ICrud<Disco, Integer> {
     
     public List<Disco> obtenerListaPorArtista(Artista artista);
     public List<Disco> obtenerListaPorCompra(Compra compra);
+    public Disco obtenerPorNombreYArtista(String nombre, Artista artista);
     
 }

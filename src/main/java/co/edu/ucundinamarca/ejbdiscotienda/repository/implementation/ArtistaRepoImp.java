@@ -12,6 +12,8 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -26,37 +28,55 @@ public class ArtistaRepoImp implements IArtistaRepo{
     
     @Override
     public List<VentasArtista> obtenerVentas() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TypedQuery<VentasArtista> query = this.manager.createNamedQuery("VentasArtista.obtenerTodos", VentasArtista.class);
+        return query.getResultList();
     }
 
     @Override
     public List<Artista> obtenerTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TypedQuery<Artista> query = this.manager.createNamedQuery("Artista.obtenerTodos", Artista.class);
+        return query.getResultList();
     }
 
     @Override
     public Artista obtenerPorId(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.manager.find(Artista.class, id);
     }
 
     @Override
-    public void crear(Artista entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void crear(Artista artista) {
+        this.manager.persist(artista);
     }
 
     @Override
-    public void editar(Artista entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void editar(Artista artista) {
+        Artista artistaOriginal = this.obtenerPorId(artista.getId());
+        artistaOriginal.setApellidos(artista.getApellidos());
+        artistaOriginal.setFechaDeNacimiento(artista.getFechaDeNacimiento());
+        artistaOriginal.setFoto(artista.getFoto());
+        artistaOriginal.setGenero(artista.getGenero());
+        artistaOriginal.setNombreArtistico(artista.getNombreArtistico());
+        artistaOriginal.setNombres(artista.getNombres());
+        artistaOriginal.setPais(artista.getPais());
     }
 
     @Override
-    public void eliminar(Artista entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void eliminar(Artista artista) {
+        this.manager.remove(artista);
     }
 
     @Override
     public void eliminarPorId(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Query eliminacion = manager.createNamedQuery("Artista.eliminarPorId");
+        eliminacion.setParameter("id", id);
+        eliminacion.executeUpdate();
+    }
+
+    @Override
+    public Artista obtenerPorFoto(String foto) {
+        TypedQuery<Artista> query = this.manager.createNamedQuery("Artista.obtenerPorFoto", Artista.class);
+        query.setParameter("foto", foto);
+        return query.getSingleResult();
     }
     
 }

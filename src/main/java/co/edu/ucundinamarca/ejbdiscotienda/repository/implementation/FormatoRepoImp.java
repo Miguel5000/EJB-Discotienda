@@ -11,6 +11,8 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -25,32 +27,43 @@ public class FormatoRepoImp implements IFormatoRepo{
     
     @Override
     public List<Formato> obtenerTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TypedQuery<Formato> query = this.manager.createNamedQuery("Formato.obtenerTodos", Formato.class);
+        return query.getResultList();
     }
 
     @Override
     public Formato obtenerPorId(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.manager.find(Formato.class, id);
     }
 
     @Override
-    public void crear(Formato entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void crear(Formato formato) {
+        this.manager.persist(formato);
     }
 
     @Override
-    public void editar(Formato entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void editar(Formato formato) {
+        Formato formatoOriginal = this.obtenerPorId(formato.getId());
+        formatoOriginal.setNombre(formato.getNombre());
     }
 
     @Override
-    public void eliminar(Formato entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void eliminar(Formato formato) {
+        this.manager.remove(formato);
     }
 
     @Override
     public void eliminarPorId(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Query eliminacion = manager.createNamedQuery("Formato.eliminarPorId");
+        eliminacion.setParameter("id", id);
+        eliminacion.executeUpdate();
+    }
+
+    @Override
+    public Formato obtenerPorNombre(String nombre) {
+        TypedQuery<Formato> query = this.manager.createNamedQuery("Formato.obtenerPorNombre", Formato.class);
+        query.setParameter("nombre", nombre);
+        return query.getSingleResult();
     }
     
 }

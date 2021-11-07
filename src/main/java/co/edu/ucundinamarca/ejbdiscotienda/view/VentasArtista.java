@@ -7,6 +7,10 @@ package co.edu.ucundinamarca.ejbdiscotienda.view;
 
 import java.sql.Date;
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -14,9 +18,15 @@ import javax.persistence.Table;
  * @author Miguel
  */
 
+@Entity
 @Table(name = "ventas_artistas", schema = "compras")
+@NamedQueries({
+    @NamedQuery(name = "VentasArtista.obtenerTodos", query = "SELECT v FROM VentasArtista v"),
+})
+
 public class VentasArtista {
     
+    @Id
     @Column(name = "id")
     private Integer id;
     

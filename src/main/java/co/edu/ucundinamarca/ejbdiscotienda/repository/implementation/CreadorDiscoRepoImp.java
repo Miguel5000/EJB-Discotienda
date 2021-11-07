@@ -5,12 +5,16 @@
  */
 package co.edu.ucundinamarca.ejbdiscotienda.repository.implementation;
 
+import co.edu.ucundinamarca.ejbdiscotienda.entity.Artista;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.CreadorDisco;
+import co.edu.ucundinamarca.ejbdiscotienda.entity.Disco;
 import co.edu.ucundinamarca.ejbdiscotienda.repository.ICreadorDiscoRepo;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -25,32 +29,45 @@ public class CreadorDiscoRepoImp implements ICreadorDiscoRepo{
     
     @Override
     public List<CreadorDisco> obtenerTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TypedQuery<CreadorDisco> query = this.manager.createNamedQuery("CompraCancion.obtenerTodos", CreadorDisco.class);
+        return query.getResultList();
     }
 
     @Override
     public CreadorDisco obtenerPorId(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.manager.find(CreadorDisco.class, id);
     }
 
     @Override
-    public void crear(CreadorDisco entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void crear(CreadorDisco creadorDisco) {
+        this.manager.persist(creadorDisco);
     }
 
     @Override
-    public void editar(CreadorDisco entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void editar(CreadorDisco creadorDisco) {
+        CreadorDisco creadorDiscoOriginal = this.obtenerPorId(creadorDisco.getId());
+        creadorDiscoOriginal.setArtista(creadorDisco.getArtista());
+        creadorDiscoOriginal.setDisco(creadorDisco.getDisco());
     }
 
     @Override
-    public void eliminar(CreadorDisco entidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void eliminar(CreadorDisco creadorDisco) {
+        this.manager.remove(creadorDisco);
     }
 
     @Override
     public void eliminarPorId(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Query eliminacion = manager.createNamedQuery("CreadorDisco.eliminarPorId");
+        eliminacion.setParameter("id", id);
+        eliminacion.executeUpdate();
+    }
+
+    @Override
+    public CreadorDisco obtenerPorCreadorYDisco(Artista artista, Disco disco) {
+        TypedQuery<CreadorDisco> query = this.manager.createNamedQuery("CreadorDisco.obtenerPorCreadorYDisco", CreadorDisco.class);
+        query.setParameter("idArtista", artista.getId());
+        query.setParameter("idDisco", disco.getId());
+        return query.getSingleResult();
     }
     
 }

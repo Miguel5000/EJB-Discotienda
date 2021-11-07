@@ -12,7 +12,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -21,6 +24,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "creadores_discos", schema = "creadores_discos")
+@NamedQueries({
+    @NamedQuery(name = "CreadorDisco.obtenerTodos", query = "SELECT c FROM CreadorDisco c"),
+    @NamedQuery(name = "CreadorDisco.obtenerPorCreadorYDisco", query = "SELECT c FROM CreadorDisco c WHERE c.artista.id = :idArtista AND c.disco.id = :idDisco"),
+    @NamedQuery(name = "CreadorDisco.eliminarPorId" , query = "DELETE FROM CreadorDisco c WHERE c.id = :id")
+})
+
 public class CreadorDisco {
     
     @Id
@@ -29,10 +38,12 @@ public class CreadorDisco {
     
     //Relaciones
     
+    @NotNull(message = "La creación de disco debe tener un artista asociado")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_artista", nullable = false)
     private Artista artista;
     
+    @NotNull(message = "La creación del disco debe tener un disco asociado")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_disco", nullable = false)
     private Disco disco;

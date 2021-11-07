@@ -13,7 +13,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -22,6 +27,17 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "compras_canciones", schema = "compras")
+@NamedQueries({
+    @NamedQuery(name = "CompraCancion.obtenerTodos", query = "SELECT c FROM CompraCancion c"),
+    @NamedQuery(name = "CompraCancion.obtenerPorCompraYCancion", query = "SELECT coCa FROM CompraCancion coCa "
+            + "JOIN Compra co "
+            + "ON coCa.id_compra = co.id "
+            + "JOIN Cancion ca "
+            + "ON coCa.id_cancion = ca.id "
+            + "WHERE co.id = :idCo AND ca.id = :idCa"),
+    @NamedQuery(name = "CompraCancion.eliminarPorId" , query = "DELETE FROM CompraCancion c WHERE c.id = :id")
+})
+
 public class CompraCancion implements Serializable{
     
     @Id
@@ -30,10 +46,12 @@ public class CompraCancion implements Serializable{
     
     //Relaciones
     
+    @NotNull(message = "La compra de la canción debe estar asociada a una compra")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_compra", nullable = false)
     private Compra compra;
     
+    @NotNull(message = "La compra de la canción debe estar asociada a una canción")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_cancion", nullable = false)
     private Cancion cancion;
