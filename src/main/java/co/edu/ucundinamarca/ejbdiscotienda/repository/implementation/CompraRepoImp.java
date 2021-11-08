@@ -45,10 +45,18 @@ public class CompraRepoImp implements ICompraRepo{
         
         return carrito;
     }
+    
+    @Override
+    public Compra obtenerCompraCarrito(Usuario usuario) {
+        TypedQuery<Compra> query = this.manager.createNamedQuery("CompraCancion.obtenerCompraCarrito", Compra.class);
+        query.setParameter("id", usuario.getId());
+        return query.getSingleResult();
+    }
 
     @Override
     public List<Compra> obtenerTodos() {
         TypedQuery<Compra> query = this.manager.createNamedQuery("CompraCancion.obtenerTodos", Compra.class);
+        
         return query.getResultList();
     }
 

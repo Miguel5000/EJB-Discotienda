@@ -65,7 +65,14 @@ public class PaisServiceImp implements IPaisService{
 
     @Override
     public void editar(Pais pais) throws ObtencionException, EdicionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(pais.getId() == null || this.repo.obtenerPorId(pais.getId()) == null)
+            throw new ObtencionException("El país a editar no existe");
+        
+        //Validaciones unicidad
+        if(this.repo.obtenerPorNombre(pais.getNombre()).getId().intValue() != pais.getId().intValue())
+            throw new EdicionException("Ya existe un país con ese nombre");
+        
+        this.repo.editar(pais);
     }
 
     @Override

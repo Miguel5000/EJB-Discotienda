@@ -11,6 +11,7 @@ import co.edu.ucundinamarca.ejbdiscotienda.entity.Carrito;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Compra;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Usuario;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.CreacionException;
+import co.edu.ucundinamarca.ejbdiscotienda.exception.EdicionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.ObtencionException;
 import co.edu.ucundinamarca.ejbdiscotienda.repository.ICompraRepo;
 import co.edu.ucundinamarca.ejbdiscotienda.repository.IUsuarioRepo;
@@ -78,8 +79,24 @@ public class CompraServiceImp implements ICompraService{
     }
 
     @Override
-    public void editar(Compra compra) throws ObtencionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void editar(Compra compra) throws ObtencionException, EdicionException {
+        if(compra.getId() == null || this.repo.obtenerPorId(compra.getId()) == null)
+            throw new ObtencionException("La compra a editar no existe");
+        
+        //Usuario
+        Usuario usuario = compra.getUsuario();
+        
+        if(usuario.getId() == null)
+            throw new EdicionException("El usuario debe tener un id");
+        
+        if(this.repoUsuario.obtenerPorId(usuario.getId()) == null)
+            throw new EdicionException("No existe el usuario con el que intenta vincular la compra");
+
+        //Validaciones relaciones
+        if(!compra.getRealizacion() && this.repo.obtenerCompraCarrito(usuario).getId().intValue() != compra.getId().intValue())
+            throw new EdicionException("No se puede tener más de una compra que represente al carrito");
+        
+        this.repo.editar(compra);
     }
 
     @Override

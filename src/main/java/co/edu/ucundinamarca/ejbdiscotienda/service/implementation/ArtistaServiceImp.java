@@ -69,6 +69,9 @@ public class ArtistaServiceImp implements IArtistaService{
         if(artista.getId() != null)
             throw new CreacionException("El id del artista es autoincremental");
         
+        if(artista.getFoto() != null)
+            throw new CreacionException("No se puede suministrar la url de la foto, el sistema la genera a partir de la cadena en base 64");
+        
         //Prohibición de inserción con uno a muchos
         if(artista.getCreaciones() != null)
             throw new CreacionException("La inserción en cascada no está permitida");
@@ -101,11 +104,31 @@ public class ArtistaServiceImp implements IArtistaService{
             throw new ObtencionException("El artista a editar no existe");
         if(artista.getFoto() != null)
             throw new EdicionException("No se puede suministrar la url de la foto, el sistema la genera a partir de la cadena en base 64");
+        
+        //Género
+        Genero genero = artista.getGenero();
+        
+        if(genero.getId() == null)
+            throw new EdicionException("El género debe tener un id");
+        
+        if(this.repoGenero.obtenerPorId(genero.getId()) == null)
+            throw new EdicionException("No existe el género con el que intenta vincular al artista");
+
+        //País
+        Pais pais = artista.getPais();
+        
+        if(pais.getId() == null)
+            throw new EdicionException("El país debe tener un id");
+        
+        if(this.repoPais.obtenerPorId(pais.getId()) == null)
+            throw new EdicionException("No existe el país con el que intenta vincular al artista");
+        
         if(artista.getFotoBase64() != null){
             //Inserción de foto en el servidor
         
             //Asígnación del campo foto al artista
         }
+        
         this.repo.editar(artista);
     }
 

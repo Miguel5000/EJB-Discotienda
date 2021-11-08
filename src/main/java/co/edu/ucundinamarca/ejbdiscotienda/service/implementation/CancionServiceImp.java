@@ -74,7 +74,7 @@ public class CancionServiceImp implements ICancionService{
             throw new CreacionException("La creación de formatos en la inserción de canciones no está permitida");
         
         if(this.repoFormato.obtenerPorId(formato.getId()) == null)
-            throw new CreacionException("No existe el formato con el que intenta vincular al artista");
+            throw new CreacionException("No existe el formato con el que intenta vincular la canción");
 
         //Disco
         Disco disco = cancion.getDisco();
@@ -86,7 +86,7 @@ public class CancionServiceImp implements ICancionService{
             throw new CreacionException("No existe el disco con el que intenta vincular la canción");
         
         //Validaciones en relaciones
-        if(repo.obtenerPorNombreYDisco(cancion.getNombre(), cancion.getDisco()) != null)
+        if(this.repo.obtenerPorNombreYDisco(cancion.getNombre(), cancion.getDisco()) != null)
             throw new CreacionException("Ya existe una canción con ese nombre en el disco");
         
         this.repo.crear(cancion);
@@ -94,7 +94,32 @@ public class CancionServiceImp implements ICancionService{
 
     @Override
     public void editar(Cancion cancion) throws ObtencionException, EdicionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(cancion.getId() == null || this.repo.obtenerPorId(cancion.getId()) == null)
+            throw new ObtencionException("La canción a editar no existe");
+        //Formato
+        Formato formato = cancion.getFormato();
+        
+        if(formato.getId() == null)
+            throw new EdicionException("El formato debe tener un id");
+        
+        if(this.repoFormato.obtenerPorId(formato.getId()) == null)
+            throw new EdicionException("No existe el formato con el que intenta vincular la canción");
+
+        //Disco
+        Disco disco = cancion.getDisco();
+        
+        if(disco.getId() == null)
+            throw new EdicionException("El disco debe tener un id");
+        
+        if(this.repoDisco.obtenerPorId(disco.getId()) == null)
+            throw new EdicionException("No existe el disco con el que intenta vincular la canción");
+        
+        //Validaciones en relaciones
+        if(this.repo.obtenerPorNombreYDisco(cancion.getNombre(), cancion.getDisco()).getId().intValue() != cancion.getId().intValue()) 
+            throw new EdicionException("Ya existe una canción con ese nombre en el disco");
+        
+        this.repo.editar(cancion);
+        
     }
 
     @Override

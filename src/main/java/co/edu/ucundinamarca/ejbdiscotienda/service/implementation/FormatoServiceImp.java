@@ -65,7 +65,14 @@ public class FormatoServiceImp implements IFormatoService{
 
     @Override
     public void editar(Formato formato) throws ObtencionException, EdicionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(formato.getId() == null || this.repo.obtenerPorId(formato.getId()) == null)
+            throw new ObtencionException("El formato a editar no existe");
+        
+        //Validaciones unicidad
+        if(this.repo.obtenerPorNombre(formato.getNombre()).getId().intValue() != formato.getId().intValue())
+            throw new EdicionException("Ya existe un formato con ese nombre");
+        
+        this.repo.editar(formato);
     }
 
     @Override

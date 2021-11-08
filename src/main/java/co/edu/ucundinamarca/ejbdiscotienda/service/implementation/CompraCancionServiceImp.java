@@ -90,7 +90,31 @@ public class CompraCancionServiceImp implements ICompraCancionService{
 
     @Override
     public void editar(CompraCancion compraCancion) throws ObtencionException, EdicionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(compraCancion.getId() == null || this.repo.obtenerPorId(compraCancion.getId()) == null)
+            throw new ObtencionException("La compra de la canción a editar no existe");
+        //Compra
+        Compra compra = compraCancion.getCompra();
+        
+        if(compra.getId() == null)
+            throw new EdicionException("La compra debe tener un id");
+        
+        if(this.repoCompra.obtenerPorId(compra.getId()) == null)
+            throw new EdicionException("No existe la compra con la que intenta vincular la compra de la canción");
+
+        //Canción
+        Cancion cancion = compraCancion.getCancion();
+        
+        if(cancion.getId() == null)
+            throw new EdicionException("La canción debe tener un id");
+        
+        if(this.repoCancion.obtenerPorId(cancion.getId()) == null)
+            throw new EdicionException("No existe la canción con la que intenta vincular la compra de la canción");
+        
+        //Validaciones relaciones
+        if(this.repo.obtenerPorCompraYCancion(compra, cancion).getId().intValue() != compraCancion.getId().intValue())
+            throw new EdicionException("Ya está registrada la canción en la compra");
+        
+        this.repo.editar(compraCancion);
     }
 
     @Override

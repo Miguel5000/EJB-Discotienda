@@ -65,7 +65,14 @@ public class RolServiceImp implements IRolService{
 
     @Override
     public void editar(Rol rol) throws ObtencionException, EdicionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(rol.getId() == null || this.repo.obtenerPorId(rol.getId()) == null)
+            throw new ObtencionException("El rol a editar no existe");
+        
+        //Validaciones unicidad
+        if(this.repo.obtenerPorNombre(rol.getNombre()).getId().intValue() != rol.getId().intValue())
+            throw new EdicionException("Ya existe un rol con ese nombre");
+        
+        this.repo.editar(rol);
     }
 
     @Override

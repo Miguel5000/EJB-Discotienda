@@ -61,7 +61,10 @@ public class DiscoServiceImp implements IDiscoService{
 
     @Override
     public void editar(Disco disco) throws ObtencionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(disco.getId() == null || this.repo.obtenerPorId(disco.getId()) == null)
+            throw new ObtencionException("El disco a editar no existe");
+        
+        this.repo.editar(disco);
     }
 
     @Override

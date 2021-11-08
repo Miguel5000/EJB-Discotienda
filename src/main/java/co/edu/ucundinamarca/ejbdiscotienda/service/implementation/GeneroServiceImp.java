@@ -65,7 +65,14 @@ public class GeneroServiceImp implements IGeneroService{
 
     @Override
     public void editar(Genero genero) throws ObtencionException, EdicionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(genero.getId() == null || this.repo.obtenerPorId(genero.getId()) == null)
+            throw new ObtencionException("El género a editar no existe");
+        
+        //Validaciones unicidad
+        if(this.repo.obtenerPorNombre(genero.getNombre()).getId().intValue() != genero.getId().intValue())
+            throw new EdicionException("Ya existe un genero con ese nombre");
+        
+        this.repo.editar(genero);
     }
 
     @Override

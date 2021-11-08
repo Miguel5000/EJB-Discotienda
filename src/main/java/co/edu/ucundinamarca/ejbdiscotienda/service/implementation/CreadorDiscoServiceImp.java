@@ -89,7 +89,32 @@ public class CreadorDiscoServiceImp implements ICreadorDiscoService{
 
     @Override
     public void editar(CreadorDisco creacionDisco) throws ObtencionException, EdicionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(creacionDisco.getId() == null || this.repo.obtenerPorId(creacionDisco.getId()) == null)
+            throw new ObtencionException("La creación de disco a editar no existe");
+        
+        //Artista
+        Artista artista = creacionDisco.getArtista();
+        
+        if(artista.getId() == null)
+            throw new EdicionException("El artista debe tener un id");
+        
+        if(this.repoArtista.obtenerPorId(artista.getId()) == null)
+            throw new EdicionException("No existe el artista con el que intenta vincular la creación del disco");
+
+        //Disco
+        Disco disco = creacionDisco.getDisco();
+        
+        if(disco.getId() == null)
+            throw new EdicionException("El disco debe tener un id");
+        
+        if(this.repoDisco.obtenerPorId(disco.getId()) == null)
+            throw new EdicionException("No existe el disco con el que intenta vincular la creación del disco");
+        
+        //Validaciones relaciones
+        if(this.repo.obtenerPorCreadorYDisco(artista, disco).getId().intValue() != creacionDisco.getId())
+            throw new EdicionException("Un mismo artista no puede tener el mismo disco registrado 2 veces");
+        
+        this.repo.editar(creacionDisco);
     }
 
     @Override

@@ -88,7 +88,32 @@ public class UsuarioServiceImp implements IUsuarioService{
 
     @Override
     public void editar(Usuario usuario) throws ObtencionException, EdicionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(usuario.getId() == null || this.repo.obtenerPorId(usuario.getId()) == null)
+            throw new ObtencionException("El usuario a editar no existe");
+        
+        //Rol
+        Rol rol = usuario.getRol();
+        
+        if(rol.getId() == null)
+            throw new EdicionException("El rol debe tener un id");
+        
+        if(this.repoRol.obtenerPorId(rol.getId()) == null)
+            throw new EdicionException("No existe el rol con el que intenta vincular al usuario");
+
+        //Validaciones unicidad
+        if(this.repo.obtenerPorCorreo(usuario.getCorreo()).getId().intValue() != usuario.getId().intValue())
+            throw new EdicionException("Ya existe un usuario con ese correo");
+        
+        if(usuario.getNuevoCorreo() != null && this.repo.obtenerPorNuevoCorreo(usuario.getNuevoCorreo()).getId().intValue() != usuario.getId().intValue())
+            throw new EdicionException("Ya existe un usuario con ese nuevo correo");
+        
+        if(usuario.getTokenRecuperacion() != null && this.repo.obtenerPorTokenDeRecuperacion(usuario.getTokenRecuperacion()).getId().intValue() != usuario.getId().intValue())
+            throw new EdicionException("Ya existe un usuario con ese token de recuperacion");
+        
+        if(usuario.getTokenCambioCorreo()!= null && this.repo.obtenerPorTokenDeNuevoCorreo(usuario.getTokenCambioCorreo()).getId().intValue() != usuario.getId().intValue())
+            throw new EdicionException("Ya existe un usuario con ese token de cambio de correo");
+        
+        this.repo.editar(usuario);
     }
 
     @Override

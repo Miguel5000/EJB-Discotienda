@@ -19,5 +19,7 @@ import javax.ejb.Local;
 public interface ICompraRepo extends ICrud<Compra, Integer>{
     
     public Carrito obtenerCarrito(Usuario usuario);
+    
+    public Compra obtenerCompraCarrito(Usuario usuario);
 
 }

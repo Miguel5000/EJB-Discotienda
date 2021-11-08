@@ -35,6 +35,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "compras", schema = "compras")
 @NamedQueries({
     @NamedQuery(name = "Compra.obtenerTodos", query = "SELECT c FROM Compra c"),
+    @NamedQuery(name = "Compra.obtenerCompraCarrito", query = "SELECT c FROM Compra c WHERE c.usuario.id == :id AND c.realizacion == false"),
     @NamedQuery(name = "Compra.eliminarPorId" , query = "DELETE FROM Compra c WHERE c.id = :id")
 })
 

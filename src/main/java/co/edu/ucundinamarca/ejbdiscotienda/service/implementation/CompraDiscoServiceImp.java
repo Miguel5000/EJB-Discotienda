@@ -89,7 +89,32 @@ public class CompraDiscoServiceImp implements co.edu.ucundinamarca.ejbdiscotiend
 
     @Override
     public void editar(CompraDisco compraDisco) throws ObtencionException, EdicionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(compraDisco.getId() == null || this.repo.obtenerPorId(compraDisco.getId()) == null)
+            throw new ObtencionException("La compra del disco a editar no existe");
+        
+        //Compra
+        Compra compra = compraDisco.getCompra();
+        
+        if(compra.getId() == null)
+            throw new EdicionException("La compra debe tener un id");
+        
+        if(this.repoCompra.obtenerPorId(compra.getId()) == null)
+            throw new EdicionException("No existe la compra con la que intenta vincular la compra del disco");
+
+        //Disco
+        Disco disco = compraDisco.getDisco();
+        
+        if(disco.getId() == null)
+            throw new EdicionException("El disco debe tener un id");
+        
+        if(this.repoDisco.obtenerPorId(disco.getId()) == null)
+            throw new EdicionException("No existe el disco con el que intenta vincular la compra del disco");
+        
+        //Validaciones relaciones
+        if(this.repo.obtenerPorCompraYDisco(compra, disco).getId().intValue() != compraDisco.getId().intValue())
+            throw new EdicionException("El disco ya está registrado en la compra");
+        
+        this.repo.editar(compraDisco);
     }
 
     @Override
