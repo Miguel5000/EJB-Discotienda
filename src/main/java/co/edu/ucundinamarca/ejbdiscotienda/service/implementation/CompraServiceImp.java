@@ -115,13 +115,20 @@ public class CompraServiceImp implements ICompraService{
     }
 
     @Override
-    public void comprar(Compra compra) throws ObtencionException {
-        
+    public void comprar(Integer id) throws ObtencionException {
+        Compra compra = this.repo.obtenerPorId(id);
+        if(compra == null)
+            throw new ObtencionException("La compra a comprar no existe");
+        compra.setRealizacion(Boolean.TRUE);
+        this.repo.editar(compra);
     }
 
     @Override
     public Carrito obtenerCarrito(Usuario usuario) throws ObtencionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Carrito carrito = this.repo.obtenerCarrito(usuario);
+        if(carrito.getCanciones() == null && carrito.getDiscos() == null)
+            throw new ObtencionException("No hay carrito");
+        return carrito;
     }
     
 }

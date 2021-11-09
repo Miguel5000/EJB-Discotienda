@@ -5,6 +5,7 @@
  */
 package co.edu.ucundinamarca.ejbdiscotienda.entity;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -33,7 +34,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Pais.eliminarPorId" , query = "DELETE FROM Pais p WHERE p.id = :id")
 })
 
-public class Pais {
+public class Pais implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,7 +47,7 @@ public class Pais {
 
     //Relaciones
     
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "genero", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pais", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Artista> artistas;
     
     public Pais() {

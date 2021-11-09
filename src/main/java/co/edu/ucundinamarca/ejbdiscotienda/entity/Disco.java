@@ -5,6 +5,7 @@
  */
 package co.edu.ucundinamarca.ejbdiscotienda.entity;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -14,8 +15,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedNativeQueries;
-import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -55,12 +54,12 @@ import javax.validation.constraints.Size;
             + "JOIN CreadorDisco creDis "
             + "ON dis.id = creDis.idDisco "
             + "JOIN Artista ar "
-            + "ON creDis.id_artista = ar.id"
+            + "ON creDis.id_artista = ar.id "
             + "WHERE ar.id = :id AND dis.nombre = :nombre"),
     @NamedQuery(name = "Disco.eliminarPorId" , query = "DELETE FROM Disco d WHERE d.id = :id")
 })
 
-public class Disco {
+public class Disco implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

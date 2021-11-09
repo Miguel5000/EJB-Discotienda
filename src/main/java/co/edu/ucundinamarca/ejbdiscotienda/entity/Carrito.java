@@ -7,13 +7,14 @@ package co.edu.ucundinamarca.ejbdiscotienda.entity;
 
 import co.edu.ucundinamarca.ejbdiscotienda.dto.CancionDto;
 import co.edu.ucundinamarca.ejbdiscotienda.dto.DiscoDto;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *
  * @author Miguel
  */
-public class Carrito {
+public class Carrito implements Serializable{
     
     private List<CancionDto> canciones;
     private List<DiscoDto> discos;

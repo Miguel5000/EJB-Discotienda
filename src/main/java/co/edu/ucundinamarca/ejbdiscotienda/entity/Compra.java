@@ -17,8 +17,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedNativeQueries;
-import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -35,7 +33,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "compras", schema = "compras")
 @NamedQueries({
     @NamedQuery(name = "Compra.obtenerTodos", query = "SELECT c FROM Compra c"),
-    @NamedQuery(name = "Compra.obtenerCompraCarrito", query = "SELECT c FROM Compra c WHERE c.usuario.id == :id AND c.realizacion == false"),
+    @NamedQuery(name = "Compra.obtenerCompraCarrito", query = "SELECT c FROM Compra c WHERE c.usuario.id = :id AND c.realizacion = false"),
     @NamedQuery(name = "Compra.eliminarPorId" , query = "DELETE FROM Compra c WHERE c.id = :id")
 })
 

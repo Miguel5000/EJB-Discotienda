@@ -134,12 +134,18 @@ public class CompraDiscoServiceImp implements co.edu.ucundinamarca.ejbdiscotiend
 
     @Override
     public void retirarDisco(Disco disco, Compra compra) throws ObtencionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        CompraDisco compraDisco = this.repo.obtenerPorCompraYDisco(compra, disco);
+        if(compraDisco == null)
+            throw new ObtencionException("El disco no está en la compra");
+        this.repo.eliminar(compraDisco);
     }
 
     @Override
     public List<VentasDisco> obtenerVentas() throws ObtencionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<VentasDisco> ventasDiscos = this.repo.obtenerVentas();
+        if(ventasDiscos == null || ventasDiscos.isEmpty())
+            throw new ObtencionException("No hay ventas de discos disponibles");
+        return ventasDiscos;
     }
     
 }

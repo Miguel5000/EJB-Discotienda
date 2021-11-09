@@ -134,12 +134,18 @@ public class CompraCancionServiceImp implements ICompraCancionService{
 
     @Override
     public void retirarCancion(Cancion cancion, Compra compra) throws ObtencionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        CompraCancion compraCancion = this.repo.obtenerPorCompraYCancion(compra, cancion);
+        if(compraCancion == null)
+            throw new ObtencionException("La canción no está en la compra");
+        this.repo.eliminar(compraCancion);
     }
 
     @Override
     public List<VentasCancion> obtenerVentas() throws ObtencionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<VentasCancion> ventasCanciones = this.repo.obtenerVentas();
+        if(ventasCanciones == null || ventasCanciones.isEmpty())
+            throw new ObtencionException("No hay ventas de canciones disponibles");
+        return ventasCanciones;
     }
     
 }

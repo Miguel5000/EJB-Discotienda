@@ -5,6 +5,7 @@
  */
 package co.edu.ucundinamarca.ejbdiscotienda.entity;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -16,8 +17,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedNativeQueries;
-import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -39,7 +38,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Artista.obtenerPorFoto" , query = "SELECT a FROM Artista a WHERE a.foto = :foto"),
 })
 
-public class Artista {
+public class Artista implements Serializable{
  
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

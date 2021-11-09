@@ -5,6 +5,7 @@
  */
 package co.edu.ucundinamarca.ejbdiscotienda.entity;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -30,7 +31,7 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(name = "CreadorDisco.eliminarPorId" , query = "DELETE FROM CreadorDisco c WHERE c.id = :id")
 })
 
-public class CreadorDisco {
+public class CreadorDisco implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

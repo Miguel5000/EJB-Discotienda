@@ -139,12 +139,20 @@ public class CancionServiceImp implements ICancionService{
 
     @Override
     public List<CancionDto> obtenerListaPorCompra(Compra compra) throws ObtencionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Cancion> canciones = this.repo.obtenerListaPorCompra(compra);
+        if(canciones == null || canciones.isEmpty())
+            throw new ObtencionException("La compra no tiene canciones");
+        List<CancionDto> cancionesDto = CancionDtoManager.convertir(canciones);
+        return cancionesDto;
     }
 
     @Override
     public List<CancionDto> obtenerListaPorDisco(Disco disco) throws ObtencionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Cancion> canciones = this.repo.obtenerListaPorDisco(disco);
+        if(canciones == null || canciones.isEmpty())
+            throw new ObtencionException("El disco no tiene canciones");
+        List<CancionDto> cancionesDto = CancionDtoManager.convertir(canciones);
+        return cancionesDto;
     }
     
 }

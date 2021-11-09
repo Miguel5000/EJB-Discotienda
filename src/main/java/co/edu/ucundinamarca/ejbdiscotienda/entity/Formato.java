@@ -5,6 +5,7 @@
  */
 package co.edu.ucundinamarca.ejbdiscotienda.entity;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -33,7 +34,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Formato.eliminarPorId" , query = "DELETE FROM Formato f WHERE f.id = :id")
 })
 
-public class Formato {
+public class Formato implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
