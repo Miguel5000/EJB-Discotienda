@@ -62,12 +62,7 @@ public class ArtistaRepoImp implements IArtistaRepo{
     }
 
     @Override
-    public void eliminar(Artista artista) {
-        this.manager.remove(artista);
-    }
-
-    @Override
-    public void eliminarPorId(Integer id) {
+    public void eliminar(Integer id) {
         Query eliminacion = manager.createNamedQuery("Artista.eliminarPorId");
         eliminacion.setParameter("id", id);
         eliminacion.executeUpdate();
@@ -77,7 +72,8 @@ public class ArtistaRepoImp implements IArtistaRepo{
     public Artista obtenerPorFoto(String foto) {
         TypedQuery<Artista> query = this.manager.createNamedQuery("Artista.obtenerPorFoto", Artista.class);
         query.setParameter("foto", foto);
-        return query.getSingleResult();
+        
+        return query.getResultList().isEmpty() ? null: query.getSingleResult();
     }
     
 }

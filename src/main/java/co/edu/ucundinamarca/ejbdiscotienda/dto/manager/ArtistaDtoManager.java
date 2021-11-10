@@ -28,7 +28,7 @@ public class ArtistaDtoManager {
                     skip(destination.getCreaciones());
                     //skip(destination.getGenero());
                     //skip(destination.getPais());
-                    skip(destination.getFotoBase64());
+                    skip(destination.getFotoEnBytes());
                 }
          };
         

@@ -69,25 +69,19 @@ public class FormatoServiceImp implements IFormatoService{
             throw new ObtencionException("El formato a editar no existe");
         
         //Validaciones unicidad
-        if(this.repo.obtenerPorNombre(formato.getNombre()).getId().intValue() != formato.getId().intValue())
+        Formato formatoPorNombre = this.repo.obtenerPorNombre(formato.getNombre());
+        if(formatoPorNombre != null && formatoPorNombre.getId().intValue() != formato.getId().intValue())
             throw new EdicionException("Ya existe un formato con ese nombre");
         
         this.repo.editar(formato);
     }
 
     @Override
-    public void eliminar(Formato formato) throws ObtencionException {
-        if(formato.getId() == null || this.repo.obtenerPorId(formato.getId()) == null)
-            throw new ObtencionException("El formato a eliminar no existe");
-        this.repo.eliminar(formato);
-    }
-
-    @Override
-    public void eliminarPorId(Integer id) throws ObtencionException {
+    public void eliminar(Integer id) throws ObtencionException {
         Formato formato = this.repo.obtenerPorId(id);
         if(formato == null)
             throw new ObtencionException("El formato a eliminar no existe");
-        this.repo.eliminarPorId(id);
+        this.repo.eliminar(id);
     }
     
 }

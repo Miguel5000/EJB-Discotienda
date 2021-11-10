@@ -20,9 +20,7 @@ public interface ICrud<Entidad, TipoLlavePrimaria> {
     public void crear(Entidad entidad);
     
     public void editar(Entidad entidad);
-    
-    public void eliminar(Entidad entidad);
-    
-    public void eliminarPorId(TipoLlavePrimaria id);
+
+    public void eliminar(TipoLlavePrimaria id);
     
 }

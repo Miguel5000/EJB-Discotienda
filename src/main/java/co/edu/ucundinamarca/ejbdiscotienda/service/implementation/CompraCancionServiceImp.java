@@ -82,7 +82,7 @@ public class CompraCancionServiceImp implements ICompraCancionService{
             throw new CreacionException("No existe la canción con la que intenta vincular la compra de la canción");
         
         //Validaciones relaciones
-        if(this.repo.obtenerPorCompraYCancion(compra, cancion) != null)
+        if(this.repo.obtenerPorCompraYCancion(compra.getId(), cancion.getId()) != null)
             throw new CreacionException("La canción no se puede registrar otra vez en la compra");
         
         this.repo.crear(compraCancion);
@@ -111,33 +111,28 @@ public class CompraCancionServiceImp implements ICompraCancionService{
             throw new EdicionException("No existe la canción con la que intenta vincular la compra de la canción");
         
         //Validaciones relaciones
-        if(this.repo.obtenerPorCompraYCancion(compra, cancion).getId().intValue() != compraCancion.getId().intValue())
+        CompraCancion compraCancionPorCompraYCancion = this.repo.obtenerPorCompraYCancion(compra.getId(), cancion.getId());
+        
+        if(compraCancionPorCompraYCancion != null && compraCancionPorCompraYCancion.getId().intValue() != compraCancion.getId().intValue())
             throw new EdicionException("Ya está registrada la canción en la compra");
         
         this.repo.editar(compraCancion);
     }
 
     @Override
-    public void eliminar(CompraCancion compraCancion) throws ObtencionException {
-        if(compraCancion.getId() == null || this.repo.obtenerPorId(compraCancion.getId()) == null)
-            throw new ObtencionException("La compra de la canción a eliminar no existe");
-        this.repo.eliminar(compraCancion);
-    }
-
-    @Override
-    public void eliminarPorId(Integer id) throws ObtencionException {
+    public void eliminar(Integer id) throws ObtencionException {
         CompraCancion compraCancion = this.repo.obtenerPorId(id);
         if(compraCancion == null)
             throw new ObtencionException("La compra de la canción a eliminar no existe");
-        this.repo.eliminarPorId(id);
+        this.repo.eliminar(id);
     }
 
     @Override
-    public void retirarCancion(Cancion cancion, Compra compra) throws ObtencionException {
-        CompraCancion compraCancion = this.repo.obtenerPorCompraYCancion(compra, cancion);
+    public void retirarCancion(Integer idCancion, Integer idCompra) throws ObtencionException {
+        CompraCancion compraCancion = this.repo.obtenerPorCompraYCancion(idCompra, idCancion);
         if(compraCancion == null)
             throw new ObtencionException("La canción no está en la compra");
-        this.repo.eliminar(compraCancion);
+        this.repo.eliminar(compraCancion.getId());
     }
 
     @Override

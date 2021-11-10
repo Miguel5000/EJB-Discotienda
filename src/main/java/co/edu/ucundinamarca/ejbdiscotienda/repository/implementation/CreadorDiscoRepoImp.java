@@ -51,12 +51,7 @@ public class CreadorDiscoRepoImp implements ICreadorDiscoRepo{
     }
 
     @Override
-    public void eliminar(CreadorDisco creadorDisco) {
-        this.manager.remove(creadorDisco);
-    }
-
-    @Override
-    public void eliminarPorId(Integer id) {
+    public void eliminar(Integer id) {
         Query eliminacion = manager.createNamedQuery("CreadorDisco.eliminarPorId");
         eliminacion.setParameter("id", id);
         eliminacion.executeUpdate();
@@ -67,7 +62,7 @@ public class CreadorDiscoRepoImp implements ICreadorDiscoRepo{
         TypedQuery<CreadorDisco> query = this.manager.createNamedQuery("CreadorDisco.obtenerPorCreadorYDisco", CreadorDisco.class);
         query.setParameter("idArtista", artista.getId());
         query.setParameter("idDisco", disco.getId());
-        return query.getSingleResult();
+        return query.getResultList().isEmpty() ? null: query.getSingleResult();
     }
     
 }

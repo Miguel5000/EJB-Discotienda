@@ -72,7 +72,7 @@ public class CompraServiceImp implements ICompraService{
             throw new CreacionException("No existe el usuario con el que intenta vincular la compra");
 
         //Validaciones relaciones
-        if(!compra.getRealizacion() && this.repo.obtenerCarrito(usuario) != null)
+        if(!compra.getRealizacion() && this.repo.obtenerCarrito(usuario.getId()) != null)
             throw new CreacionException("No se puede tener más de una compra que represente al carrito");
         
         this.repo.crear(compra);
@@ -93,25 +93,20 @@ public class CompraServiceImp implements ICompraService{
             throw new EdicionException("No existe el usuario con el que intenta vincular la compra");
 
         //Validaciones relaciones
-        if(!compra.getRealizacion() && this.repo.obtenerCompraCarrito(usuario).getId().intValue() != compra.getId().intValue())
+        Compra compraCarritoExistente = this.repo.obtenerCompraCarrito(usuario.getId());
+        
+        if(!compra.getRealizacion() && compraCarritoExistente != null && compraCarritoExistente.getId().intValue() != compra.getId().intValue())
             throw new EdicionException("No se puede tener más de una compra que represente al carrito");
         
         this.repo.editar(compra);
     }
 
     @Override
-    public void eliminar(Compra compra) throws ObtencionException {
-        if(compra.getId() == null || this.repo.obtenerPorId(compra.getId()) == null)
-            throw new ObtencionException("La compra a eliminar no existe");
-        this.repo.eliminar(compra);
-    }
-
-    @Override
-    public void eliminarPorId(Integer id) throws ObtencionException {
+    public void eliminar(Integer id) throws ObtencionException {
         Compra compra = this.repo.obtenerPorId(id);
         if(compra == null)
             throw new ObtencionException("La compra a eliminar no existe");
-        this.repo.eliminarPorId(id);
+        this.repo.eliminar(id);
     }
 
     @Override
@@ -124,8 +119,8 @@ public class CompraServiceImp implements ICompraService{
     }
 
     @Override
-    public Carrito obtenerCarrito(Usuario usuario) throws ObtencionException {
-        Carrito carrito = this.repo.obtenerCarrito(usuario);
+    public Carrito obtenerCarrito(Integer id) throws ObtencionException {
+        Carrito carrito = this.repo.obtenerCarrito(id);
         if(carrito.getCanciones() == null && carrito.getDiscos() == null)
             throw new ObtencionException("No hay carrito");
         return carrito;

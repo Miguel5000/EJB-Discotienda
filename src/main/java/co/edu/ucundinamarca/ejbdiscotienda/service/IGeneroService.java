@@ -28,9 +28,7 @@ public interface IGeneroService {
     public void crear(Genero genero) throws CreacionException;
     
     public void editar(Genero genero) throws ObtencionException, EdicionException;
-    
-    public void eliminar(Genero genero) throws ObtencionException;
-    
-    public void eliminarPorId(Integer id) throws ObtencionException;
+
+    public void eliminar(Integer id) throws ObtencionException;
     
 }

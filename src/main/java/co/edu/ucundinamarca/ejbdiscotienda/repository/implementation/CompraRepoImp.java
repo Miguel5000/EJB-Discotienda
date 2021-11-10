@@ -32,11 +32,13 @@ public class CompraRepoImp implements ICompraRepo{
     private EntityManager manager;
     
     @Override
-    public Carrito obtenerCarrito(Usuario usuario) {
+    public Carrito obtenerCarrito(Integer id) {
         TypedQuery<Disco> queryD = this.manager.createNamedQuery("Disco.obtenerListaDeCarrito", Disco.class);
+        queryD.setParameter("id", id);
         List<Disco> discos = queryD.getResultList();
         
         TypedQuery<Cancion> queryC = this.manager.createNamedQuery("Cancion.obtenerListaDeCarrito", Cancion.class);
+        queryC.setParameter("id", id);
         List<Cancion> canciones = queryC.getResultList();
         
         Carrito carrito = new Carrito();
@@ -47,10 +49,10 @@ public class CompraRepoImp implements ICompraRepo{
     }
     
     @Override
-    public Compra obtenerCompraCarrito(Usuario usuario) {
+    public Compra obtenerCompraCarrito(Integer id) {
         TypedQuery<Compra> query = this.manager.createNamedQuery("CompraCancion.obtenerCompraCarrito", Compra.class);
-        query.setParameter("id", usuario.getId());
-        return query.getSingleResult();
+        query.setParameter("id", id);
+        return query.getResultList().isEmpty() ? null: query.getSingleResult();
     }
 
     @Override
@@ -80,12 +82,7 @@ public class CompraRepoImp implements ICompraRepo{
     }
 
     @Override
-    public void eliminar(Compra compra) {
-        this.manager.persist(compra);
-    }
-
-    @Override
-    public void eliminarPorId(Integer id) {
+    public void eliminar(Integer id) {
         Query eliminacion = manager.createNamedQuery("Compra.eliminarPorId");
         eliminacion.setParameter("id", id);
         eliminacion.executeUpdate();

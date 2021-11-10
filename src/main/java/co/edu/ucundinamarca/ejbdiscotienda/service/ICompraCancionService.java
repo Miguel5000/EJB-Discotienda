@@ -31,12 +31,10 @@ public interface ICompraCancionService{
     public void crear(CompraCancion compraCancion) throws CreacionException;
     
     public void editar(CompraCancion compraCancion) throws ObtencionException, EdicionException;
+
+    public void eliminar(Integer id) throws ObtencionException;
     
-    public void eliminar(CompraCancion compraCancion) throws ObtencionException;
-    
-    public void eliminarPorId(Integer id) throws ObtencionException;
-    
-    public void retirarCancion(Cancion cancion, Compra compra) throws ObtencionException;
+    public void retirarCancion(Integer idCancion, Integer idCompra) throws ObtencionException;
     
     public List<VentasCancion> obtenerVentas() throws ObtencionException;
     

@@ -69,25 +69,20 @@ public class RolServiceImp implements IRolService{
             throw new ObtencionException("El rol a editar no existe");
         
         //Validaciones unicidad
-        if(this.repo.obtenerPorNombre(rol.getNombre()).getId().intValue() != rol.getId().intValue())
+        Rol rolPorNombre = this.repo.obtenerPorNombre(rol.getNombre());
+        
+        if(rolPorNombre != null && rolPorNombre.getId().intValue() != rol.getId().intValue())
             throw new EdicionException("Ya existe un rol con ese nombre");
         
         this.repo.editar(rol);
     }
 
     @Override
-    public void eliminar(Rol rol) throws ObtencionException {
-        if(rol.getId() == null || this.repo.obtenerPorId(rol.getId()) == null)
-            throw new ObtencionException("El rol a eliminar no existe");
-        this.repo.eliminar(rol);
-    }
-
-    @Override
-    public void eliminarPorId(Integer id) throws ObtencionException {
+    public void eliminar(Integer id) throws ObtencionException {
         Rol rol = this.repo.obtenerPorId(id);
         if(rol == null)
             throw new ObtencionException("El rol a eliminar no existe");
-        this.repo.eliminarPorId(id);
+        this.repo.eliminar(id);
     }
     
 }

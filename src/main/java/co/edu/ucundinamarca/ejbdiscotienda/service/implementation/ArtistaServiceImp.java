@@ -60,17 +60,10 @@ public class ArtistaServiceImp implements IArtistaService{
     @Override
     public void crear(Artista artista) throws CreacionException {
         
-        //Inserción de foto en el servidor
-        
-        //Asígnación del campo foto al artista
-        
         //Validaciones
         
         if(artista.getId() != null)
             throw new CreacionException("El id del artista es autoincremental");
-        
-        if(artista.getFoto() != null)
-            throw new CreacionException("No se puede suministrar la url de la foto, el sistema la genera a partir de la cadena en base 64");
         
         //Prohibición de inserción con uno a muchos
         if(artista.getCreaciones() != null)
@@ -122,29 +115,16 @@ public class ArtistaServiceImp implements IArtistaService{
         
         if(this.repoPais.obtenerPorId(pais.getId()) == null)
             throw new EdicionException("No existe el país con el que intenta vincular al artista");
-        
-        if(artista.getFotoBase64() != null){
-            //Inserción de foto en el servidor
-        
-            //Asígnación del campo foto al artista
-        }
-        
+
         this.repo.editar(artista);
     }
 
     @Override
-    public void eliminar(Artista artista) throws ObtencionException {
-        if(artista.getId() == null || this.repo.obtenerPorId(artista.getId()) == null)
-            throw new ObtencionException("El artista a eliminar no existe");
-        this.repo.eliminar(artista);
-    }
-
-    @Override
-    public void eliminarPorId(Integer id) throws ObtencionException {
+    public void eliminar(Integer id) throws ObtencionException {
         Artista artista = this.repo.obtenerPorId(id);
         if(artista == null)
             throw new ObtencionException("El artista a eliminar no existe");
-        this.repo.eliminarPorId(id);
+        this.repo.eliminar(id);
     }
 
     @Override

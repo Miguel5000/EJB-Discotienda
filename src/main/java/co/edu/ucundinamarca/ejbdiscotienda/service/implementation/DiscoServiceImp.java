@@ -68,18 +68,11 @@ public class DiscoServiceImp implements IDiscoService{
     }
 
     @Override
-    public void eliminar(Disco disco) throws ObtencionException {
-        if(disco.getId() == null || this.repo.obtenerPorId(disco.getId()) == null)
-            throw new ObtencionException("El disco a eliminar no existe");
-        this.repo.eliminar(disco);
-    }
-
-    @Override
-    public void eliminarPorId(Integer id) throws ObtencionException {
+    public void eliminar(Integer id) throws ObtencionException {
         Disco disco = this.repo.obtenerPorId(id);
         if(disco == null)
             throw new ObtencionException("El disco a eliminar no existe");
-        this.repo.eliminarPorId(id);
+        this.repo.eliminar(id);
     }
     
 }

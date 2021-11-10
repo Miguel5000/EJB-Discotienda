@@ -28,9 +28,7 @@ public interface IRolService {
     public void crear(Rol rol) throws CreacionException;
     
     public void editar(Rol rol) throws ObtencionException, EdicionException;
-    
-    public void eliminar(Rol rol) throws ObtencionException;
-    
-    public void eliminarPorId(Integer id) throws ObtencionException;
+
+    public void eliminar(Integer id) throws ObtencionException;
     
 }

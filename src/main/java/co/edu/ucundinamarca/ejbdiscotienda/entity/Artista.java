@@ -21,6 +21,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
@@ -67,8 +68,8 @@ public class Artista implements Serializable{
     @Column(name = "foto", nullable = true, length = 200, unique = true)
     private String foto;
     
-    @Size(min = 1, message = "La cadena en base64 no puede estar vacía")
-    private String fotoBase64;
+    @Transient
+    private Byte[] fotoEnBytes;
     
     //Relaciones
     
@@ -88,14 +89,14 @@ public class Artista implements Serializable{
     public Artista() {
     }
 
-    public Artista(Integer id, String nombres, String apellidos, String nombreArtistico, Date fechaDeNacimiento, String foto, String fotoBase64) {
+    public Artista(Integer id, String nombres, String apellidos, String nombreArtistico, Date fechaDeNacimiento, String foto, Byte[] fotoEnBytes) {
         this.id = id;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.nombreArtistico = nombreArtistico;
         this.fechaDeNacimiento = fechaDeNacimiento;
         this.foto = foto;
-        this.fotoBase64 = fotoBase64;
+        this.fotoEnBytes = fotoEnBytes;
     }
 
     /**
@@ -183,17 +184,17 @@ public class Artista implements Serializable{
     }
 
     /**
-     * @return the fotoBase64
+     * @return the fotoEnBytes
      */
-    public String getFotoBase64() {
-        return fotoBase64;
+    public Byte[] getFotoEnBytes() {
+        return fotoEnBytes;
     }
 
     /**
-     * @param fotoBase64 the fotoBase64 to set
+     * @param fotoEnBytes the fotoEnBytes to set
      */
-    public void setFotoBase64(String fotoBase64) {
-        this.fotoBase64 = fotoBase64;
+    public void setFotoEnBytes(Byte[] fotoEnBytes) {
+        this.fotoEnBytes = fotoEnBytes;
     }
 
     /**

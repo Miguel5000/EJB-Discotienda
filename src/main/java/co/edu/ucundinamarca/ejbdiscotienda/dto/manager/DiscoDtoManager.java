@@ -28,6 +28,7 @@ public class DiscoDtoManager {
                     skip(destination.getCompras());
                     skip(destination.getCreaciones());
                     skip(destination.getCanciones());
+                    skip(destination.getPortadaEnBytes());
                 }
          };
         

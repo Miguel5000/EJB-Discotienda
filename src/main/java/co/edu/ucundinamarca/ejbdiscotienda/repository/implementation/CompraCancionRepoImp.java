@@ -29,11 +29,11 @@ public class CompraCancionRepoImp implements ICompraCancionRepo{
     private EntityManager manager;
     
     @Override
-    public CompraCancion obtenerPorCompraYCancion(Compra compra, Cancion cancion) {
+    public CompraCancion obtenerPorCompraYCancion(Integer idCompra, Integer idCancion) {
         TypedQuery<CompraCancion> query = this.manager.createNamedQuery("CompraCancion.obtenerPorCompraYCancion", CompraCancion.class);
-        query.setParameter("idCo", compra.getId());
-        query.setParameter("idCa", cancion.getId());
-        return query.getSingleResult();
+        query.setParameter("idCo", idCompra);
+        query.setParameter("idCa", idCancion);
+        return query.getResultList().isEmpty() ? null: query.getSingleResult();
     }
 
     @Override
@@ -66,12 +66,7 @@ public class CompraCancionRepoImp implements ICompraCancionRepo{
     }
 
     @Override
-    public void eliminar(CompraCancion compraCancion) {
-        this.manager.remove(compraCancion);
-    }
-
-    @Override
-    public void eliminarPorId(Integer id) {
+    public void eliminar(Integer id) {
         
         Query eliminacion = manager.createNamedQuery("CompraCancion.eliminarPorId");
         eliminacion.setParameter("id", id);

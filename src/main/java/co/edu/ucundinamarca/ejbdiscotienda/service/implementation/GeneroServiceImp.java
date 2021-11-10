@@ -69,25 +69,19 @@ public class GeneroServiceImp implements IGeneroService{
             throw new ObtencionException("El género a editar no existe");
         
         //Validaciones unicidad
-        if(this.repo.obtenerPorNombre(genero.getNombre()).getId().intValue() != genero.getId().intValue())
+        Genero generoPorNombre = this.repo.obtenerPorNombre(genero.getNombre());
+        if(generoPorNombre != null && generoPorNombre.getId().intValue() != genero.getId().intValue())
             throw new EdicionException("Ya existe un genero con ese nombre");
         
         this.repo.editar(genero);
     }
 
     @Override
-    public void eliminar(Genero genero) throws ObtencionException {
-        if(genero.getId() == null || this.repo.obtenerPorId(genero.getId()) == null)
-            throw new ObtencionException("El género a eliminar no existe");
-        this.repo.eliminar(genero);
-    }
-
-    @Override
-    public void eliminarPorId(Integer id) throws ObtencionException {
+    public void eliminar(Integer id) throws ObtencionException {
         Genero genero = this.repo.obtenerPorId(id);
         if(genero == null)
             throw new ObtencionException("El género a eliminar no existe");
-        this.repo.eliminarPorId(id);
+        this.repo.eliminar(id);
     }
     
 }

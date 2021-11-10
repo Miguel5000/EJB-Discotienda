@@ -28,9 +28,7 @@ public interface ICreadorDiscoService {
     public void crear(CreadorDisco creadorDisco) throws CreacionException;
     
     public void editar(CreadorDisco creadorDisco) throws ObtencionException, EdicionException;
-    
-    public void eliminar(CreadorDisco creadorDisco) throws ObtencionException;
-    
-    public void eliminarPorId(Integer id) throws ObtencionException;
+
+    public void eliminar(Integer id) throws ObtencionException;
     
 }

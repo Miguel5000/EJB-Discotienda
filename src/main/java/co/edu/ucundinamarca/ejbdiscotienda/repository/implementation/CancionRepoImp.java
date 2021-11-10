@@ -9,7 +9,9 @@ import co.edu.ucundinamarca.ejbdiscotienda.entity.Cancion;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Compra;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Disco;
 import co.edu.ucundinamarca.ejbdiscotienda.repository.ICancionRepo;
+import co.edu.ucundinamarca.ejbdiscotienda.repository.IDiscoRepo;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,16 +29,19 @@ public class CancionRepoImp implements ICancionRepo{
     @PersistenceContext(unitName = "conexionPostgresql")
     private EntityManager manager;
     
+    @EJB
+    private IDiscoRepo repoDisco;
+    
     @Override
-    public List<Cancion> obtenerListaPorCompra(Compra compra) {
+    public List<Cancion> obtenerListaPorCompra(Integer id) {
         TypedQuery<Cancion> query = this.manager.createNamedQuery("Cancion.obtenerListaPorCompra", Cancion.class);
-        query.setParameter("id", compra.getId());
+        query.setParameter("id", id);
         return query.getResultList();
     }
 
     @Override
-    public List<Cancion> obtenerListaPorDisco(Disco disco) {
-        Disco discoOriginal = new DiscoRepoImp().obtenerPorId(disco.getId());
+    public List<Cancion> obtenerListaPorDisco(Integer id) {
+        Disco discoOriginal = repoDisco.obtenerPorId(id);
         return discoOriginal.getCanciones();
     }
 
@@ -68,12 +73,7 @@ public class CancionRepoImp implements ICancionRepo{
     }
 
     @Override
-    public void eliminar(Cancion cancion) {
-        this.manager.remove(cancion);
-    }
-
-    @Override
-    public void eliminarPorId(Integer id) {
+    public void eliminar(Integer id) {
         Query eliminacion = manager.createNamedQuery("Cancion.eliminarPorId");
         eliminacion.setParameter("id", id);
         eliminacion.executeUpdate();
@@ -84,7 +84,7 @@ public class CancionRepoImp implements ICancionRepo{
         TypedQuery<Cancion> query = this.manager.createNamedQuery("Cancion.obtenerPorNombreYDisco", Cancion.class);
         query.setParameter("id", disco.getId());
         query.setParameter("nombre", disco.getNombre());
-        return query.getSingleResult();
+        return query.getResultList().isEmpty() ? null: query.getSingleResult();
     }
     
 }

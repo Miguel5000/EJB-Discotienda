@@ -67,12 +67,7 @@ import javax.persistence.TypedQuery;
     }
 
     @Override
-    public void eliminar(Disco disco) {
-        this.manager.remove(disco);
-    }
-
-    @Override
-    public void eliminarPorId(Integer id) {
+    public void eliminar(Integer id) {
         Query eliminacion = manager.createNamedQuery("Disco.eliminarPorId");
         eliminacion.setParameter("id", id);
         eliminacion.executeUpdate();
@@ -83,7 +78,7 @@ import javax.persistence.TypedQuery;
         TypedQuery<Disco> query = this.manager.createNamedQuery("Disco.obtenerPorNombreYArtista", Disco.class);
         query.setParameter("id", artista.getId());
         query.setParameter("nombre", nombre);
-        return query.getSingleResult();
+        return query.getResultList().isEmpty() ? null: query.getSingleResult();
     }
     
 }

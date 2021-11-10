@@ -28,9 +28,7 @@ public interface IFormatoService {
     public void crear(Formato formato) throws CreacionException;
     
     public void editar(Formato formato) throws ObtencionException, EdicionException;
-    
-    public void eliminar(Formato formato) throws ObtencionException;
-    
-    public void eliminarPorId(Integer id) throws ObtencionException;
+
+    public void eliminar(Integer id) throws ObtencionException;
     
 }

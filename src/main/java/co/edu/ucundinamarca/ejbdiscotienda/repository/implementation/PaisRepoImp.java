@@ -48,12 +48,7 @@ public class PaisRepoImp implements IPaisRepo{
     }
 
     @Override
-    public void eliminar(Pais pais) {
-        this.manager.remove(pais);
-    }
-
-    @Override
-    public void eliminarPorId(Integer id) {
+    public void eliminar(Integer id) {
         Query eliminacion = manager.createNamedQuery("Pais.eliminarPorId");
         eliminacion.setParameter("id", id);
         eliminacion.executeUpdate();
@@ -63,7 +58,7 @@ public class PaisRepoImp implements IPaisRepo{
     public Pais obtenerPorNombre(String nombre) {
         TypedQuery<Pais> query = this.manager.createNamedQuery("Pais.obtenerPorNombre", Pais.class);
         query.setParameter("nombre", nombre);
-        return query.getSingleResult();
+        return query.getResultList().isEmpty() ? null: query.getSingleResult();
     }
     
 }

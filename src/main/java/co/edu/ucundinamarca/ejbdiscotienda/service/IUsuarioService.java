@@ -28,10 +28,8 @@ public interface IUsuarioService {
     public void crear(Usuario usuario) throws CreacionException;
     
     public void editar(Usuario usuario) throws ObtencionException, EdicionException;
-    
-    public void eliminar(Usuario usuario) throws ObtencionException;
-    
-    public void eliminarPorId(Integer id) throws ObtencionException;
+
+    public void eliminar(Integer id) throws ObtencionException;
     
     public void enviarCorreoRecuperacion(String correo) throws ObtencionException;
     

@@ -101,34 +101,35 @@ public class UsuarioServiceImp implements IUsuarioService{
             throw new EdicionException("No existe el rol con el que intenta vincular al usuario");
 
         //Validaciones unicidad
-        if(this.repo.obtenerPorCorreo(usuario.getCorreo()).getId().intValue() != usuario.getId().intValue())
+        Usuario usuarioPorCorreo = this.repo.obtenerPorCorreo(usuario.getCorreo());
+        
+        if(usuarioPorCorreo != null && usuarioPorCorreo.getId().intValue() != usuario.getId().intValue())
             throw new EdicionException("Ya existe un usuario con ese correo");
         
-        if(usuario.getNuevoCorreo() != null && this.repo.obtenerPorNuevoCorreo(usuario.getNuevoCorreo()).getId().intValue() != usuario.getId().intValue())
+        Usuario usuarioPorNuevoCorreo = this.repo.obtenerPorNuevoCorreo(usuario.getNuevoCorreo());
+        
+        if(usuario.getNuevoCorreo() != null && usuarioPorNuevoCorreo != null && usuarioPorNuevoCorreo.getId().intValue() != usuario.getId().intValue())
             throw new EdicionException("Ya existe un usuario con ese nuevo correo");
         
-        if(usuario.getTokenRecuperacion() != null && this.repo.obtenerPorTokenDeRecuperacion(usuario.getTokenRecuperacion()).getId().intValue() != usuario.getId().intValue())
+        Usuario usuarioPorTokenRecupercion = this.repo.obtenerPorTokenDeRecuperacion(usuario.getTokenRecuperacion());
+        
+        if(usuario.getTokenRecuperacion() != null && usuarioPorTokenRecupercion != null && usuarioPorTokenRecupercion.getId().intValue() != usuario.getId().intValue())
             throw new EdicionException("Ya existe un usuario con ese token de recuperacion");
         
-        if(usuario.getTokenCambioCorreo()!= null && this.repo.obtenerPorTokenDeNuevoCorreo(usuario.getTokenCambioCorreo()).getId().intValue() != usuario.getId().intValue())
+        Usuario usuarioPorTokenCambioCorreo = this.repo.obtenerPorTokenDeNuevoCorreo(usuario.getTokenCambioCorreo());
+        
+        if(usuario.getTokenCambioCorreo()!= null && usuarioPorTokenCambioCorreo != null && usuarioPorTokenCambioCorreo.getId().intValue() != usuario.getId().intValue())
             throw new EdicionException("Ya existe un usuario con ese token de cambio de correo");
         
         this.repo.editar(usuario);
     }
 
     @Override
-    public void eliminar(Usuario usuario) throws ObtencionException {
-        if(usuario.getId() == null || this.repo.obtenerPorId(usuario.getId()) == null)
-            throw new ObtencionException("El usuario a eliminar no existe");
-        this.repo.eliminar(usuario);
-    }
-
-    @Override
-    public void eliminarPorId(Integer id) throws ObtencionException {
+    public void eliminar(Integer id) throws ObtencionException {
         Usuario usuario = this.repo.obtenerPorId(id);
         if(usuario == null)
             throw new ObtencionException("El usuario a eliminar no existe");
-        this.repo.eliminarPorId(id);
+        this.repo.eliminar(id);
     }
 
     @Override

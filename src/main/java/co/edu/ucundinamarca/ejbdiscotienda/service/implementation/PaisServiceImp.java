@@ -69,25 +69,20 @@ public class PaisServiceImp implements IPaisService{
             throw new ObtencionException("El país a editar no existe");
         
         //Validaciones unicidad
-        if(this.repo.obtenerPorNombre(pais.getNombre()).getId().intValue() != pais.getId().intValue())
+        Pais paisPorNombre = this.repo.obtenerPorNombre(pais.getNombre());
+        
+        if(paisPorNombre != null && paisPorNombre.getId().intValue() != pais.getId().intValue())
             throw new EdicionException("Ya existe un país con ese nombre");
         
         this.repo.editar(pais);
     }
 
     @Override
-    public void eliminar(Pais pais) throws ObtencionException {
-        if(pais.getId() == null || this.repo.obtenerPorId(pais.getId()) == null)
-            throw new ObtencionException("El país a eliminar no existe");
-        this.repo.eliminar(pais);
-    }
-
-    @Override
-    public void eliminarPorId(Integer id) throws ObtencionException {
+    public void eliminar(Integer id) throws ObtencionException {
         Pais pais = this.repo.obtenerPorId(id);
         if(pais == null)
             throw new ObtencionException("El país a eliminar no existe");
-        this.repo.eliminarPorId(id);
+        this.repo.eliminar(id);
     }
     
 }

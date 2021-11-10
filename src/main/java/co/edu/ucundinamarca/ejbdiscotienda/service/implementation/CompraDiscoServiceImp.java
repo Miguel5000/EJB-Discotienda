@@ -81,7 +81,7 @@ public class CompraDiscoServiceImp implements co.edu.ucundinamarca.ejbdiscotiend
             throw new CreacionException("No existe el disco con el que intenta vincular la compra del disco");
         
         //Validaciones relaciones
-        if(this.repo.obtenerPorCompraYDisco(compra, disco) != null)
+        if(this.repo.obtenerPorCompraYDisco(compra.getId(), disco.getId()) != null)
             throw new CreacionException("El disco no se puede registrar otra vez en la compra");
         
         this.repo.crear(compraDisco);
@@ -111,33 +111,28 @@ public class CompraDiscoServiceImp implements co.edu.ucundinamarca.ejbdiscotiend
             throw new EdicionException("No existe el disco con el que intenta vincular la compra del disco");
         
         //Validaciones relaciones
-        if(this.repo.obtenerPorCompraYDisco(compra, disco).getId().intValue() != compraDisco.getId().intValue())
+        CompraDisco compraDiscoPorCompraYDisco = this.repo.obtenerPorCompraYDisco(compra.getId(), disco.getId());
+        
+        if(compraDiscoPorCompraYDisco != null && compraDiscoPorCompraYDisco.getId().intValue() != compraDisco.getId().intValue())
             throw new EdicionException("El disco ya está registrado en la compra");
         
         this.repo.editar(compraDisco);
     }
 
     @Override
-    public void eliminar(CompraDisco compraDisco) throws ObtencionException {
-        if(compraDisco.getId() == null || this.repo.obtenerPorId(compraDisco.getId()) == null)
-            throw new ObtencionException("La compra del disco a eliminar no existe");
-        this.repo.eliminar(compraDisco);
-    }
-
-    @Override
-    public void eliminarPorId(Integer id) throws ObtencionException {
+    public void eliminar(Integer id) throws ObtencionException {
         CompraDisco compraDisco = this.repo.obtenerPorId(id);
         if(compraDisco == null)
             throw new ObtencionException("La compra del disco a eliminar no existe");
-        this.repo.eliminarPorId(id);
+        this.repo.eliminar(id);
     }
 
     @Override
-    public void retirarDisco(Disco disco, Compra compra) throws ObtencionException {
-        CompraDisco compraDisco = this.repo.obtenerPorCompraYDisco(compra, disco);
+    public void retirarDisco(Integer idDisco, Integer idCompra) throws ObtencionException {
+        CompraDisco compraDisco = this.repo.obtenerPorCompraYDisco(idCompra, idDisco);
         if(compraDisco == null)
             throw new ObtencionException("El disco no está en la compra");
-        this.repo.eliminar(compraDisco);
+        this.repo.eliminar(compraDisco.getId());
     }
 
     @Override

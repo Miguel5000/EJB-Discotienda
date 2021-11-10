@@ -19,6 +19,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -39,22 +40,16 @@ import javax.validation.constraints.Size;
             + "ON coDis.idDisco = dis.id "
             + "WHERE co.id = :id"),
     @NamedQuery(name = "Disco.obtenerListaPorArtista", query = "SELECT dis FROM Artista ar "
-            + "JOIN CreadorDisco creDis "
-            + "ON ar.id = creDis.idArtista "
-            + "JOIN Disco dis "
-            + "ON creDis.idDisco = dis.id "
+            + "JOIN ar.creaciones creDis "
+            + "JOIN creDis.disco dis "
             + "WHERE ar.id = :id"),
     @NamedQuery(name = "Disco.obtenerListaDeCarrito", query = "SELECT dis FROM Compra co "
-            + "JOIN CompraDisco coDis "
-            + "ON co.id = coDis.idCompra "
-            + "JOIN Disco dis "
-            + "ON coDis.idDisco = dis.id "
-            + "WHERE co.realizacion = false"),
+            + "JOIN co.comprasDiscos coDis "
+            + "JOIN coDis.disco dis "
+            + "WHERE co.realizacion = false AND co.usuario.id = :id"),
     @NamedQuery(name = "Disco.obtenerPorNombreYArtista", query = "SELECT dis FROM Disco dis "
-            + "JOIN CreadorDisco creDis "
-            + "ON dis.id = creDis.idDisco "
-            + "JOIN Artista ar "
-            + "ON creDis.id_artista = ar.id "
+            + "JOIN dis.creaciones creDis "
+            + "JOIN creDis.artista ar "
             + "WHERE ar.id = :id AND dis.nombre = :nombre"),
     @NamedQuery(name = "Disco.eliminarPorId" , query = "DELETE FROM Disco d WHERE d.id = :id")
 })
@@ -84,6 +79,13 @@ public class Disco implements Serializable{
     @Column(name = "descripcion", nullable = false)
     private String descripcion;
     
+    @Size(min = 1, max = 200, message = "El enlace de la portada no puede superar los 200 caracteres")
+    @Column(name = "portada", nullable = true, length = 200, unique = true)
+    private String portada;
+    
+    @Transient
+    private Byte[] portadaEnBytes;
+    
     //Relaciones
     
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "disco", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -98,14 +100,20 @@ public class Disco implements Serializable{
     public Disco() {
     }
 
-    public Disco(Integer id, String nombre, Date fechaDeLanzamiento, Integer precio, String descripcion) {
+    public Disco(Integer id, String nombre, Date fechaDeLanzamiento, Integer precio, String descripcion, String portada, Byte[] portadaEnBytes, List<CompraDisco> compras, List<CreadorDisco> creaciones, List<Cancion> canciones) {
         this.id = id;
         this.nombre = nombre;
         this.fechaDeLanzamiento = fechaDeLanzamiento;
         this.precio = precio;
         this.descripcion = descripcion;
+        this.portada = portada;
+        this.portadaEnBytes = portadaEnBytes;
+        this.compras = compras;
+        this.creaciones = creaciones;
+        this.canciones = canciones;
     }
 
+    
     /**
      * @return the id
      */
@@ -216,6 +224,34 @@ public class Disco implements Serializable{
      */
     public void setCanciones(List<Cancion> canciones) {
         this.canciones = canciones;
+    }
+
+    /**
+     * @return the portada
+     */
+    public String getPortada() {
+        return portada;
+    }
+
+    /**
+     * @param portada the portada to set
+     */
+    public void setPortada(String portada) {
+        this.portada = portada;
+    }
+
+    /**
+     * @return the portadaEnBytes
+     */
+    public Byte[] getPortadaEnBytes() {
+        return portadaEnBytes;
+    }
+
+    /**
+     * @param portadaEnBytes  the portadaEnBytes to set
+     */
+    public void setPortadaEnBytes(Byte[] portadaEnBytes) {
+        this.portadaEnBytes = portadaEnBytes;
     }
     
     

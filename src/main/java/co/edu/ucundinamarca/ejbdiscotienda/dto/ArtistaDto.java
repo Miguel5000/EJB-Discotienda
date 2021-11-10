@@ -26,7 +26,7 @@ public class ArtistaDto {
     private String nombreArtistico;
     private Date fechaDeNacimiento;
     private String foto;
-    private String fotoBase64;
+    private Byte[] fotoEnBytes;
     private List<CreadorDiscoDto> creaciones;
     private GeneroDto genero;
     private PaisDto pais;
@@ -116,17 +116,17 @@ public class ArtistaDto {
     }
 
     /**
-     * @return the fotoBase64
+     * @return the fotoEnBytes
      */
-    public String getFotoBase64() {
-        return fotoBase64;
+    public Byte[] getFotoEnBytes() {
+        return fotoEnBytes;
     }
 
     /**
-     * @param fotoBase64 the fotoBase64 to set
+     * @param fotoEnBytes  the fotoEnBytes to set
      */
-    public void setFotoBase64(String fotoBase64) {
-        this.fotoBase64 = fotoBase64;
+    public void setFotoEnBytes(Byte[] fotoEnBytes) {
+        this.fotoEnBytes = fotoEnBytes;
     }
 
     /**

@@ -27,6 +27,7 @@ public class CancionDtoManager {
                 protected void configure() {
                     //skip(destination.getFormato());
                     //skip(destination.getDisco());
+                    skip(destination.getPortadaEnBytes());
                 }
          };
         

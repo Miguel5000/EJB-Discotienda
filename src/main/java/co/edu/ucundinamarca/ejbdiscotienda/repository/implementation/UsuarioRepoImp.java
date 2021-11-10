@@ -30,21 +30,21 @@ public class UsuarioRepoImp implements IUsuarioRepo{
         TypedQuery<Usuario> query = this.manager.createNamedQuery("Usuario.obtenerPorLogin", Usuario.class);
         query.setParameter("correo", correo);
         query.setParameter("clave", clave);
-        return query.getSingleResult();
+        return query.getResultList().isEmpty() ? null: query.getSingleResult();
     }
 
     @Override
     public Usuario obtenerPorTokenDeRecuperacion(String token) {
         TypedQuery<Usuario> query = this.manager.createNamedQuery("Usuario.obtenerPorTokenRecuperacion", Usuario.class);
         query.setParameter("tokenRecuperacion", token);
-        return query.getSingleResult();
+        return query.getResultList().isEmpty() ? null: query.getSingleResult();
     }
 
     @Override
     public Usuario obtenerPorTokenDeNuevoCorreo(String token) {
         TypedQuery<Usuario> query = this.manager.createNamedQuery("Usuario.obtenerPorTokenCambioCorreo", Usuario.class);
         query.setParameter("tokenCambioCorreo", token);
-        return query.getSingleResult();
+        return query.getResultList().isEmpty() ? null: query.getSingleResult();
     }
 
     @Override
@@ -77,12 +77,7 @@ public class UsuarioRepoImp implements IUsuarioRepo{
     }
 
     @Override
-    public void eliminar(Usuario usuario) {
-        this.manager.remove(usuario);
-    }
-
-    @Override
-    public void eliminarPorId(Integer id) {
+    public void eliminar(Integer id) {
         Query eliminacion = manager.createNamedQuery("Usuario.eliminarPorId");
         eliminacion.setParameter("id", id);
         eliminacion.executeUpdate();
@@ -92,14 +87,14 @@ public class UsuarioRepoImp implements IUsuarioRepo{
     public Usuario obtenerPorCorreo(String correo) {
         TypedQuery<Usuario> query = this.manager.createNamedQuery("Usuario.obtenerPorCorreo", Usuario.class);
         query.setParameter("correo", correo);
-        return query.getSingleResult();
+        return query.getResultList().isEmpty() ? null: query.getSingleResult();
     }
 
     @Override
     public Usuario obtenerPorNuevoCorreo(String correo) {
         TypedQuery<Usuario> query = this.manager.createNamedQuery("Usuario.obtenerPorNuevoCorreo", Usuario.class);
         query.setParameter("correo", correo);
-        return query.getSingleResult();
+        return query.getResultList().isEmpty() ? null: query.getSingleResult();
     }
     
 }

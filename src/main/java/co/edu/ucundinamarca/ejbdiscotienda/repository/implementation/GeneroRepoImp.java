@@ -48,12 +48,7 @@ public class GeneroRepoImp implements IGeneroRepo{
     }
 
     @Override
-    public void eliminar(Genero genero) {
-        this.manager.remove(genero);
-    }
-
-    @Override
-    public void eliminarPorId(Integer id) {
+    public void eliminar(Integer id) {
         Query eliminacion = manager.createNamedQuery("Genero.eliminarPorId");
         eliminacion.setParameter("id", id);
         eliminacion.executeUpdate();
@@ -63,7 +58,7 @@ public class GeneroRepoImp implements IGeneroRepo{
     public Genero obtenerPorNombre(String nombre) {
         TypedQuery<Genero> query = this.manager.createNamedQuery("Genero.obtenerPorNombre", Genero.class);
         query.setParameter("nombre", nombre);
-        return query.getSingleResult();
+        return query.getResultList().isEmpty() ? null: query.getSingleResult();
     }
     
 }

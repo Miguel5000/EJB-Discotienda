@@ -28,8 +28,6 @@ public interface IDiscoService {
     
     public void editar(Disco disco) throws ObtencionException;
     
-    public void eliminar(Disco disco) throws ObtencionException;
-    
-    public void eliminarPorId(Integer id) throws ObtencionException;
+    public void eliminar(Integer id) throws ObtencionException;
     
 }

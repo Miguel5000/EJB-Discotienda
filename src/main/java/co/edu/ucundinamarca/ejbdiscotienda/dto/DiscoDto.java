@@ -20,6 +20,7 @@ import java.util.List;
  */
 public class DiscoDto {
     
+    private Integer id;
     private String nombre;
     private Date fechaDeLanzamiento;
     private Integer precio;
@@ -27,7 +28,23 @@ public class DiscoDto {
     private List<CompraDiscoDto> compras;
     private List<CreadorDiscoDto> creaciones;
     private List<CancionDto> canciones;
+    private String portada;
+    private Byte[] portadaEnBytes;
 
+    /**
+     * @return the id
+     */
+    public Integer getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    
     /**
      * @return the nombre
      */
@@ -125,7 +142,33 @@ public class DiscoDto {
     public void setCanciones(List<Cancion> canciones) {
         this.canciones = CancionDtoManager.convertir(canciones);
     }
-    
-    
-    
+
+    /**
+     * @return the portada
+     */
+    public String getPortada() {
+        return portada;
+    }
+
+    /**
+     * @param portada the portada to set
+     */
+    public void setPortada(String portada) {
+        this.portada = portada;
+    }
+
+    /**
+     * @return the portadaEnBytes
+     */
+    public Byte[] getPortadaEnBytes() {
+        return portadaEnBytes;
+    }
+
+    /**
+     * @param portadaEnBytes the portadaEnBytes to set
+     */
+    public void setPortadaEnBytes(Byte[] portadaEnBytes) {
+        this.portadaEnBytes = portadaEnBytes;
+    }
+
 }

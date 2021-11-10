@@ -29,10 +29,8 @@ public interface IArtistaService {
     public void crear(Artista artista) throws CreacionException;
     
     public void editar(Artista artista) throws ObtencionException, EdicionException;
-    
-    public void eliminar(Artista artista) throws ObtencionException;
-    
-    public void eliminarPorId(Integer id) throws ObtencionException;
+
+    public void eliminar(Integer id) throws ObtencionException;
     
     public List<VentasArtista> obtenerVentas() throws ObtencionException;
     

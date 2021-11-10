@@ -28,9 +28,7 @@ public interface IPaisService {
     public void crear(Pais pais) throws CreacionException;
     
     public void editar(Pais pais) throws ObtencionException, EdicionException;
-    
-    public void eliminar(Pais pais) throws ObtencionException;
-    
-    public void eliminarPorId(Integer id) throws ObtencionException;
+
+    public void eliminar(Integer id) throws ObtencionException;
     
 }

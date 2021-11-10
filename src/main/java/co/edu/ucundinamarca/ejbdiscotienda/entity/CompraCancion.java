@@ -30,10 +30,8 @@ import javax.validation.constraints.NotNull;
 @NamedQueries({
     @NamedQuery(name = "CompraCancion.obtenerTodos", query = "SELECT c FROM CompraCancion c"),
     @NamedQuery(name = "CompraCancion.obtenerPorCompraYCancion", query = "SELECT coCa FROM CompraCancion coCa "
-            + "JOIN Compra co "
-            + "ON coCa.idCompra = co.id "
-            + "JOIN Cancion ca "
-            + "ON coCa.idCancion = ca.id "
+            + "JOIN coCa.compra co "
+            + "JOIN coCa.cancion ca "
             + "WHERE co.id = :idCo AND ca.id = :idCa"),
     @NamedQuery(name = "CompraCancion.eliminarPorId" , query = "DELETE FROM CompraCancion c WHERE c.id = :id")
 })

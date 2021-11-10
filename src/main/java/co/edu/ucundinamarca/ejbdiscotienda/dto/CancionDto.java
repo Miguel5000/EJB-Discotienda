@@ -24,6 +24,8 @@ public class CancionDto {
     private Time duracion;
     private FormatoDto formato;
     private DiscoDto disco;
+    private String portada;
+    private Byte[] portadaEnBytes;
 
     /**
      * @return the id
@@ -121,6 +123,34 @@ public class CancionDto {
      */
     public void setDisco(Disco disco) {
         this.disco = DiscoDtoManager.convertir(disco);
+    }
+
+    /**
+     * @return the portada
+     */
+    public String getPortada() {
+        return portada;
+    }
+
+    /**
+     * @param portada the portada to set
+     */
+    public void setPortada(String portada) {
+        this.portada = portada;
+    }
+
+    /**
+     * @return the portadaEnBytes
+     */
+    public Byte[] getPortadaEnBytes() {
+        return portadaEnBytes;
+    }
+
+    /**
+     * @param portadaEnBytes  the portadaEnBytes to set
+     */
+    public void setPortadaEnBytes(Byte[] portadaEnBytes) {
+        this.portadaEnBytes = portadaEnBytes;
     }
     
     

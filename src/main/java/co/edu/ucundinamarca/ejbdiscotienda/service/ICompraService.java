@@ -30,13 +30,11 @@ public interface ICompraService{
     public void crear(Compra compra) throws CreacionException;
     
     public void editar(Compra compra) throws ObtencionException, EdicionException;
-    
-    public void eliminar(Compra compra) throws ObtencionException;
-    
-    public void eliminarPorId(Integer id) throws ObtencionException;
+
+    public void eliminar(Integer id) throws ObtencionException;
     
     public void comprar(Integer id) throws ObtencionException;
     
-    public Carrito obtenerCarrito(Usuario usuario) throws ObtencionException;
+    public Carrito obtenerCarrito(Integer id) throws ObtencionException;
     
 }

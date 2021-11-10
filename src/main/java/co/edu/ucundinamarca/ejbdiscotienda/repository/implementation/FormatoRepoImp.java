@@ -48,12 +48,7 @@ public class FormatoRepoImp implements IFormatoRepo{
     }
 
     @Override
-    public void eliminar(Formato formato) {
-        this.manager.remove(formato);
-    }
-
-    @Override
-    public void eliminarPorId(Integer id) {
+    public void eliminar(Integer id) {
         Query eliminacion = manager.createNamedQuery("Formato.eliminarPorId");
         eliminacion.setParameter("id", id);
         eliminacion.executeUpdate();
@@ -63,7 +58,7 @@ public class FormatoRepoImp implements IFormatoRepo{
     public Formato obtenerPorNombre(String nombre) {
         TypedQuery<Formato> query = this.manager.createNamedQuery("Formato.obtenerPorNombre", Formato.class);
         query.setParameter("nombre", nombre);
-        return query.getSingleResult();
+        return query.getResultList().isEmpty() ? null: query.getSingleResult();
     }
     
 }

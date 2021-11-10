@@ -48,12 +48,7 @@ public class RolRepoImp implements IRolRepo{
     }
 
     @Override
-    public void eliminar(Rol rol) {
-        this.manager.remove(rol);
-    }
-
-    @Override
-    public void eliminarPorId(Integer id) {
+    public void eliminar(Integer id) {
         Query eliminacion = manager.createNamedQuery("Rol.eliminarPorId");
         eliminacion.setParameter("id", id);
         eliminacion.executeUpdate();
@@ -63,7 +58,7 @@ public class RolRepoImp implements IRolRepo{
     public Rol obtenerPorNombre(String nombre) {
         TypedQuery<Rol> query = this.manager.createNamedQuery("Rol.obtenerPorNombre", Rol.class);
         query.setParameter("nombre", nombre);
-        return query.getSingleResult();
+        return query.getResultList().isEmpty() ? null: query.getSingleResult();
     }
     
 }

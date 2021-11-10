@@ -111,25 +111,20 @@ public class CreadorDiscoServiceImp implements ICreadorDiscoService{
             throw new EdicionException("No existe el disco con el que intenta vincular la creación del disco");
         
         //Validaciones relaciones
-        if(this.repo.obtenerPorCreadorYDisco(artista, disco).getId().intValue() != creacionDisco.getId())
+        CreadorDisco creacionDiscoPorCreacionYDisco = this.repo.obtenerPorCreadorYDisco(artista, disco);
+        
+        if(creacionDiscoPorCreacionYDisco != null && creacionDiscoPorCreacionYDisco.getId().intValue() != creacionDisco.getId())
             throw new EdicionException("Un mismo artista no puede tener el mismo disco registrado 2 veces");
         
         this.repo.editar(creacionDisco);
     }
 
     @Override
-    public void eliminar(CreadorDisco creacionDisco) throws ObtencionException {
-        if(creacionDisco.getId() == null || this.repo.obtenerPorId(creacionDisco.getId()) == null)
-            throw new ObtencionException("La creación de disco a eliminar no existe");
-        this.repo.eliminar(creacionDisco);
-    }
-
-    @Override
-    public void eliminarPorId(Integer id) throws ObtencionException {
+    public void eliminar(Integer id) throws ObtencionException {
         CreadorDisco creacionDisco = this.repo.obtenerPorId(id);
         if(creacionDisco == null)
             throw new ObtencionException("La creación del disco a eliminar no existe");
-        this.repo.eliminarPorId(id);
+        this.repo.eliminar(id);
     }
     
 }

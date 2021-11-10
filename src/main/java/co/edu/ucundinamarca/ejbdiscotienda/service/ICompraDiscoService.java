@@ -32,11 +32,9 @@ public interface ICompraDiscoService {
     
     public void editar(CompraDisco compraDisco) throws ObtencionException, EdicionException;
     
-    public void eliminar(CompraDisco compraDisco) throws ObtencionException;
+    public void eliminar(Integer id) throws ObtencionException;
     
-    public void eliminarPorId(Integer id) throws ObtencionException;
-    
-    public void retirarDisco(Disco disco, Compra compra) throws ObtencionException;
+    public void retirarDisco(Integer idDisco, Integer idCompra) throws ObtencionException;
     
     public List<VentasDisco> obtenerVentas() throws ObtencionException;
     

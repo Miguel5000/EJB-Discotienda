@@ -115,7 +115,9 @@ public class CancionServiceImp implements ICancionService{
             throw new EdicionException("No existe el disco con el que intenta vincular la canción");
         
         //Validaciones en relaciones
-        if(this.repo.obtenerPorNombreYDisco(cancion.getNombre(), cancion.getDisco()).getId().intValue() != cancion.getId().intValue()) 
+        Cancion cancionPorNombre = this.repo.obtenerPorNombreYDisco(cancion.getNombre(), cancion.getDisco());
+        
+        if(cancionPorNombre != null && cancionPorNombre.getId().intValue() != cancion.getId().intValue()) 
             throw new EdicionException("Ya existe una canción con ese nombre en el disco");
         
         this.repo.editar(cancion);
@@ -123,23 +125,16 @@ public class CancionServiceImp implements ICancionService{
     }
 
     @Override
-    public void eliminar(Cancion cancion) throws ObtencionException {
-        if(cancion.getId() == null || this.repo.obtenerPorId(cancion.getId()) == null)
-            throw new ObtencionException("La canción a eliminar no existe");
-        this.repo.eliminar(cancion);
-    }
-
-    @Override
-    public void eliminarPorId(Integer id) throws ObtencionException {
+    public void eliminar(Integer id) throws ObtencionException {
         Cancion cancion = this.repo.obtenerPorId(id);
         if(cancion == null)
             throw new ObtencionException("La canción a eliminar no existe");
-        this.repo.eliminarPorId(id);
+        this.repo.eliminar(id);
     }
 
     @Override
-    public List<CancionDto> obtenerListaPorCompra(Compra compra) throws ObtencionException {
-        List<Cancion> canciones = this.repo.obtenerListaPorCompra(compra);
+    public List<CancionDto> obtenerListaPorCompra(Integer id) throws ObtencionException {
+        List<Cancion> canciones = this.repo.obtenerListaPorCompra(id);
         if(canciones == null || canciones.isEmpty())
             throw new ObtencionException("La compra no tiene canciones");
         List<CancionDto> cancionesDto = CancionDtoManager.convertir(canciones);
@@ -147,8 +142,8 @@ public class CancionServiceImp implements ICancionService{
     }
 
     @Override
-    public List<CancionDto> obtenerListaPorDisco(Disco disco) throws ObtencionException {
-        List<Cancion> canciones = this.repo.obtenerListaPorDisco(disco);
+    public List<CancionDto> obtenerListaPorDisco(Integer id) throws ObtencionException {
+        List<Cancion> canciones = this.repo.obtenerListaPorDisco(id);
         if(canciones == null || canciones.isEmpty())
             throw new ObtencionException("El disco no tiene canciones");
         List<CancionDto> cancionesDto = CancionDtoManager.convertir(canciones);

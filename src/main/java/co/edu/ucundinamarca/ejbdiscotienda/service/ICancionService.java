@@ -31,12 +31,10 @@ public interface ICancionService {
     
     public void editar(Cancion cancion) throws ObtencionException, EdicionException;
     
-    public void eliminar(Cancion cancion) throws ObtencionException;
+    public void eliminar(Integer id) throws ObtencionException;
     
-    public void eliminarPorId(Integer id) throws ObtencionException;
+    public List<CancionDto> obtenerListaPorCompra(Integer id) throws ObtencionException;
     
-    public List<CancionDto> obtenerListaPorCompra(Compra compra) throws ObtencionException;
-    
-    public List<CancionDto> obtenerListaPorDisco(Disco disco) throws ObtencionException;
+    public List<CancionDto> obtenerListaPorDisco(Integer id) throws ObtencionException;
     
 }
