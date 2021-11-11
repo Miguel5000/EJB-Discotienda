@@ -36,7 +36,7 @@ public class VentasDisco {
     private Date fechaDeLanzamiento;
     
     @Column(name = "precio")
-    private String precio;
+    private Integer precio;
     
     @Column(name = "descripcion")
     private String descripcion;
@@ -68,7 +68,7 @@ public class VentasDisco {
     /**
      * @return the precio
      */
-    public String getPrecio() {
+    public Integer getPrecio() {
         return precio;
     }
 
