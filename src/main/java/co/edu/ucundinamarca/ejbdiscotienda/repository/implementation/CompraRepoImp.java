@@ -11,7 +11,6 @@ import co.edu.ucundinamarca.ejbdiscotienda.entity.Cancion;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Carrito;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Compra;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Disco;
-import co.edu.ucundinamarca.ejbdiscotienda.entity.Usuario;
 import co.edu.ucundinamarca.ejbdiscotienda.repository.ICompraRepo;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -41,6 +40,9 @@ public class CompraRepoImp implements ICompraRepo{
         queryC.setParameter("id", id);
         List<Cancion> canciones = queryC.getResultList();
         
+        if((discos == null || discos.isEmpty()) && (canciones == null || canciones.isEmpty()))
+            return null;
+        
         Carrito carrito = new Carrito();
         carrito.setCanciones(CancionDtoManager.convertir(canciones));
         carrito.setDiscos(DiscoDtoManager.convertir(discos));
@@ -50,14 +52,14 @@ public class CompraRepoImp implements ICompraRepo{
     
     @Override
     public Compra obtenerCompraCarrito(Integer id) {
-        TypedQuery<Compra> query = this.manager.createNamedQuery("CompraCancion.obtenerCompraCarrito", Compra.class);
+        TypedQuery<Compra> query = this.manager.createNamedQuery("Compra.obtenerCompraCarrito", Compra.class);
         query.setParameter("id", id);
         return query.getResultList().isEmpty() ? null: query.getSingleResult();
     }
 
     @Override
     public List<Compra> obtenerTodos() {
-        TypedQuery<Compra> query = this.manager.createNamedQuery("CompraCancion.obtenerTodos", Compra.class);
+        TypedQuery<Compra> query = this.manager.createNamedQuery("Compra.obtenerTodos", Compra.class);
         
         return query.getResultList();
     }

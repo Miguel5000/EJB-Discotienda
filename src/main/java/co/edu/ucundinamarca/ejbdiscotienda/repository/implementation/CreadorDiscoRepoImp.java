@@ -29,7 +29,7 @@ public class CreadorDiscoRepoImp implements ICreadorDiscoRepo{
     
     @Override
     public List<CreadorDisco> obtenerTodos() {
-        TypedQuery<CreadorDisco> query = this.manager.createNamedQuery("CompraCancion.obtenerTodos", CreadorDisco.class);
+        TypedQuery<CreadorDisco> query = this.manager.createNamedQuery("CreadorDisco.obtenerTodos", CreadorDisco.class);
         return query.getResultList();
     }
 

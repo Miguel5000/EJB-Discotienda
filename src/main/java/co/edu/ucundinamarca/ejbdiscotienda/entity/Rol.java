@@ -30,7 +30,7 @@ import javax.validation.constraints.Size;
 @Table(name = "roles", schema = "usuarios")
 @NamedQueries({
     @NamedQuery(name = "Rol.obtenerTodos", query = "SELECT r FROM Rol r"),
-    @NamedQuery(name = "Rol.obtenerPorNombre" , query = "SELECT r FROM Formato r WHERE r.nombre = :nombre"),
+    @NamedQuery(name = "Rol.obtenerPorNombre" , query = "SELECT r FROM Rol r WHERE r.nombre = :nombre"),
     @NamedQuery(name = "Rol.eliminarPorId" , query = "DELETE FROM Rol r WHERE r.id = :id")
 })
 

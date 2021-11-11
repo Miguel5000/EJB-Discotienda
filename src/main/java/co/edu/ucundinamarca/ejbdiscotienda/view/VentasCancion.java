@@ -42,7 +42,7 @@ public class VentasCancion {
     @Column(name = "precio")
     private Integer precio;
     
-    @Column(name = "descipcion")
+    @Column(name = "descripcion")
     private String descripcion;
     
     @Column(name = "duracion")

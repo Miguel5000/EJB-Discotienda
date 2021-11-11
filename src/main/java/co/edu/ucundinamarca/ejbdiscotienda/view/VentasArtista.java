@@ -33,7 +33,7 @@ public class VentasArtista {
     @Column(name = "id_genero")
     private Integer idGenero;
     
-    @Column(name = "idPais")
+    @Column(name = "id_pais")
     private Integer idPais;
     
     @Column(name = "nombres")
@@ -56,6 +56,9 @@ public class VentasArtista {
     
     @Column(name = "ventas_canciones")
     private Integer ventasCanciones;
+    
+    @Column(name = "ventas_totales")
+    private Integer ventasTotales;
 
     /**
      * @return the id
@@ -126,5 +129,21 @@ public class VentasArtista {
     public Integer getVentasCanciones() {
         return ventasCanciones;
     }
+
+    /**
+     * @return the ventasTotales
+     */
+    public Integer getVentasTotales() {
+        return ventasTotales;
+    }
+
+    /**
+     * @param ventasTotales the ventasTotales to set
+     */
+    public void setVentasTotales(Integer ventasTotales) {
+        this.ventasTotales = ventasTotales;
+    }
+    
+    
     
 }

@@ -39,13 +39,13 @@ public class CompraDiscoRepoImp implements ICompraDiscoRepo{
 
     @Override
     public List<VentasDisco> obtenerVentas() {
-        TypedQuery<VentasDisco> query = this.manager.createNamedQuery("VentasArtista.obtenerTodos", VentasDisco.class);
+        TypedQuery<VentasDisco> query = this.manager.createNamedQuery("VentasDisco.obtenerTodos", VentasDisco.class);
         return query.getResultList();
     }
 
     @Override
     public List<CompraDisco> obtenerTodos() {
-        TypedQuery<CompraDisco> query = this.manager.createNamedQuery("CompraCancion.obtenerTodos", CompraDisco.class);
+        TypedQuery<CompraDisco> query = this.manager.createNamedQuery("CompraDisco.obtenerTodos", CompraDisco.class);
         return query.getResultList();
     }
 

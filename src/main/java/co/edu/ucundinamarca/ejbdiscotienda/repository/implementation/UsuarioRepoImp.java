@@ -42,7 +42,7 @@ public class UsuarioRepoImp implements IUsuarioRepo{
 
     @Override
     public Usuario obtenerPorTokenDeNuevoCorreo(String token) {
-        TypedQuery<Usuario> query = this.manager.createNamedQuery("Usuario.obtenerPorTokenCambioCorreo", Usuario.class);
+        TypedQuery<Usuario> query = this.manager.createNamedQuery("Usuario.obtenerPorTokenCorreo", Usuario.class);
         query.setParameter("tokenCambioCorreo", token);
         return query.getResultList().isEmpty() ? null: query.getSingleResult();
     }

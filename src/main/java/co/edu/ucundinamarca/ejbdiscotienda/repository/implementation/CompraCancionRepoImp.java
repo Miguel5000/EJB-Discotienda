@@ -38,7 +38,7 @@ public class CompraCancionRepoImp implements ICompraCancionRepo{
 
     @Override
     public List<VentasCancion> obtenerVentas() {
-        TypedQuery<VentasCancion> query = this.manager.createNamedQuery("VentasArtista.obtenerTodos", VentasCancion.class);
+        TypedQuery<VentasCancion> query = this.manager.createNamedQuery("VentasCancion.obtenerTodos", VentasCancion.class);
         return query.getResultList();
     }
 

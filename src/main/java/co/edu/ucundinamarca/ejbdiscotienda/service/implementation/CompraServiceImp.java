@@ -72,7 +72,7 @@ public class CompraServiceImp implements ICompraService{
             throw new CreacionException("No existe el usuario con el que intenta vincular la compra");
 
         //Validaciones relaciones
-        if(!compra.getRealizacion() && this.repo.obtenerCarrito(usuario.getId()) != null)
+        if(!compra.getRealizacion() && this.repo.obtenerCompraCarrito(usuario.getId()) != null)
             throw new CreacionException("No se puede tener más de una compra que represente al carrito");
         
         this.repo.crear(compra);
@@ -121,7 +121,7 @@ public class CompraServiceImp implements ICompraService{
     @Override
     public Carrito obtenerCarrito(Integer id) throws ObtencionException {
         Carrito carrito = this.repo.obtenerCarrito(id);
-        if(carrito.getCanciones() == null && carrito.getDiscos() == null)
+        if(carrito == null || (carrito.getCanciones() == null && carrito.getDiscos() == null))
             throw new ObtencionException("No hay carrito");
         return carrito;
     }
