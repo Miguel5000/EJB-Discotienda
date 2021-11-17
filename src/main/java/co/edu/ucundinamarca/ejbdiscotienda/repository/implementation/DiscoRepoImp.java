@@ -28,9 +28,9 @@ import javax.persistence.TypedQuery;
     private EntityManager manager;
     
     @Override
-    public List<Disco> obtenerListaPorArtista(Artista artista) {
+    public List<Disco> obtenerListaPorArtista(Integer id) {
         TypedQuery<Disco> query = this.manager.createNamedQuery("Disco.obtenerListaPorArtista", Disco.class);
-        query.setParameter("id", artista.getId());
+        query.setParameter("id", id);
         return query.getResultList();
     }
 

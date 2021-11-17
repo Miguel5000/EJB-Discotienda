@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author Miguel
  */
-public class ArtistaDto {
+public class ArtistaDto{
     
     private Integer id;
     private String nombres;
@@ -123,12 +123,13 @@ public class ArtistaDto {
     }
 
     /**
-     * @param fotoEnBytes  the fotoEnBytes to set
+     * @param fotoEnBytes the fotoEnBytes to set
      */
     public void setFotoEnBytes(Byte[] fotoEnBytes) {
         this.fotoEnBytes = fotoEnBytes;
-    }
+    }    
 
+     
     /**
      * @return the creaciones
      */
@@ -170,7 +171,6 @@ public class ArtistaDto {
     public void setPais(Pais pais) {
         this.pais = PaisDtoManager.convertir(pais);
     }
-    
     
     
 }

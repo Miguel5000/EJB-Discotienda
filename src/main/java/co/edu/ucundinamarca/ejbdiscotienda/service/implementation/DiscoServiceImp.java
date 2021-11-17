@@ -45,6 +45,15 @@ public class DiscoServiceImp implements IDiscoService{
         DiscoDto discoDto = DiscoDtoManager.convertir(disco);
         return discoDto;
     }
+    
+    @Override
+    public List<DiscoDto> obtenerPorArtista(Integer id) throws ObtencionException {
+        List<Disco> discos = this.repo.obtenerListaPorArtista(id);
+        if(discos == null || discos.isEmpty())
+            throw new ObtencionException("El artista no tiene discos");
+        List<DiscoDto> discosDto = DiscoDtoManager.convertir(discos);
+        return discosDto;
+    }
 
     @Override
     public void crear(Disco disco) throws CreacionException{
@@ -74,5 +83,5 @@ public class DiscoServiceImp implements IDiscoService{
             throw new ObtencionException("El disco a eliminar no existe");
         this.repo.eliminar(id);
     }
-    
+
 }

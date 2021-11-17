@@ -24,6 +24,8 @@ public interface IDiscoService {
     
     public DiscoDto obtenerPorId(Integer id) throws ObtencionException;
     
+    public List<DiscoDto> obtenerPorArtista(Integer id) throws ObtencionException;
+    
     public void crear(Disco disco) throws CreacionException;
     
     public void editar(Disco disco) throws ObtencionException;

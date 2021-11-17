@@ -96,5 +96,13 @@ public class UsuarioRepoImp implements IUsuarioRepo{
         query.setParameter("correo", correo);
         return query.getResultList().isEmpty() ? null: query.getSingleResult();
     }
+
+    @Override
+    public Usuario obtenerPorLogin(String correo, String clave) {
+        TypedQuery<Usuario> query = this.manager.createNamedQuery("Usuario.obtenerPorLogin", Usuario.class);
+        query.setParameter("correo", correo);
+        query.setParameter("clave", clave);
+        return query.getResultList().isEmpty() ? null: query.getSingleResult();
+    }
     
 }

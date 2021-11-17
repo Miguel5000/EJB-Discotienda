@@ -131,6 +131,15 @@ public class UsuarioServiceImp implements IUsuarioService{
             throw new ObtencionException("El usuario a eliminar no existe");
         this.repo.eliminar(id);
     }
+    
+    @Override
+    public UsuarioDto iniciarSesion(String correo, String clave) throws ObtencionException {
+        Usuario usuario = this.repo.obtenerPorLogin(correo, clave);
+        if(usuario == null)
+            throw new ObtencionException("El usuario no existe");
+        UsuarioDto usuarioDto = UsuarioDtoManager.convertir(usuario);
+        return usuarioDto;
+    }
 
     @Override
     public void enviarCorreoRecuperacion(String correo) throws ObtencionException {
@@ -151,7 +160,5 @@ public class UsuarioServiceImp implements IUsuarioService{
     public void modificarCorreo(String token) throws ObtencionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
     
 }

@@ -37,6 +37,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Usuario.obtenerPorTokenCorreo" , query = "SELECT u FROM Usuario u WHERE u.tokenCambioCorreo = :tokenCambioCorreo"),
     @NamedQuery(name = "Usuario.obtenerPorCorreo" , query = "SELECT u FROM Usuario u WHERE u.correo = :correo"),
     @NamedQuery(name = "Usuario.obtenerPorNuevoCorreo" , query = "SELECT u FROM Usuario u WHERE u.nuevoCorreo = :correo"),
+    @NamedQuery(name = "Usuario.obtenerPorLogin" , query = "SELECT u FROM Usuario u WHERE u.correo = :correo AND u.clave = :clave"),
     @NamedQuery(name = "Usuario.eliminarPorId" , query = "DELETE FROM Usuario u WHERE u.id = :id")
         
 })

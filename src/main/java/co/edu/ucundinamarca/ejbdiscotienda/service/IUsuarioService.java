@@ -31,6 +31,8 @@ public interface IUsuarioService {
 
     public void eliminar(Integer id) throws ObtencionException;
     
+    public UsuarioDto iniciarSesion(String usuario, String clave) throws ObtencionException;
+    
     public void enviarCorreoRecuperacion(String correo) throws ObtencionException;
     
     public void recuperarClave(String token, String clave) throws ObtencionException;

@@ -26,4 +26,6 @@ public interface IUsuarioRepo extends ICrud<Usuario, Integer>{
     
     public Usuario obtenerPorTokenDeNuevoCorreo(String token);
     
+    public Usuario obtenerPorLogin(String correo, String clave);
+    
 }

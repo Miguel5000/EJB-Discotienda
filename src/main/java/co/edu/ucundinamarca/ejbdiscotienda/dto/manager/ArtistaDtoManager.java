@@ -26,8 +26,6 @@ public class ArtistaDtoManager {
                 @Override
                 protected void configure() {
                     skip(destination.getCreaciones());
-                    //skip(destination.getGenero());
-                    //skip(destination.getPais());
                     skip(destination.getFotoEnBytes());
                 }
          };
