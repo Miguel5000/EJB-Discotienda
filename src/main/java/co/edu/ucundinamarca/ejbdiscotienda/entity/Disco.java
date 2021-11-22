@@ -84,7 +84,7 @@ public class Disco implements Serializable{
     private String portada;
     
     @Transient
-    private Byte[] portadaEnBytes;
+    private Integer[] portadaEnBytes;
     
     //Relaciones
     
@@ -100,7 +100,7 @@ public class Disco implements Serializable{
     public Disco() {
     }
 
-    public Disco(Integer id, String nombre, Date fechaDeLanzamiento, Integer precio, String descripcion, String portada, Byte[] portadaEnBytes, List<CompraDisco> compras, List<CreadorDisco> creaciones, List<Cancion> canciones) {
+    public Disco(Integer id, String nombre, Date fechaDeLanzamiento, Integer precio, String descripcion, String portada, Integer[] portadaEnBytes, List<CompraDisco> compras, List<CreadorDisco> creaciones, List<Cancion> canciones) {
         this.id = id;
         this.nombre = nombre;
         this.fechaDeLanzamiento = fechaDeLanzamiento;
@@ -243,14 +243,14 @@ public class Disco implements Serializable{
     /**
      * @return the portadaEnBytes
      */
-    public Byte[] getPortadaEnBytes() {
+    public Integer[] getPortadaEnBytes() {
         return portadaEnBytes;
     }
 
     /**
      * @param portadaEnBytes  the portadaEnBytes to set
      */
-    public void setPortadaEnBytes(Byte[] portadaEnBytes) {
+    public void setPortadaEnBytes(Integer[] portadaEnBytes) {
         this.portadaEnBytes = portadaEnBytes;
     }
     

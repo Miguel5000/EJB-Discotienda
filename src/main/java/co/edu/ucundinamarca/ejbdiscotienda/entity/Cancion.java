@@ -79,7 +79,7 @@ public class Cancion implements Serializable{
     private String portada;
     
     @Transient
-    private Byte[] portadaEnBytes;
+    private Integer[] portadaEnBytes;
     
     //Relaciones
     
@@ -99,7 +99,7 @@ public class Cancion implements Serializable{
     public Cancion() {
     }
 
-    public Cancion(Integer id, String nombre, Integer precio, String descripcion, Time duracion, String portada, Byte[] portadaEnBytes, List<CompraCancion> compras, Formato formato, Disco disco) {
+    public Cancion(Integer id, String nombre, Integer precio, String descripcion, Time duracion, String portada, Integer[] portadaEnBytes, List<CompraCancion> compras, Formato formato, Disco disco) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
@@ -243,14 +243,14 @@ public class Cancion implements Serializable{
     /**
      * @return the portadaEnBytes
      */
-    public Byte[] getPortadaEnBytes() {
+    public Integer[] getPortadaEnBytes() {
         return portadaEnBytes;
     }
 
     /**
      * @param portadaEnBytes the portadaEnBytes to set
      */
-    public void setPortadaEnBytes(Byte[] portadaEnBytes) {
+    public void setPortadaEnBytes(Integer[] portadaEnBytes) {
         this.portadaEnBytes = portadaEnBytes;
     }
     

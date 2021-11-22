@@ -95,8 +95,6 @@ public class ArtistaServiceImp implements IArtistaService{
     public void editar(Artista artista) throws ObtencionException, EdicionException {
         if(artista.getId() == null || this.repo.obtenerPorId(artista.getId()) == null)
             throw new ObtencionException("El artista a editar no existe");
-        if(artista.getFoto() != null)
-            throw new EdicionException("No se puede suministrar la url de la foto, el sistema la genera a partir de la cadena en base 64");
         
         //Género
         Genero genero = artista.getGenero();

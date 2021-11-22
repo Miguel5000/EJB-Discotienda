@@ -56,7 +56,7 @@ public class DiscoServiceImp implements IDiscoService{
     }
 
     @Override
-    public void crear(Disco disco) throws CreacionException{
+    public DiscoDto crear(Disco disco) throws CreacionException{
         //Validaciones
         if(disco.getId() != null)
             throw new CreacionException("El id del disco es autoincremental");
@@ -64,8 +64,11 @@ public class DiscoServiceImp implements IDiscoService{
         //Prohibición de inserción con uno a muchos
         if(disco.getCanciones() != null || disco.getCompras() != null || disco.getCreaciones() != null)
             throw new CreacionException("La inserción en cascada no está permitida");
+        Disco discoRetorno = this.repo.crearConRetorno(disco);
+        DiscoDto discoDto = DiscoDtoManager.convertir(discoRetorno);
         
-        this.repo.crear(disco);
+        return discoDto;
+        
     }
 
     @Override

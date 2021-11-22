@@ -20,13 +20,12 @@ import javax.persistence.TypedQuery;
  *
  * @author Miguel
  */
-
 @Stateless
-    public class DiscoRepoImp implements IDiscoRepo{
+public class DiscoRepoImp implements IDiscoRepo {
 
     @PersistenceContext(unitName = "conexionPostgresql")
     private EntityManager manager;
-    
+
     @Override
     public List<Disco> obtenerListaPorArtista(Integer id) {
         TypedQuery<Disco> query = this.manager.createNamedQuery("Disco.obtenerListaPorArtista", Disco.class);
@@ -52,9 +51,10 @@ import javax.persistence.TypedQuery;
         return this.manager.find(Disco.class, id);
     }
 
-    @Override
-    public void crear(Disco disco) {
+    public Disco crearConRetorno(Disco disco) {
         this.manager.persist(disco);
+        this.manager.flush();
+        return disco;
     }
 
     @Override
@@ -78,7 +78,12 @@ import javax.persistence.TypedQuery;
         TypedQuery<Disco> query = this.manager.createNamedQuery("Disco.obtenerPorNombreYArtista", Disco.class);
         query.setParameter("id", artista.getId());
         query.setParameter("nombre", nombre);
-        return query.getResultList().isEmpty() ? null: query.getSingleResult();
+        return query.getResultList().isEmpty() ? null : query.getSingleResult();
     }
-    
+
+    @Override
+    public void crear(Disco entidad) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

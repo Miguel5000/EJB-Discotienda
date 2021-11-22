@@ -69,7 +69,7 @@ public class Artista implements Serializable{
     private String foto;
     
     @Transient
-    private Byte[] fotoEnBytes;
+    private Integer[] fotoEnBytes;
     
     //Relaciones
     
@@ -89,7 +89,7 @@ public class Artista implements Serializable{
     public Artista() {
     }
 
-    public Artista(Integer id, String nombres, String apellidos, String nombreArtistico, Date fechaDeNacimiento, String foto, Byte[] fotoEnBytes) {
+    public Artista(Integer id, String nombres, String apellidos, String nombreArtistico, Date fechaDeNacimiento, String foto, Integer[] fotoEnBytes) {
         this.id = id;
         this.nombres = nombres;
         this.apellidos = apellidos;
@@ -186,14 +186,14 @@ public class Artista implements Serializable{
     /**
      * @return the fotoEnBytes
      */
-    public Byte[] getFotoEnBytes() {
+    public Integer[] getFotoEnBytes() {
         return fotoEnBytes;
     }
 
     /**
      * @param fotoEnBytes the fotoEnBytes to set
      */
-    public void setFotoEnBytes(Byte[] fotoEnBytes) {
+    public void setFotoEnBytes(Integer[] fotoEnBytes) {
         this.fotoEnBytes = fotoEnBytes;
     }
 
