@@ -65,6 +65,8 @@ public class CancionRepoImp implements ICancionRepo{
     public void editar(Cancion cancion) {
         Cancion cancionOriginal = this.obtenerPorId(cancion.getId());
         cancionOriginal.setDescripcion(cancion.getDescripcion());
+        if(cancion.getPortada()!= null)
+            cancionOriginal.setPortada(cancion.getPortada());
         cancionOriginal.setDisco(cancion.getDisco());
         cancionOriginal.setDuracion(cancion.getDuracion());
         cancionOriginal.setFormato(cancion.getFormato());
