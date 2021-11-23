@@ -58,10 +58,10 @@ public class CreadorDiscoRepoImp implements ICreadorDiscoRepo{
     }
 
     @Override
-    public CreadorDisco obtenerPorCreadorYDisco(Artista artista, Disco disco) {
+    public CreadorDisco obtenerPorCreadorYDisco(Integer idArtista, Integer idDisco) {
         TypedQuery<CreadorDisco> query = this.manager.createNamedQuery("CreadorDisco.obtenerPorCreadorYDisco", CreadorDisco.class);
-        query.setParameter("idArtista", artista.getId());
-        query.setParameter("idDisco", disco.getId());
+        query.setParameter("idArtista", idArtista);
+        query.setParameter("idDisco", idDisco);
         return query.getResultList().isEmpty() ? null: query.getSingleResult();
     }
     

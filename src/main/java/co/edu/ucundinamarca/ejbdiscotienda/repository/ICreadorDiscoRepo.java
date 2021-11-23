@@ -18,6 +18,6 @@ import javax.ejb.Local;
 @Local
 public interface ICreadorDiscoRepo extends ICrud<CreadorDisco, Integer>{
     
-    public CreadorDisco obtenerPorCreadorYDisco(Artista artista, Disco disco);
+    public CreadorDisco obtenerPorCreadorYDisco(Integer idArtista, Integer idDisco);
     
 }

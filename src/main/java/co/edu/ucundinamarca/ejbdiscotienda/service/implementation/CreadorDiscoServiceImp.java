@@ -55,6 +55,15 @@ public class CreadorDiscoServiceImp implements ICreadorDiscoService{
         CreadorDiscoDto creacionDiscoDto = CreadorDiscoDtoManager.convertir(creacionDisco);
         return creacionDiscoDto;
     }
+    
+    @Override
+    public CreadorDiscoDto obtenerPorCreadorYDisco(Integer idArtista, Integer idDisco) throws ObtencionException {
+        CreadorDisco creacionDisco = this.repo.obtenerPorCreadorYDisco(idArtista, idDisco);
+        if(creacionDisco == null)
+            throw new ObtencionException("La creación del disco no existe");
+        CreadorDiscoDto creacionDiscoDto = CreadorDiscoDtoManager.convertir(creacionDisco);
+        return creacionDiscoDto; 
+    }
 
     @Override
     public void crear(CreadorDisco creacionDisco) throws CreacionException {
@@ -81,7 +90,7 @@ public class CreadorDiscoServiceImp implements ICreadorDiscoService{
             throw new CreacionException("No existe el disco con el que intenta vincular la creación del disco");
         
         //Validaciones relaciones
-        if(this.repo.obtenerPorCreadorYDisco(artista, disco) != null)
+        if(this.repo.obtenerPorCreadorYDisco(artista.getId(), disco.getId()) != null)
             throw new CreacionException("Un mismo artista no puede tener el mismo disco registrado 2 veces");
         
         this.repo.crear(creacionDisco);
@@ -111,7 +120,7 @@ public class CreadorDiscoServiceImp implements ICreadorDiscoService{
             throw new EdicionException("No existe el disco con el que intenta vincular la creación del disco");
         
         //Validaciones relaciones
-        CreadorDisco creacionDiscoPorCreacionYDisco = this.repo.obtenerPorCreadorYDisco(artista, disco);
+        CreadorDisco creacionDiscoPorCreacionYDisco = this.repo.obtenerPorCreadorYDisco(artista.getId(), disco.getId());
         
         if(creacionDiscoPorCreacionYDisco != null && creacionDiscoPorCreacionYDisco.getId().intValue() != creacionDisco.getId())
             throw new EdicionException("Un mismo artista no puede tener el mismo disco registrado 2 veces");

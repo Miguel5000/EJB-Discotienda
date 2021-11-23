@@ -61,6 +61,8 @@ public class DiscoRepoImp implements IDiscoRepo {
     public void editar(Disco disco) {
         Disco discoOriginal = this.obtenerPorId(disco.getId());
         discoOriginal.setDescripcion(disco.getDescripcion());
+        if(disco.getPortada()!= null)
+            discoOriginal.setPortada(disco.getPortada());
         discoOriginal.setFechaDeLanzamiento(disco.getFechaDeLanzamiento());
         discoOriginal.setNombre(disco.getNombre());
         discoOriginal.setPrecio(disco.getPrecio());
