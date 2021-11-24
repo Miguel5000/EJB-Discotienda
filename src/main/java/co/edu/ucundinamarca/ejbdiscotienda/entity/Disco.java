@@ -34,10 +34,8 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "Disco.obtenerTodos", query = "SELECT d FROM Disco d"),
     @NamedQuery(name = "Disco.obtenerListaPorCompra", query = "SELECT dis FROM Compra co "
-            + "JOIN CompraDisco coDis "
-            + "ON co.id = coDis.idCompra "
-            + "JOIN Disco dis "
-            + "ON coDis.idDisco = dis.id "
+            + "JOIN co.comprasDiscos coDis "
+            + "JOIN coDis.disco dis "
             + "WHERE co.id = :id"),
     @NamedQuery(name = "Disco.obtenerListaPorArtista", query = "SELECT dis FROM Artista ar "
             + "JOIN ar.creaciones creDis "

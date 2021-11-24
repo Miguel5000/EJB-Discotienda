@@ -134,5 +134,22 @@ public class CompraServiceImp implements ICompraService{
         CompraDto compraDto = CompraDtoManager.convertir(compra);
         return compraDto;
     }
+
+    @Override
+    public Carrito obtenerCarritoPorCompra(Integer id) throws ObtencionException {
+        Carrito carrito = this.repo.obtenerCarritoPorCompra(id);
+        if(carrito == null)
+            throw new ObtencionException("No hay carrito");
+        return carrito;
+    }
+
+    @Override
+    public List<CompraDto> obtenerComprasDeUsuario(Integer id) throws ObtencionException {
+        List<Compra> compras = this.repo.obtenerComprasDeUsuario(id);
+        if(compras == null || compras.isEmpty())
+            throw new ObtencionException("No hay compras disponibles");
+        List<CompraDto> comprasDto = CompraDtoManager.convertir(compras);
+        return comprasDto;
+    }
     
 }

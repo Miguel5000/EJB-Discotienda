@@ -92,5 +92,36 @@ public class CompraRepoImp implements ICompraRepo{
         eliminacion.setParameter("id", id);
         eliminacion.executeUpdate();
     }
+
+    @Override
+    public Carrito obtenerCarritoPorCompra(Integer id) {
+        
+        Compra compra = this.obtenerPorId(id);
+        
+        if(compra == null)
+            return null;
+        
+        TypedQuery<Disco> queryD = this.manager.createNamedQuery("Disco.obtenerListaPorCompra", Disco.class);
+        queryD.setParameter("id", id);
+        List<Disco> discos = queryD.getResultList();
+        
+        TypedQuery<Cancion> queryC = this.manager.createNamedQuery("Cancion.obtenerListaPorCompra", Cancion.class);
+        queryC.setParameter("id", id);
+        List<Cancion> canciones = queryC.getResultList();
+
+        Carrito carrito = new Carrito();
+        carrito.setCanciones(CancionDtoManager.convertir(canciones));
+        carrito.setDiscos(DiscoDtoManager.convertir(discos));
+        
+        return carrito;
+        
+    }
+
+    @Override
+    public List<Compra> obtenerComprasDeUsuario(Integer id) {
+        TypedQuery<Compra> query = this.manager.createNamedQuery("Compra.obtenerComprasUsuario", Compra.class);
+        query.setParameter("id", id);
+        return query.getResultList();
+    }
     
 }

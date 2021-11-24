@@ -11,7 +11,7 @@ import co.edu.ucundinamarca.ejbdiscotienda.dto.manager.UsuarioDtoManager;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.CompraCancion;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.CompraDisco;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Usuario;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -21,7 +21,7 @@ import java.util.List;
 public class CompraDto {
     
     private Integer id;
-    private Date fechaCompra;
+    private Timestamp fechaCompra;
     private Integer valorCompra;
     private Boolean realizacion;
     private List<CompraCancionDto> comprasCanciones;
@@ -45,14 +45,14 @@ public class CompraDto {
     /**
      * @return the fechaCompra
      */
-    public Date getFechaCompra() {
+    public Timestamp getFechaCompra() {
         return fechaCompra;
     }
 
     /**
      * @param fechaCompra the fechaCompra to set
      */
-    public void setFechaCompra(Date fechaCompra) {
+    public void setFechaCompra(Timestamp fechaCompra) {
         this.fechaCompra = fechaCompra;
     }
 

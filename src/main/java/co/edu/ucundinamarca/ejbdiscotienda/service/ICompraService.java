@@ -38,4 +38,8 @@ public interface ICompraService{
     
     public CompraDto obtenerCompraCarrito(Integer id) throws ObtencionException;
     
+    public Carrito obtenerCarritoPorCompra(Integer id) throws ObtencionException;
+    
+    public List<CompraDto> obtenerComprasDeUsuario(Integer id) throws ObtencionException;
+    
 }
