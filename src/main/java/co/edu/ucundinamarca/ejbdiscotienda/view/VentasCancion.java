@@ -48,6 +48,9 @@ public class VentasCancion {
     @Column(name = "duracion")
     private Time duracion;
     
+    @Column(name = "portada")
+    private String portada;
+    
     @Column(name = "ventas")
     private Integer ventas;
 
@@ -107,6 +110,18 @@ public class VentasCancion {
         return ventas;
     }
     
-    
+    /**
+     * @return the portada
+     */
+    public String getPortada() {
+        return portada;
+    }
+
+    /**
+     * @param portada the portada to set
+     */
+    public void setPortada(String portada) {
+        this.portada = portada;
+    }
     
 }

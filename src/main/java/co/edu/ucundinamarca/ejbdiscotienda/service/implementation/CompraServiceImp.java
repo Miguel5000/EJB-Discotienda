@@ -121,9 +121,18 @@ public class CompraServiceImp implements ICompraService{
     @Override
     public Carrito obtenerCarrito(Integer id) throws ObtencionException {
         Carrito carrito = this.repo.obtenerCarrito(id);
-        if(carrito == null || (carrito.getCanciones() == null && carrito.getDiscos() == null))
+        if(carrito == null)
             throw new ObtencionException("No hay carrito");
         return carrito;
+    }
+
+    @Override
+    public CompraDto obtenerCompraCarrito(Integer id) throws ObtencionException {
+        Compra compra = this.repo.obtenerCompraCarrito(id);
+        if(compra == null)
+            throw new ObtencionException("La compra no existe");
+        CompraDto compraDto = CompraDtoManager.convertir(compra);
+        return compraDto;
     }
     
 }

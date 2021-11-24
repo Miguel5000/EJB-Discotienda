@@ -8,7 +8,6 @@ package co.edu.ucundinamarca.ejbdiscotienda.service;
 import co.edu.ucundinamarca.ejbdiscotienda.dto.CompraDto;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Carrito;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Compra;
-import co.edu.ucundinamarca.ejbdiscotienda.entity.Usuario;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.CreacionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.EdicionException;
 import co.edu.ucundinamarca.ejbdiscotienda.exception.ObtencionException;
@@ -36,5 +35,7 @@ public interface ICompraService{
     public void comprar(Integer id) throws ObtencionException;
     
     public Carrito obtenerCarrito(Integer id) throws ObtencionException;
+    
+    public CompraDto obtenerCompraCarrito(Integer id) throws ObtencionException;
     
 }

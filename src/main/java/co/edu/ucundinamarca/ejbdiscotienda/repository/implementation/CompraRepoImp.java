@@ -32,6 +32,12 @@ public class CompraRepoImp implements ICompraRepo{
     
     @Override
     public Carrito obtenerCarrito(Integer id) {
+        
+        Compra compraCarrito = this.obtenerCompraCarrito(id);
+        
+        if(compraCarrito == null)
+            return null;
+        
         TypedQuery<Disco> queryD = this.manager.createNamedQuery("Disco.obtenerListaDeCarrito", Disco.class);
         queryD.setParameter("id", id);
         List<Disco> discos = queryD.getResultList();
@@ -39,10 +45,7 @@ public class CompraRepoImp implements ICompraRepo{
         TypedQuery<Cancion> queryC = this.manager.createNamedQuery("Cancion.obtenerListaDeCarrito", Cancion.class);
         queryC.setParameter("id", id);
         List<Cancion> canciones = queryC.getResultList();
-        
-        if((discos == null || discos.isEmpty()) && (canciones == null || canciones.isEmpty()))
-            return null;
-        
+
         Carrito carrito = new Carrito();
         carrito.setCanciones(CancionDtoManager.convertir(canciones));
         carrito.setDiscos(DiscoDtoManager.convertir(discos));

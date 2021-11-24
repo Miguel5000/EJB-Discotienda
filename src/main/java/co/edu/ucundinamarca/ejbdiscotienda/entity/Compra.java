@@ -6,7 +6,7 @@
 package co.edu.ucundinamarca.ejbdiscotienda.entity;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -44,7 +44,7 @@ public class Compra implements Serializable{
     private Integer id;
     
     @Column(name = "fecha_compra", nullable = true)
-    private Date fechaCompra;
+    private Timestamp fechaCompra;
     
     @Min(value = 1, message = "El valor de la compra debe ser mayor a 0")
     @Column(name = "valor_compra", nullable = true)
@@ -70,7 +70,7 @@ public class Compra implements Serializable{
     public Compra() {
     }
 
-    public Compra(Integer id, Date fechaCompra, Integer valorCompra, Boolean realizacion) {
+    public Compra(Integer id, Timestamp fechaCompra, Integer valorCompra, Boolean realizacion) {
         this.id = id;
         this.fechaCompra = fechaCompra;
         this.valorCompra = valorCompra;
@@ -94,14 +94,14 @@ public class Compra implements Serializable{
     /**
      * @return the fechaCompra
      */
-    public Date getFechaCompra() {
+    public Timestamp getFechaCompra() {
         return fechaCompra;
     }
 
     /**
      * @param fechaCompra the fechaCompra to set
      */
-    public void setFechaCompra(Date fechaCompra) {
+    public void setFechaCompra(Timestamp fechaCompra) {
         this.fechaCompra = fechaCompra;
     }
 
