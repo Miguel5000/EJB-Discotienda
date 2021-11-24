@@ -12,8 +12,10 @@ import co.edu.ucundinamarca.ejbdiscotienda.entity.Rol;
 import java.util.List;
 
 /**
- *
- * @author Miguel
+ * Clase DTO para la entidad usuario
+ * @author Miguel Ángel Manrique Téllez
+ * @since 1.0.0
+ * @version 1.0.0
  */
 public class UsuarioDto {
  

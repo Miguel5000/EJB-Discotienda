@@ -10,8 +10,10 @@ import co.edu.ucundinamarca.ejbdiscotienda.entity.Cancion;
 import java.util.List;
 
 /**
- *
- * @author Miguel
+ * Clase DTO para la entidad formato
+ * @author Miguel Ángel Manrique Téllez
+ * @since 1.0.0
+ * @version 1.0.0
  */
 public class FormatoDto {
     

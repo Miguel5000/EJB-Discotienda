@@ -12,8 +12,10 @@ import co.edu.ucundinamarca.ejbdiscotienda.entity.Formato;
 import java.sql.Time;
 
 /**
- *
- * @author Miguel
+ * Clase DTO para la entidad cancion
+ * @author Miguel Ángel Manrique Téllez
+ * @since 1.0.0
+ * @version 1.0.0
  */
 public class CancionDto {
  

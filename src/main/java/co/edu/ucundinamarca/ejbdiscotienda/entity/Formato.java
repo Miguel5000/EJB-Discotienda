@@ -22,10 +22,11 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- *
- * @author Miguel
+ * Clase que representa a la entidad formato
+ * @author Miguel Ángel Manrique Téllez
+ * @since 1.0.0
+ * @version 1.0.0
  */
-
 @Entity
 @Table(name = "formatos", schema = "canciones")
 @NamedQueries({

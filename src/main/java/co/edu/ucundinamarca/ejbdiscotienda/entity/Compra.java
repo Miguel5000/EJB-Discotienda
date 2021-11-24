@@ -25,10 +25,11 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 /**
- *
- * @author Miguel
+ * Clase que representa a la entidad compra
+ * @author Miguel Ángel Manrique Téllez
+ * @since 1.0.0
+ * @version 1.0.0
  */
-
 @Entity
 @Table(name = "compras", schema = "compras")
 @NamedQueries({

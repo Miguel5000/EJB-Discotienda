@@ -11,8 +11,10 @@ import co.edu.ucundinamarca.ejbdiscotienda.entity.Cancion;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Compra;
 
 /**
- *
- * @author Miguel
+ * Clase DTO para la entidad compra_cancion
+ * @author Miguel Ángel Manrique Téllez
+ * @since 1.0.0
+ * @version 1.0.0
  */
 public class CompraCancionDto {
     

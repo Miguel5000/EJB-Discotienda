@@ -11,8 +11,10 @@ import co.edu.ucundinamarca.ejbdiscotienda.entity.Compra;
 import co.edu.ucundinamarca.ejbdiscotienda.entity.Disco;
 
 /**
- *
- * @author Miguel
+ * Clase DTO para la entidad compra_disco
+ * @author Miguel Ángel Manrique Téllez
+ * @since 1.0.0
+ * @version 1.0.0
  */
 public class CompraDiscoDto {
     

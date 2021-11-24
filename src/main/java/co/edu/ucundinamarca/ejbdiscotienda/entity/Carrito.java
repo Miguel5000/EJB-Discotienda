@@ -11,8 +11,10 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- *
- * @author Miguel
+ * Clase para obtener el carrito
+ * @author Miguel Ángel Manrique Téllez
+ * @since 1.0.0
+ * @version 1.0.0
  */
 public class Carrito implements Serializable{
     

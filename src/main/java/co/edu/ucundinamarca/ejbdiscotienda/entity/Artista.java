@@ -27,10 +27,11 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
 /**
- *
- * @author Miguel
+ * Clase que representa a la entidad artista
+ * @author Miguel Ángel Manrique Téllez
+ * @since 1.0.0
+ * @version 1.0.0
  */
-
 @Entity
 @Table(name = "artistas", schema = "artistas")
 @NamedQueries({
